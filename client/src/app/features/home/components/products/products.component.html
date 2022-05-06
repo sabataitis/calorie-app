@@ -1,0 +1,115 @@
+<section class="h-full flex flex-col">
+  <div class="search-container bg-white shadow rounded mt-8 p-4 mx-4">
+    <div class="flex justify-between items-center py-2 px-6">
+      <div class="flex gap-8 justify-center items-center">
+        <div class="flex items-center justify-center">
+          <div class="text-right">
+            <h1 class="font-bold text-md uppercase">Dienos pildymas</h1>
+            <h1 class="font-bold text-md uppercase">Įvesta</h1>
+          </div>
+          <div class="flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-2xl text-black text-center">{{totals.calories | number}}</p>
+          <p class="text-lg text-primary-400">kcal</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-2xl text-black text-center">{{totals.proteins | number}}g</p>
+          <p class="text-lg text-primary-400 border-chart_proteins border-b-2 border-dotted border-opacity-90">
+            baltymų</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-2xl text-black text-center">{{totals.carbs | number}}g</p>
+          <p class="text-lg text-primary-400 border-chart_carbs border-b-2 border-dotted border-opacity-90">
+            angliavandenių</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-2xl text-black text-center">{{totals.fats | number}}g</p>
+          <p class="text-lg text-primary-400 border-chart_fats border-b-2 border-dotted border-opacity-90">riebalų</p>
+        </div>
+        <div class="flex items-end gap-2">
+          <div class="flex gap-2 items-center justify-center">
+          </div>
+        </div>
+        <calorie-app-pie *ngIf="selectedProducts.length>0" [chartSize]="{width: '16rem', height: '12rem' }"
+                         [chartData]="chartData | async" [chartOptions]="chartOptions"></calorie-app-pie>
+      </div>
+      <div class="flex flex-col">
+        <h2 class="text-md font-semibold text-right">Dienos tikslas <span class="text-primary-600 font-medium">({{user.calories}} kcal)</span></h2>
+        <h2 class="text-md font-semibold text-right">Liko <span class="text-primary-600 font-medium">({{user.calories - totals.calories}} kcal)</span></h2>
+      </div>
+    </div>
+    <div class="flex">
+      <div class="flex gap-2 items-center shadow-md border-2 rounded-md w-full w-1/2 box-border">
+      <span class="px-4">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+           stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+      </span>
+        <input
+          list="products"
+          [(ngModel)]="searchTerm"
+          (change)="onProductChanged(searchTerm)"
+          class="outline-0 appearance-none w-full text-sm text-slate-900 placeholder-slate-400 rounded-md py-2"
+          type="text" aria-label="Filter projects" placeholder="Produkto ar recepto pavadinimas...">
+      </div>
+      <div class="w-1/6 flex justify-center">
+        <button type="button" class="text-sm rounded text-white bg-secondary-600 px-3 py-3 border-2" (click)="saveProducts()">Išsaugoti</button>
+      </div>
+    </div>
+    <datalist id="products">
+      <option *ngFor="let product of products" [value]="product.name">{{product.calories_100g}} <span
+        class="text-primary-600">kcal/100g</span></option>
+    </datalist>
+  </div>
+  <div class="bg-white grid md:grid-cols-2 sm:grid-cols-1 gap-2 mx-4 h-full p-6">
+    <div *ngFor="let selectedProduct of selectedProducts; index as i;trackBy: trackByIndex"
+         class="flex justify-between my-2 p-2 border-primary-100 border-2">
+      <div class="flex flex-col justify-center">
+        <h4 class="text-lg text-black font-semibold">{{selectedProduct.productName}}</h4>
+        <div>
+          <input min=1 max=1000 type="number" placeholder="Kiekis gramais.." value="100"
+                 [(ngModel)]="selectedProducts[i].quantity.grams"
+                 (change)="quantityChange(i, selectedProducts[i].quantity.grams)">
+        </div>
+      </div>
+      <div class="flex gap-4 items-center">
+        <div class="flex flex-col">
+          <p class="text-md text-black text-left">{{selectedProduct.calories}}</p>
+          <p class="text-sm text-primary-400">kcal</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-md text-black text-left">{{selectedProduct.proteins}}g</p>
+          <p class="text-sm text-primary-400">baltymų</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-md text-black text-left">{{selectedProduct.carbs}}g</p>
+          <p class="text-sm text-primary-400">angliavandenių</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-md text-black text-left">{{selectedProduct.fats}}g</p>
+          <p class="text-sm text-primary-400">riebalų</p>
+        </div>
+        <div class="border-l-2 border-primary-500 flex items-center justify-center">
+          <button type="button"
+                  class="text-sm rounded text-white bg-primary-400 hover:bg-primary-600 px-3 py-2 m-4"
+                  (click)="removeItem(i)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Bananai",
+    "calories_100g": 92,
+    "proteins_100g": 1,
+    "carbs_100g": 23.4,
+    "fats_100g": 0.4,
+    "category": "Vaisiai",
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": 105
+    }
+  },
+  {
+    "name": "Obuoliai",
+    "calories_100g": 40,
+    "proteins_100g": 0.4,
+    "carbs_100g": 9.9,
+    "fats_100g": 0,
+    "category": "Vaisiai",
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": 150
+    }
+  },
+  {
+    "name": "Žemės riešutai",
+    "calories_100g": 657,
+    "proteins_100g": 26,
+    "carbs_100g": 16,
+    "fats_100g": 49,
+    "category": "Riešutai",
+    "quantities":{
+      "quantity_g": 100
+    }
+  },
+  {
+    "name": "Naminis Rokiškio sūris",
+    "calories_100g": 282,
+    "proteins_100g": 20,
+    "carbs_100g": 2.5,
+    "fats_100g": 20,
+    "category": "Pieno Produktai",
+    "quantities":{
+      "quantity_g": 100
+    }
+  },
+  {
+    "name": "Dvaro sviestas",
+    "calories_100g": 774,
+    "proteins_100g": 0.7,
+    "carbs_100g": 0.8,
+    "fats_100g": 82,
+    "category": "Pieno Produktai",
+    "quantities":{
+      "quantity_g": 100
+    }
+  },
+  {
+    "name": "Močiūtės duona, juoda",
+    "calories_100g": 254,
+    "proteins_100g": 6,
+    "carbs_100g": 49,
+    "fats_100g": 0.2,
+    "category": "Pieno Produktai",
+    "quantities":{
+      "quantity_g": 100
+    }
+  }
+]
