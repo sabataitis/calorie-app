@@ -1,0 +1,22 @@
+<section class="app-background flex flex-col items-center justify-center">
+  <div class="flex items-center self-start ml-5 bg-primary-50">
+    <h1 class="uppercase font-semibold text-4xl">Prisijungimas</h1>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+    </svg>
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="bg-primary-50 shadow-md p-8 flex flex-col gap-3 w-80">
+    <div class="flex flex-col">
+      <label>Slapyvardis</label>
+      <input class="text-slate-900 py-1 px-4 border-2 focus:outline-secondary-500 rounded-md" [ngClass]="{'border-red-500': hasErrorsAndTouched('username')}" type="text" formControlName="username">
+    </div>
+    <div class="flex flex-col">
+      <label>Slaptažodis</label>
+      <input class="text-slate-900 py-1 px-4 border-2 focus:outline-secondary-500 rounded-md" type="password" formControlName="password" [ngClass]="{'border-red-500': hasErrorsAndTouched('password')}">
+    </div>
+    <div class="flex gap-2">
+      <button type="submit" class="text-sm rounded text-white bg-secondary-500 px-3 py-2 disabled:bg-slate-50 disabled:text-primary-500" [disabled]="loginForm.invalid">Pirmyn</button>
+      <button type="button" class="text-sm rounded text-black bg-white px-3 py-2 border-2" routerLink="">Atšaukti</button>
+    </div>
+  </form>
+</section>
