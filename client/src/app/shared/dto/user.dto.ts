@@ -6,6 +6,7 @@ export interface UserDTO{
   weight: number,
   activity: string,
   calories: number,
+  calorieGoal?: number
 }
 export interface AuthUserDTO extends UserDTO{
   _id: string,

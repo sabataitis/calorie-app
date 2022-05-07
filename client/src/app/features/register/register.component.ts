@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../shared/services/user.service";
 import {Store} from "@ngrx/store";
 
@@ -56,6 +56,7 @@ export class RegisterComponent implements OnInit {
     {text: 'Sunkus darbas ir vidutinis/aktyvus laisvalaikis', value: ACTIVITY_FACTOR.HIGH},
   ];
 
+
   constructor(private userService: UserService, private fb: FormBuilder, private store: Store) {
     this.usernames$ = this.store.select(StoreSelectors.selectUsernamesState);
     this.createRegisterForm();
@@ -64,6 +65,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(StoreActions.getUsernames());
+    this.subscribeToGoalValueChanges();
   }
 
   hasErrorsAndTouched(field: string): boolean {
@@ -108,6 +110,7 @@ export class RegisterComponent implements OnInit {
       weight: ['', [Validators.required, Validators.min(2), Validators.max(635), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       activity: [null, [Validators.required]],
       goal: [null, [Validators.required]],
+      goalNum: [null]
     })
   }
 
@@ -117,6 +120,12 @@ export class RegisterComponent implements OnInit {
         this.usernames = state.usernames;
       }
     })
-
+  }
+  private subscribeToGoalValueChanges(): void{
+    this.registerForm.get('goal').valueChanges.subscribe((control: AbstractControl)=>{
+      if(control.value !== GOALS.MAINTAIN){
+        this.registerForm.get('goalNum').setValidators([Validators.required, Validators.min(1), Validators.max(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
+      }
+    })
   }
 }
