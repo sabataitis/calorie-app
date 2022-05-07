@@ -1,6 +1,6 @@
 import {
   createReducer,
-   on
+  on
 } from '@ngrx/store';
 import {DefaultStateValues} from "../shared/constants/default-state-values.const";
 import {State} from "./state";
@@ -9,7 +9,21 @@ import {StoreActions} from './index';
 
 export const initialState: State = {
   usernamesState: {...DefaultStateValues, usernames: null},
-  userState: {...DefaultStateValues, user: {isAuthenticated: false, _id: null, username: null, gender: null, age:null, height: null, weight: null, activity: null, calories: null}},
+  userState: {
+    ...DefaultStateValues,
+    user: {
+      isAuthenticated: false,
+      _id: null,
+      username: null,
+      gender: null,
+      age: null,
+      height: null,
+      weight: null,
+      activity: null,
+      calories: null
+    },
+    products: []
+  },
   productState: {...DefaultStateValues, products: []}
 };
 
@@ -62,7 +76,7 @@ export const StoreReducer = createReducer<State>(
       loading: false,
       success: true,
       error: null,
-      user:{
+      user: {
         isAuthenticated: true,
         _id: action.response.user._id,
         username: action.response.user.username,
@@ -72,7 +86,8 @@ export const StoreReducer = createReducer<State>(
         weight: action.response.user.weight,
         activity: action.response.user.activity,
         calories: action.response.user.calories
-      }
+      },
+      products: []
     }
   })),
 
@@ -83,7 +98,7 @@ export const StoreReducer = createReducer<State>(
       loading: false,
       success: false,
       error: action.error,
-    }
+    },
   })),
 
   on(StoreActions.logout, (state: State, _) => ({
@@ -109,7 +124,7 @@ export const StoreReducer = createReducer<State>(
       loading: false,
       success: true,
       error: null,
-      user:{
+      user: {
         isAuthenticated: true,
         _id: action.response._id,
         username: action.response.username,
@@ -119,7 +134,8 @@ export const StoreReducer = createReducer<State>(
         weight: action.response.weight,
         activity: action.response.activity,
         calories: action.response.calories
-      }
+      },
+      products: []
     }
   })),
 
@@ -160,6 +176,29 @@ export const StoreReducer = createReducer<State>(
       loading: false,
       success: false,
       error: action.error,
+    }
+  })),
+
+  on(StoreActions.getUserProducts, (state: State, _) => ({
+    ...state,
+    userState: {
+      ...state.userState,
+      products: []
+    }
+  })),
+
+  on(StoreActions.getUserProductsSuccess, (state: State, action) => ({
+    ...state,
+    userState: {
+      ...state.userState,
+      products: action.response}
+  })),
+
+  on(StoreActions.getUserProductsFailure, (state: State, action) => ({
+    ...state,
+    userState: {
+      ...state.userState,
+      products: []
     }
   })),
 )

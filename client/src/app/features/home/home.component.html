@@ -1,14 +1,6 @@
-<section class="app-background">
-  <section class="header-bg flex items-center" *ngIf="!isAuthenticated">
-    <header class="bg-primary-50 space-y-4 p-4 shadow rounded ml-4">
-      <h1 class="font-bold text-4xl uppercase">Kalorijų Skaičiuoklė</h1>
-      <div class="flex gap-2">
-        <a class="text-sm rounded text-white bg-secondary-500 px-3 py-2" routerLink="login">Prisijungti</a>
-        <a class="text-sm rounded text-white bg-secondary-500 px-3 py-2" routerLink="register">Registruotis</a>
-      </div>
-    </header>
-  </section>
-  <calorie-app-products *ngIf="isAuthenticated" [user]="user" [products]="products" (saveProductsEvent)="saveProducts($event)"></calorie-app-products>
+<section class="app-background flex">
+  <calorie-app-non-auth-header [isAuthenticated]="isAuthenticated"></calorie-app-non-auth-header>
+  <calorie-app-products *ngIf="isAuthenticated" [user]="user" [products]="products" (saveProductsEvent)="enterProducts($event)"></calorie-app-products>
 </section>
 
 

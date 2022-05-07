@@ -21,8 +21,8 @@ export class ProductController{
 
   @UseGuards(JwtAuthGuard)
   @Post('enter')
-  enterProducts(@Body() products: UserProductDTO){
-    return this.productService.enterProducts(products);
+  enterProducts(@Body() payload: UserProductDTO){
+    return this.productService.enterProducts(payload);
   }
 
 }
