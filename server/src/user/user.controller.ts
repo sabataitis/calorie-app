@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
-import { UserDTO } from "../common/dto/user.dto";
+import { CreateUserDTO, UserDTO } from "../common/dto/user.dto";
 import { UserService } from "./user.service";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { UserDomainName } from "./name.const";
@@ -16,7 +16,7 @@ export class UserController{
   }
 
   @Post()
-  async create(@Body() createUserDTO: UserDTO){
+  async create(@Body() createUserDTO: CreateUserDTO){
     return this.userService.create(createUserDTO);
   }
 

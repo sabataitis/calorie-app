@@ -82,9 +82,15 @@
           <div class="flex flex-col">
             <label>Tikslas</label>
             <select class="text-slate-900 py-1 px-4 border-2 focus:outline-secondary-500 rounded-md" type="text"
-                    formControlName="goal" [ngClass]="{'border-red-500': hasErrorsAndTouched('goal')}">
+                    formControlName="goal" [ngClass]="{'border-red-500': hasErrorsAndTouched('goal')}" #goal>
               <option *ngFor="let goal of goals" [value]="goal.value">{{goal.text}}</option>
             </select>
+          </div>
+          <div class="flex flex-col" *ngIf="goal.value !== 'maintain' && goal.value">
+            <label>Kiekis kg</label>
+            <input class="text-slate-900 py-1 px-4 border-2 focus:outline-secondary-500 rounded-md"
+                   placeholder="kilogramais" type="number" formControlName="goalNum"
+                   [ngClass]="{'border-red-500': hasErrorsAndTouched('goalNum')}">
           </div>
         </div>
       </div>
