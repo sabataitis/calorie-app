@@ -88,14 +88,13 @@ export class StoreEffects {
     this.actions.pipe(
       ofType(StoreActions.loginFailure),
       map((error: HttpException | any)=>{
-        console.log({error});
         if(error.statusCode === 401 || error.status === 401){
           return ToastrActions.showError({message: 'Neteisingi prisijungimai. Bandykite dar kartą'})
         }
         return ToastrActions.showError({message: 'Prisijungti nepavyko, bandykite vėliau.'})
       }
       ),
-    ), {dispatch: false})
+    ))
 
   getCurrentUser$ = createEffect(()=>
     this.actions.pipe(
@@ -119,6 +118,41 @@ export class StoreEffects {
             StoreActions.getProductsSuccess({response}),
           ]),
           catchError((error: HttpException)=> of(StoreActions.getProductsFailure(error)))
+        )
+      )
+    ))
+
+  enterProducts$ = createEffect(()=>
+    this.actions.pipe(
+      ofType(StoreActions.enterProducts),
+      switchMap(({payload})=>
+        this.productService.enterProducts(payload).pipe(
+          switchMap((response: any)=> [
+            StoreActions.enterProductsSuccess({response}),
+          ]),
+          catchError((error: HttpException)=> of(StoreActions.enterProductsFailure(error)))
+        )
+      )
+    ))
+
+  enterProductsSuccess$ = createEffect(()=>
+    this.actions.pipe(
+      ofType(StoreActions.enterProductsSuccess),
+      map(()=>
+        ToastrActions.showSuccess({message: 'Sėkmingai išsaugota.'}),
+      ),
+      tap(()=> this.router.navigate(['/profile'])),
+    ))
+
+  getUserProducts$ = createEffect(()=>
+    this.actions.pipe(
+      ofType(StoreActions.getUserProducts),
+      switchMap(()=>
+        this.userService.products().pipe(
+          switchMap((response: any)=> [
+            StoreActions.getUserProductsSuccess({response}),
+          ]),
+          catchError((error: HttpException)=> of(StoreActions.getUserProductsFailure(error)))
         )
       )
     ))

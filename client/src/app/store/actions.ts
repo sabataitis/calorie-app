@@ -4,6 +4,14 @@ import {FailureActionProps} from "./interfaces/actions/failure-action-props.inte
 import {RequestActionProps} from "./interfaces/actions/request-action-props.interface";
 
 export enum ActionTypes {
+  ENTER_PRODUCTS = '[Product] Enter Products Request',
+  ENTER_PRODUCTS_SUCCESS = '[Product] Enter Products Success Response',
+  ENTER_PRODUCTS_FAILURE = '[Product] Enter Products Failure Response',
+
+  GET_USER_PRODUCTS = '[User] Get Products Request',
+  GET_USER_PRODUCTS_SUCCESS = '[User] Get Products Success Response',
+  GET_USER_PRODUCTS_FAILURE = '[User] Get Products Failure Response',
+
   GET_PRODUCTS = '[Product] Get Products Request',
   GET_PRODUCTS_SUCCESS = '[Product] Get Products Success Response',
   GET_PRODUCTS_FAILURE = '[Product] Get Products Failure Response',
@@ -72,5 +80,25 @@ export const getProductsSuccess = createAction(
 );
 export const getProductsFailure = createAction(
   ActionTypes.GET_PRODUCTS_FAILURE,
+  props<FailureActionProps>(),
+);
+
+export const getUserProducts = createAction(ActionTypes.GET_USER_PRODUCTS)
+export const getUserProductsSuccess = createAction(
+  ActionTypes.GET_USER_PRODUCTS_SUCCESS,
+  props<SuccessActionProps<any>>(),
+);
+export const getUserProductsFailure = createAction(
+  ActionTypes.GET_USER_PRODUCTS_FAILURE,
+  props<FailureActionProps>(),
+);
+
+export const enterProducts = createAction(ActionTypes.ENTER_PRODUCTS, props<RequestActionProps<any>>());
+export const enterProductsSuccess = createAction(
+  ActionTypes.ENTER_PRODUCTS_SUCCESS,
+  props<SuccessActionProps<any>>(),
+);
+export const enterProductsFailure = createAction(
+  ActionTypes.ENTER_PRODUCTS_FAILURE,
   props<FailureActionProps>(),
 );

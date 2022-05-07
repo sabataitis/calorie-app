@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ProductsComponent } from './home/components/products/products.component';
 import {NgChartsModule} from "ng2-charts";
 import { PieComponent } from './charts/pie/pie.component';
+import { NonAuthHeaderComponent } from './home/components/non-auth-header/non-auth-header.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PieComponent } from './charts/pie/pie.component';
     ProfileComponent,
     ProductsComponent,
     PieComponent,
+    NonAuthHeaderComponent,
   ],
     imports: [
         BrowserModule,

@@ -33,8 +33,15 @@ export class ProductService {
   async findAll(where: {field: string, value: string | number} = null){
     return this.productModel.find(where || {}).lean();
   }
-  async enterProducts(products: any){
-    return this.userProductModel.create(products);
+
+  async findAllUserProducts(userId: string){
+    return this.userProductModel.find({userId} || {}).lean();
+  }
+
+  async enterProducts(payload: any){
+    return Promise.all(payload.products.map(product=>{
+      return this.userProductModel.create({userId: payload.userId, ...product});
+    }))
   }
 
 }

@@ -1,0 +1,9 @@
+1. Enter quantity and save
+   1.1 Quantity selection
+   1.2 Update totals based on selection
+   1.3 Simplify products component, split into different parts
+
+2. Register component, select goal (add additional input based on selection)
+
+2. Render entered product list
+3. Calendar functionallity to see previous days

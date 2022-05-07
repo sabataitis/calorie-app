@@ -1,4 +1,4 @@
-import { IsArray, IsEnum, IsNumber, IsOptional, IsString, ValidateNested } from "class-validator";
+import { IsArray, IsBoolean, IsEnum, IsNumber, IsOptional, IsString, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 
 export enum QUANTITY_SELECTION{
@@ -6,7 +6,10 @@ export enum QUANTITY_SELECTION{
   UNIT = "unit",
 }
 
-export class QuantityEnteredDTO{
+export class QuantityDTO{
+  @IsBoolean()
+  hasUnits: boolean;
+
   @IsEnum(QUANTITY_SELECTION)
   selected: QUANTITY_SELECTION;
 
@@ -17,16 +20,9 @@ export class QuantityEnteredDTO{
   @IsNumber()
   @IsOptional()
   grams?: number;
-
 }
 
-export class ProductsEnteredDTO{
-  @IsString()
-  productId: string;
-
-  @IsString()
-  productName: string;
-
+export class NutrientsDTO{
   @IsNumber()
   calories: number;
 
@@ -38,9 +34,20 @@ export class ProductsEnteredDTO{
 
   @IsNumber()
   fats: number;
+}
 
-  @Type(()=> QuantityEnteredDTO)
-  quantity: QuantityEnteredDTO;
+export class ProductsEnteredDTO{
+  @IsString()
+  productId: string;
+
+  @IsString()
+  productName: string;
+
+  @Type(()=> NutrientsDTO)
+  nutrients: NutrientsDTO;
+
+  @Type(()=> QuantityDTO)
+  quantity: QuantityDTO;
 }
 
 export class UserProductDTO{

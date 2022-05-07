@@ -1,4 +1,4 @@
-export interface ProductDTO {
+export interface ProductDTO extends Record <string, any>{
   "_id": string,
   "name": string,
   "calories_100g": number,

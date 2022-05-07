@@ -6,22 +6,20 @@ import { Product } from "./product";
 export type UserProductDocument = UserProduct & Document;
 
 export class Quantity{
+  hasUnits: boolean;
   selected: string;
   units?: number;
   grams?: number;
 }
 
-export class Entered{
-  entered:{
-    calories: number;
-    proteins: number;
-    carbs: number;
-    fats: number;
-    quantity: Quantity;
-  }
+export class Nutrients{
+  calories: number;
+  proteins: number;
+  carbs: number;
+  fats: number;
 }
 
-@Schema()
+@Schema({timestamps: true})
 export class UserProduct {
   @Prop({ref: User.name})
   userId: string;
@@ -29,18 +27,25 @@ export class UserProduct {
   @Prop({ref: Product.name})
   productId: string;
 
-  @Prop({type: Entered })
-  entered:{
+  @Prop()
+  productName: string;
+
+  @Prop({type: Nutrients})
+  nutrients:{
     calories: number;
     proteins: number;
     carbs: number;
     fats: number;
-    quantity:{
-      selected: string,
-      units: number,
-      grams: number,
-    },
   }
+
+  @Prop({type: Quantity})
+  quantity:{
+    hasUnits: boolean,
+    selected: string,
+    grams: number,
+    units: number,
+  }
+
 }
 
 export const UserProductSchema = SchemaFactory.createForClass(UserProduct);

@@ -1,5 +1,6 @@
 import {DefaultState} from "../shared/interfaces/default-state.interface";
 import {ProductDTO} from "../shared/dto/product.dto";
+import {UserProductDTO} from "../shared/dto/user-product.dto";
 
 export interface UsernamesState extends DefaultState{
   usernames: String[]
@@ -17,6 +18,7 @@ export interface UserState extends DefaultState{
     activity: string,
     calories: number
   }
+  products: UserProductDTO[];
 }
 
 export interface ProductState extends DefaultState{

@@ -1,11 +1,10 @@
-<section class="h-full flex flex-col">
-  <div class="search-container bg-white shadow rounded mt-8 p-4 mx-4">
+<section class="flex flex-col items-center justify-center">
+  <div class="search-container flex flex-col w-full mx-4 bg-white shadow rounded mt-8 p-4">
     <div class="flex justify-between items-center py-2 px-6">
       <div class="flex gap-8 justify-center items-center">
         <div class="flex items-center justify-center">
           <div class="text-right">
-            <h1 class="font-bold text-md uppercase">Dienos pildymas</h1>
-            <h1 class="font-bold text-md uppercase">Įvesta</h1>
+            <h1 class="font-bold text-lg uppercase">Paieška</h1>
           </div>
           <div class="flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24"
@@ -40,8 +39,10 @@
                          [chartData]="chartData | async" [chartOptions]="chartOptions"></calorie-app-pie>
       </div>
       <div class="flex flex-col">
-        <h2 class="text-md font-semibold text-right">Dienos tikslas <span class="text-primary-600 font-medium">({{user.calories}} kcal)</span></h2>
-        <h2 class="text-md font-semibold text-right">Liko <span class="text-primary-600 font-medium">({{user.calories - totals.calories}} kcal)</span></h2>
+        <h2 class="text-md font-semibold text-right">Dienos tikslas <span
+          class="text-primary-600 font-medium">({{user.calories}} kcal)</span></h2>
+        <h2 class="text-md font-semibold text-right">Liko <span
+          class="text-primary-600 font-medium">({{user.calories - totals.calories}} kcal)</span></h2>
       </div>
     </div>
     <div class="flex">
@@ -59,8 +60,11 @@
           class="outline-0 appearance-none w-full text-sm text-slate-900 placeholder-slate-400 rounded-md py-2"
           type="text" aria-label="Filter projects" placeholder="Produkto ar recepto pavadinimas...">
       </div>
-      <div class="w-1/6 flex justify-center">
-        <button type="button" class="text-sm rounded text-white bg-secondary-600 px-3 py-3 border-2" (click)="saveProducts()">Išsaugoti</button>
+      <div class="w-1/7 flex ml-2">
+        <button type="button"
+                class="text-sm rounded-md text-white bg-secondary-600 hover:bg-secondary-500 px-3 py-3 border-2"
+                (click)="saveProducts()">Išsaugoti
+        </button>
       </div>
     </div>
     <datalist id="products">
@@ -68,37 +72,61 @@
         class="text-primary-600">kcal/100g</span></option>
     </datalist>
   </div>
-  <div class="bg-white grid md:grid-cols-2 sm:grid-cols-1 gap-2 mx-4 h-full p-6">
+  <div class="bg-white grid md:grid-cols-2 sm:grid-cols-1 gap-2 h-full w-full p-4">
     <div *ngFor="let selectedProduct of selectedProducts; index as i;trackBy: trackByIndex"
          class="flex justify-between my-2 p-2 border-primary-100 border-2">
       <div class="flex flex-col justify-center">
-        <h4 class="text-lg text-black font-semibold">{{selectedProduct.productName}}</h4>
+        <div class="flex gap-2">
+          <h4 class="text-lg text-black font-semibold">{{selectedProduct.productName}}</h4>
+          <select type="text"
+                  [(ngModel)]="selectedProducts[i].quantity.selected" (change)="quantityChange(i)">
+            <option [ngValue]="'gram'">Gramai</option>
+            <option [ngValue]="'unit'" *ngIf="selectedProduct.quantity.hasUnits">Vnt</option>
+          </select>
+        </div>
         <div>
-          <input min=1 max=1000 type="number" placeholder="Kiekis gramais.." value="100"
-                 [(ngModel)]="selectedProducts[i].quantity.grams"
-                 (change)="quantityChange(i, selectedProducts[i].quantity.grams)">
+          <input
+            *ngIf="selectedProducts[i].quantity.selected==='gram'"
+            min=1
+            max=1000
+            type="number"
+            placeholder="Kiekis gramais.."
+            [value]="selectedProducts[i].quantity.selected === 'gram'?100:1"
+            [(ngModel)]="selectedProducts[i].quantity.grams"
+            (change)="quantityChange(i)"
+          >
+
+          <select
+            *ngIf="selectedProducts[i].quantity.selected==='unit'"
+            type="text"
+            [(ngModel)]="selectedProducts[i].quantity.units"
+            (change)="quantityChange(i)"
+          >
+            <option [ngValue]="1">1</option>
+            <option *ngFor="let unit of [2,3,4,5,6,7,8,9,10]" [ngValue]="unit">{{unit}}</option>
+          </select>
         </div>
       </div>
       <div class="flex gap-4 items-center">
         <div class="flex flex-col">
-          <p class="text-md text-black text-left">{{selectedProduct.calories}}</p>
+          <p class="text-md text-black text-left">{{selectedProduct.nutrients.calories}}</p>
           <p class="text-sm text-primary-400">kcal</p>
         </div>
         <div class="flex flex-col">
-          <p class="text-md text-black text-left">{{selectedProduct.proteins}}g</p>
+          <p class="text-md text-black text-left">{{selectedProduct.nutrients.proteins}}g</p>
           <p class="text-sm text-primary-400">baltymų</p>
         </div>
         <div class="flex flex-col">
-          <p class="text-md text-black text-left">{{selectedProduct.carbs}}g</p>
+          <p class="text-md text-black text-left">{{selectedProduct.nutrients.carbs}}g</p>
           <p class="text-sm text-primary-400">angliavandenių</p>
         </div>
         <div class="flex flex-col">
-          <p class="text-md text-black text-left">{{selectedProduct.fats}}g</p>
+          <p class="text-md text-black text-left">{{selectedProduct.nutrients.fats}}g</p>
           <p class="text-sm text-primary-400">riebalų</p>
         </div>
         <div class="border-l-2 border-primary-500 flex items-center justify-center">
           <button type="button"
-                  class="text-sm rounded text-white bg-primary-400 hover:bg-primary-600 px-3 py-2 m-4"
+                  class="text-sm rounded-lg text-white bg-primary-400 hover:bg-primary-600 px-3 py-2 m-4"
                   (click)="removeItem(i)">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor"

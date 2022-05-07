@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {ProductState, UserState} from "../../store/state";
 import {AuthUserDTO} from "../../shared/dto/user.dto";
 import {Store} from "@ngrx/store";
 import {StoreActions, StoreSelectors} from "../../store";
 import {ProductDTO} from "../../shared/dto/product.dto";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SelectedProductDTO} from "../../shared/dto/selected-product.dto";
 
 @Component({
@@ -23,7 +22,7 @@ export class HomeComponent implements OnInit {
   selectedProduct: ProductDTO;
   selectedProducts: ProductDTO[];
 
-  constructor(private store: Store, private fb: FormBuilder) {
+  constructor(private store: Store) {
     this.userState$ = this.store.select(StoreSelectors.selectUserState);
     this.productState$ = this.store.select(StoreSelectors.selectProductState);
   }
@@ -33,34 +32,39 @@ export class HomeComponent implements OnInit {
     this.subscribeToUserState();
     this.subscribeToProductState();
   }
-  onProductChanged(term: string){
+
+  onProductChanged(term: string) {
     this.selectedProduct = this.getSelectedProductByName(term);
     this.selectedProducts.push(this.selectedProduct);
-    if(this.selectedProduct){
+    if (this.selectedProduct) {
       this.term = "";
     }
   }
-  saveProducts(products: SelectedProductDTO[]){
-    console.log('saving');
-    console.log({products});
+
+  enterProducts(products: SelectedProductDTO[]) {
+    const payload = {
+      userId: this.user._id,
+      products
+    }
+    this.store.dispatch(StoreActions.enterProducts({payload}));
   }
 
   getSelectedProductByName(selectedName: string): ProductDTO {
     return this.products.find(product => product.name === selectedName);
-}
+  }
 
-  private subscribeToUserState(): void{
-    this.userState$.subscribe((userState: UserState)=>{
-      if(userState.success){
+  private subscribeToUserState(): void {
+    this.userState$.subscribe((userState: UserState) => {
+      if (userState.success) {
         this.isAuthenticated = userState.user.isAuthenticated;
         this.user = userState.user;
       }
     })
   }
 
-  private subscribeToProductState(): void{
-    this.productState$.subscribe((productState: ProductState)=>{
-      if(productState.success){
+  private subscribeToProductState(): void {
+    this.productState$.subscribe((productState: ProductState) => {
+      if (productState.success) {
         this.products = productState.products;
       }
     })
