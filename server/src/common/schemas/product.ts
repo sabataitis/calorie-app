@@ -8,6 +8,13 @@ export class Quantities{
   unit_g: number;
 }
 
+export class Nutrients{
+  calories: number;
+  proteins: number;
+  carbs: number;
+  fats: number;
+}
+
 @Schema()
 export class Product {
   @Prop({
@@ -16,25 +23,13 @@ export class Product {
   name: string;
 
   @Prop()
-  calories_100g: number;
-
-  @Prop()
-  proteins_100g: number;
-
-  @Prop()
-  carbs_100g: number;
-
-  @Prop()
-  fats_100g: number;
-
-  @Prop()
   category: string;
 
+  @Prop( {type: Nutrients})
+  nutrients: Nutrients;
+
   @Prop( {type: Quantities})
-  quantities: {
-    quantity_g: number,
-    unit_g: number,
-  }
+  quantities: Quantities;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

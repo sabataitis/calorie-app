@@ -1,11 +1,13 @@
 [
   {
     "name": "Bananai",
-    "calories_100g": 92,
-    "proteins_100g": 1,
-    "carbs_100g": 23.4,
-    "fats_100g": 0.4,
     "category": "Vaisiai",
+    "nutrients":{
+      "calories": 92,
+      "proteins": 1,
+      "carbs": 23.4,
+      "fats": 0.4
+    },
     "quantities":{
       "quantity_g": 100,
       "unit_g": 105
@@ -13,11 +15,13 @@
   },
   {
     "name": "Obuoliai",
-    "calories_100g": 40,
-    "proteins_100g": 0.4,
-    "carbs_100g": 9.9,
-    "fats_100g": 0,
     "category": "Vaisiai",
+    "nutrients":{
+      "calories": 40,
+      "proteins": 0.4,
+      "carbs": 9.9,
+      "fats": 0
+    },
     "quantities":{
       "quantity_g": 100,
       "unit_g": 150
@@ -25,46 +29,58 @@
   },
   {
     "name": "Žemės riešutai",
-    "calories_100g": 657,
-    "proteins_100g": 26,
-    "carbs_100g": 16,
-    "fats_100g": 49,
     "category": "Riešutai",
+    "nutrients":{
+      "calories": 657,
+      "proteins": 26,
+      "carbs": 16,
+      "fats": 49
+    },
     "quantities":{
-      "quantity_g": 100
+      "quantity_g": 100,
+      "unit_g": null,
     }
   },
   {
     "name": "Naminis Rokiškio sūris",
-    "calories_100g": 282,
-    "proteins_100g": 20,
-    "carbs_100g": 2.5,
-    "fats_100g": 20,
     "category": "Pieno Produktai",
+    "nutrients":{
+      "calories": 282,
+      "proteins": 20,
+      "carbs": 2.5,
+      "fats": 20
+    },
     "quantities":{
-      "quantity_g": 100
+      "quantity_g": 100,
+      "unit_g": null
     }
   },
   {
     "name": "Dvaro sviestas",
-    "calories_100g": 774,
-    "proteins_100g": 0.7,
-    "carbs_100g": 0.8,
-    "fats_100g": 82,
     "category": "Pieno Produktai",
+    "nutrients":{
+      "calories": 774,
+      "proteins": 0.7,
+      "carbs": 0.8,
+      "fats": 82
+    },
     "quantities":{
-      "quantity_g": 100
+      "quantity_g": 100,
+      "unit_g": null
     }
   },
   {
     "name": "Močiūtės duona, juoda",
-    "calories_100g": 254,
-    "proteins_100g": 6,
-    "carbs_100g": 49,
-    "fats_100g": 0.2,
     "category": "Pieno Produktai",
+    "nutrients":{
+      "calories": 254,
+      "proteins": 6,
+      "carbs": 49,
+      "fats": 0.2
+    },
     "quantities":{
-      "quantity_g": 100
+      "quantity_g": 100,
+      "unit_g": null
     }
   }
 ]

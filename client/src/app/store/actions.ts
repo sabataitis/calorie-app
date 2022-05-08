@@ -8,6 +8,10 @@ export enum ActionTypes {
   ENTER_PRODUCTS_SUCCESS = '[Product] Enter Products Success Response',
   ENTER_PRODUCTS_FAILURE = '[Product] Enter Products Failure Response',
 
+  UPDATE_ENTERED_PRODUCT = '[User] Update Product Request',
+  UPDATE_ENTERED_PRODUCT_SUCCESS = '[User] Update Product Success Response',
+  UPDATE_ENTERED_PRODUCT_FAILURE = '[User] Update Product Failure Response',
+
   GET_USER_PRODUCTS = '[User] Get Products Request',
   GET_USER_PRODUCTS_SUCCESS = '[User] Get Products Success Response',
   GET_USER_PRODUCTS_FAILURE = '[User] Get Products Failure Response',
@@ -100,5 +104,15 @@ export const enterProductsSuccess = createAction(
 );
 export const enterProductsFailure = createAction(
   ActionTypes.ENTER_PRODUCTS_FAILURE,
+  props<FailureActionProps>(),
+);
+
+export const updateEnteredProduct = createAction(ActionTypes.UPDATE_ENTERED_PRODUCT, props<RequestActionProps<any>>());
+export const updateEnteredProductSuccess = createAction(
+  ActionTypes.UPDATE_ENTERED_PRODUCT_SUCCESS,
+  props<SuccessActionProps<any>>(),
+);
+export const updateEnteredProductFailure = createAction(
+  ActionTypes.UPDATE_ENTERED_PRODUCT_FAILURE,
   props<FailureActionProps>(),
 );

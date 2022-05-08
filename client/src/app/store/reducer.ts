@@ -6,6 +6,7 @@ import {DefaultStateValues} from "../shared/constants/default-state-values.const
 import {State} from "./state";
 
 import {StoreActions} from './index';
+import {UserProductDTO} from "../shared/dto/user-product.dto";
 
 export const initialState: State = {
   usernamesState: {...DefaultStateValues, usernames: null},
@@ -199,6 +200,34 @@ export const StoreReducer = createReducer<State>(
     userState: {
       ...state.userState,
       products: []
+    }
+  })),
+
+  on(StoreActions.updateEnteredProduct, (state: State, action) => ({
+    ...state,
+    userState: {
+      ...state.userState,
+      products: action.payload.products
+    }
+  })),
+
+  on(StoreActions.updateEnteredProductSuccess, (state: State, action) => ({
+    ...state,
+    userState: {
+      ...state.userState,
+      products: [...state.userState.products].map((product: UserProductDTO)=> {
+        if(product._id === action.response._id){
+          return {...product, nutrients: action.response.nutrients, quantity: action.response.quantity}
+        }
+        return product;
+      })
+    }
+  })),
+
+  on(StoreActions.updateEnteredProductFailure, (state: State, action) => ({
+    ...state,
+    userState: {
+      ...state.userState,
     }
   })),
 )

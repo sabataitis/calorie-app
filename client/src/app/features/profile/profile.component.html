@@ -1,4 +1,73 @@
-WELCOME
-<p>
-  {{userProducts | json}}
-</p>
+<section>
+  <h1 class="font-semibold text-2xl uppercase">Apžvalga</h1>
+  <div class="bg-white grid md:grid-cols-2 sm:grid-cols-1 gap-2 h-full w-full p-4">
+    <div *ngFor="let product of userProducts; index as i;trackBy: trackByIndex"
+         class="flex justify-between my-2 p-2 border-primary-100 border-2">
+      <div class="flex flex-col justify-center">
+        <div class="flex items-center gap-1">
+          <h4 class="text-lg text-black font-semibold">{{product.productName}}</h4>
+          <div *ngIf="!product.editMode" class="flex gap-1 items-center">
+            <p class="text-md text-black text-left">{{getQuantityAndMeasurement(product).quantity}}</p>
+            <p class="text-sm text-primary-400 text-left">{{getQuantityAndMeasurement(product).measurement}}</p>
+          </div>
+          <select
+            type="text"
+            *ngIf="product.editMode"
+            [(ngModel)]="product.quantity.selected"
+            (change)="quantityChange(product)">
+            <option [ngValue]="'gram'">Gramai</option>
+            <option [ngValue]="'unit'" *ngIf="product.quantity.hasUnits">Vnt</option>
+          </select>
+        </div>
+        <div *ngIf="product.editMode">
+          <input
+            *ngIf="product.quantity.selected==='gram'"
+            min=1
+            max=1000
+            type="number"
+            placeholder="Kiekis gramais.."
+            [value]="product.quantity.grams"
+            [(ngModel)]="product.quantity.grams"
+            (change)="quantityChange(product)"
+          >
+          <select
+            *ngIf="product.quantity.selected==='unit'"
+            type="text"
+            [(ngModel)]="product.quantity.units"
+            (change)="quantityChange(product)"
+          >
+            <option *ngFor="let unit of [1,2,3,4,5,6,7,8,9,10]" [ngValue]="unit">{{unit}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex gap-4 items-center">
+        <div class="flex flex-col">
+          <p class="text-md text-black text-left">{{product.nutrients.calories}}</p>
+          <p class="text-sm text-primary-400">kcal</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-md text-black text-left">{{product.nutrients.proteins}}g</p>
+          <p class="text-sm text-primary-400">baltymų</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-md text-black text-left">{{product.nutrients.carbs}}g</p>
+          <p class="text-sm text-primary-400">angliavandenių</p>
+        </div>
+        <div class="flex flex-col">
+          <p class="text-md text-black text-left">{{product.nutrients.fats}}g</p>
+          <p class="text-sm text-primary-400">riebalų</p>
+        </div>
+        <div class="border-l-2 border-primary-500 flex items-center justify-center">
+          <button type="button"
+                  class="text-sm rounded-lg text-white bg-primary-400 hover:bg-primary-600 px-3 py-2 m-4"
+                  [ngClass]="{'bg-secondary-400': product.editMode}"
+                  (click)="toggleEditMode(product)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -15,8 +15,6 @@ export interface QuantityType{
   units?: number,
   grams?: number,
 }
-
-
 export interface SelectedProductDTO{
   productId: string,
   productName: string,

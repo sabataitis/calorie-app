@@ -5,11 +5,11 @@ import { User, UserSchema } from "../common/schemas/user";
 import { UserController } from "./user.controller";
 import { Product, ProductSchema } from "../common/schemas/product";
 import { ProductService } from "../product/product.service";
-import { UserProduct, UserProductSchema } from "../common/schemas/user-product.schema";
+import { EnteredProduct, EnteredProductSchema } from "../common/schemas/entered-product.schema";
 
 @Module({
   controllers: [UserController],
-  imports: [MongooseModule.forFeature([{name: User.name, schema: UserSchema}, {name: Product.name, schema: ProductSchema}, {name: UserProduct.name, schema: UserProductSchema}])],
+  imports: [MongooseModule.forFeature([{name: User.name, schema: UserSchema}, {name: Product.name, schema: ProductSchema}, {name: EnteredProduct.name, schema: EnteredProductSchema}])],
   providers: [UserService, ProductService],
   exports: [UserService]
 })

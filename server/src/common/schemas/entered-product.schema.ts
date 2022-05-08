@@ -1,9 +1,10 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 import { User } from "./user";
-import { Product } from "./product";
+import { Nutrients, Product } from "./product";
+import * as Mongoose from "mongoose";
 
-export type UserProductDocument = UserProduct & Document;
+export type EnteredProductSchema = EnteredProduct & Document;
 
 export class Quantity{
   hasUnits: boolean;
@@ -12,20 +13,13 @@ export class Quantity{
   grams?: number;
 }
 
-export class Nutrients{
-  calories: number;
-  proteins: number;
-  carbs: number;
-  fats: number;
-}
-
 @Schema({timestamps: true})
-export class UserProduct {
-  @Prop({ref: User.name})
-  userId: string;
+export class EnteredProduct {
+  @Prop({ref: User.name, type: Mongoose.Schema.Types.ObjectId})
+  userId: Mongoose.Schema.Types.ObjectId;
 
-  @Prop({ref: Product.name})
-  productId: string;
+  @Prop({ref: Product.name, type: Mongoose.Schema.Types.ObjectId})
+  productId: Mongoose.Schema.Types.ObjectId;
 
   @Prop()
   productName: string;
@@ -45,7 +39,6 @@ export class UserProduct {
     grams: number,
     units: number,
   }
-
 }
 
-export const UserProductSchema = SchemaFactory.createForClass(UserProduct);
+export const EnteredProductSchema = SchemaFactory.createForClass(EnteredProduct);

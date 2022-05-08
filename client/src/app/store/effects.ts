@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 import {ToastrActions} from './toastr/index';
 import {AuthService} from "../shared/services/auth.service";
 import {ProductService} from "../shared/services/product.service";
+import {EnteredProductService} from "../shared/services/entered-product.service";
 
 @Injectable()
 export class StoreEffects {
@@ -18,6 +19,7 @@ export class StoreEffects {
     private authService: AuthService,
     private userService: UserService,
     private productService: ProductService,
+    private enteredProductService: EnteredProductService,
     private router: Router,
   ) {}
 
@@ -126,7 +128,7 @@ export class StoreEffects {
     this.actions.pipe(
       ofType(StoreActions.enterProducts),
       switchMap(({payload})=>
-        this.productService.enterProducts(payload).pipe(
+        this.enteredProductService.create(payload).pipe(
           switchMap((response: any)=> [
             StoreActions.enterProductsSuccess({response}),
           ]),
@@ -153,6 +155,19 @@ export class StoreEffects {
             StoreActions.getUserProductsSuccess({response}),
           ]),
           catchError((error: HttpException)=> of(StoreActions.getUserProductsFailure(error)))
+        )
+      )
+    ))
+
+  updateEnteredProduct$ = createEffect(()=>
+    this.actions.pipe(
+      ofType(StoreActions.updateEnteredProduct),
+      switchMap(({payload})=>
+        this.enteredProductService.update(payload.update).pipe(
+          switchMap((response: any)=> [
+            StoreActions.updateEnteredProductSuccess({response}),
+          ]),
+          catchError((error: HttpException)=> of(StoreActions.updateEnteredProductFailure(error)))
         )
       )
     ))

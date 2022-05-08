@@ -71,36 +71,36 @@ export class ProductsComponent implements OnChanges {
     this.calculateTotals();
   }
 
-  getQuantity(index: number, measurement: string): number {
-    if (measurement === QUANTITY_SELECTION.GRAM) {
-      return this.selectedProducts[index].quantity.grams;
-    }
-    return this.selectedProducts[index].quantity.units;
-  }
+  // getQuantity(index: number, measurement: string): number {
+  //   if (measurement === QUANTITY_SELECTION.GRAM) {
+  //     return this.selectedProducts[index].quantity.grams;
+  //   }
+  //   return this.selectedProducts[index].quantity.units;
+  // }
 
-  calculateNutrients(index: number, measurement: string, product: ProductDTO): void {
+  calculateNutrients(measurement: string, product: ProductDTO, selectedProduct: SelectedProductDTO): void {
     if (measurement === QUANTITY_SELECTION.GRAM) {
-      for(const nutrient in this.selectedProducts[index].nutrients){
-        let concatKey = nutrient.concat('_100g');
-        this.selectedProducts[index].nutrients[nutrient as keyof NutrientsType]= Number((product[concatKey] * (this.getQuantity(index, measurement) / 100)).toFixed(2));
+      for(const nutrient in selectedProduct.nutrients){
+        // let concatKey = nutrient.concat('_100g');
+        selectedProduct.nutrients[nutrient as keyof NutrientsType]= Number((product.nutrients[nutrient as keyof NutrientsType] * (selectedProduct.quantity.grams / 100)).toFixed(2));
       }
     } else {
-      for(const nutrient in this.selectedProducts[index].nutrients){
-        let concatKey = nutrient.concat('_100g');
-        this.selectedProducts[index].nutrients[nutrient as keyof NutrientsType]= Number((product[concatKey] * (this.getQuantity(index, measurement) * product.quantities.unit_g / 100)).toFixed(2));
+      for(const nutrient in selectedProduct.nutrients){
+        // let concatKey = nutrient.concat('_100g');
+        selectedProduct.nutrients[nutrient as keyof NutrientsType]= Number((product.nutrients[nutrient as keyof NutrientsType] * (selectedProduct.quantity.units * product.quantities.unit_g / 100)).toFixed(2));
       }
     }
   }
 
 
-  quantityChange(index: number) {
-    const product = this.products.find(product => product._id === this.selectedProducts[index].productId);
-    switch (this.selectedProducts[index].quantity.selected) {
+  quantityChange(selectedProduct: SelectedProductDTO) {
+    const product = this.products.find(product => product._id === selectedProduct.productId);
+    switch (selectedProduct.quantity.selected) {
       case QUANTITY_SELECTION.GRAM:
-        this.calculateNutrients(index, QUANTITY_SELECTION.GRAM, product);
+        this.calculateNutrients(QUANTITY_SELECTION.GRAM, product, selectedProduct);
         break;
       case QUANTITY_SELECTION.UNIT:
-        this.calculateNutrients(index, QUANTITY_SELECTION.UNIT, product);
+        this.calculateNutrients(QUANTITY_SELECTION.UNIT, product, selectedProduct);
         break;
     }
     this.calculateTotals();
@@ -123,15 +123,12 @@ export class ProductsComponent implements OnChanges {
       productId: product._id,
       productName: product.name,
       nutrients: {
-        calories: product.calories_100g,
-        proteins: product.proteins_100g,
-        carbs: product.carbs_100g,
-        fats: product.fats_100g,
+        ...product.nutrients
       },
       quantity: {
         hasUnits: !!product.quantities.unit_g,
         selected: QUANTITY_SELECTION.GRAM,
-        grams: 100,
+        grams: product.quantities.quantity_g,
         units: product.quantities.unit_g?1:null
       }
     }
