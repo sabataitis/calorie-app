@@ -4,7 +4,7 @@
       <div class="flex gap-8 justify-center items-center">
         <div class="flex items-center justify-center">
           <div class="text-right">
-            <h1 class="font-bold text-lg uppercase">Produktų ir Receptų paieška</h1>
+            <h1 class="font-semibold text-2xl uppercase">Produktų ir Receptų paieška</h1>
           </div>
         </div>
         <div class="flex flex-col">
@@ -13,21 +13,17 @@
         </div>
         <div class="flex flex-col">
           <p class="text-2xl text-black text-center">{{totals.proteins | number}}g</p>
-          <p class="text-lg text-primary-400 border-chart_proteins border-b-2 border-dotted border-opacity-90">
+          <p class="text-lg text-primary-400">
             baltymų</p>
         </div>
         <div class="flex flex-col">
           <p class="text-2xl text-black text-center">{{totals.carbs | number}}g</p>
-          <p class="text-lg text-primary-400 border-chart_carbs border-b-2 border-dotted border-opacity-90">
+          <p class="text-lg text-primary-400">
             angliavandenių</p>
         </div>
         <div class="flex flex-col">
           <p class="text-2xl text-black text-center">{{totals.fats | number}}g</p>
-          <p class="text-lg text-primary-400 border-chart_fats border-b-2 border-dotted border-opacity-90">riebalų</p>
-        </div>
-        <div class="flex items-end gap-2">
-          <div class="flex gap-2 items-center justify-center">
-          </div>
+          <p class="text-lg text-primary-400">riebalų</p>
         </div>
         <calorie-app-pie *ngIf="selectedProducts.length>0" [chartSize]="{width: '16rem', height: '12rem' }"
                          [chartData]="chartData | async" [chartOptions]="chartOptions"></calorie-app-pie>

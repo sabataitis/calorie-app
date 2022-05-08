@@ -87,7 +87,7 @@ export const getProductsFailure = createAction(
   props<FailureActionProps>(),
 );
 
-export const getUserProducts = createAction(ActionTypes.GET_USER_PRODUCTS)
+export const getUserProducts = createAction(ActionTypes.GET_USER_PRODUCTS, props<RequestActionProps<any>>())
 export const getUserProductsSuccess = createAction(
   ActionTypes.GET_USER_PRODUCTS_SUCCESS,
   props<SuccessActionProps<any>>(),

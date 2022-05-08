@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, Request, UseGuards } from "@nestjs/common";
 import { CreateUserDTO } from "../common/dto/user.dto";
 import { UserService } from "./user.service";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
@@ -11,8 +11,8 @@ export class UserController{
 
   @UseGuards(JwtAuthGuard)
   @Get('products')
-  products(@Request() req){
-    return this.productService.findAllUserProducts(req.user.userId);
+  products(@Request() req, @Query('date') query){
+    return this.productService.findAllUserProducts(req.user.userId, query);
   }
 
   @Post()

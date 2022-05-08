@@ -10,20 +10,25 @@ import {LoginGuard} from "./shared/guards/login-guard.service";
 const routes: Routes = [
   {
     path: '',
+    pathMatch: "full",
+    redirectTo: 'paieska',
+  },
+  {
+    path: 'paieska',
     component: HomeComponent
   },
   {
-    path: 'register',
+    path: 'registracija',
     component: RegisterComponent,
     canActivate: [LoginGuard]
   },
   {
-    path: 'login',
+    path: 'prisijungimas',
     component: LoginComponent,
     canActivate: [LoginGuard]
   },
   {
-    path: 'profile',
+    path: 'apzvalga',
     component: ProfileComponent,
     canActivate: [AuthGuard]
   },

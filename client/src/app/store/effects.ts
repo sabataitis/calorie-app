@@ -143,14 +143,14 @@ export class StoreEffects {
       map(()=>
         ToastrActions.showSuccess({message: 'Sėkmingai išsaugota.'}),
       ),
-      tap(()=> this.router.navigate(['/profile'])),
+      tap(()=> this.router.navigate(['/apzvalga'])),
     ))
 
   getUserProducts$ = createEffect(()=>
     this.actions.pipe(
       ofType(StoreActions.getUserProducts),
-      switchMap(()=>
-        this.userService.products().pipe(
+      switchMap(({payload})=>
+        this.userService.products(payload.date).pipe(
           switchMap((response: any)=> [
             StoreActions.getUserProductsSuccess({response}),
           ]),

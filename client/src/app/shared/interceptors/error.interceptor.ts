@@ -12,7 +12,7 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse)=>{
         if (err instanceof HttpErrorResponse && err.status === 401) {
           this.authService.removeSession();
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/prisijungimas');
         }
         return throwError(err);
       })

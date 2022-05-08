@@ -1,6 +1,44 @@
-<section>
+<section class="p-6">
   <h1 class="font-semibold text-2xl uppercase">Apžvalga</h1>
-  <div class="bg-white grid md:grid-cols-2 sm:grid-cols-1 gap-2 h-full w-full p-4">
+  <div class="flex justify-between items-center cursor-pointer shadow-sm gap-2 p-4">
+    <div>
+      <h1 class="font-semibold text-2xl text-center">Produktai/Receptai</h1>
+      <input
+        type="date"
+        class="text-primary-700"
+        [min]="threeDaysBeforeDate"
+        [max]="currentDate"
+        [value]="dateInput"
+        [(ngModel)]="dateInput"
+        (change)="changeDate(dateInput)">
+      <button (click)="toggleProducts()" type="button"
+              class="flex text-sm rounded text-black bg-white px-3 py-2 border-2 hover:bg-primary-100">
+        Rodyti
+      </button>
+    </div>
+    <div class="flex gap-4">
+      <div class="flex flex-col">
+        <p class="text-2xl text-black text-right">{{totals.calories | number}}</p>
+        <p class="text-lg text-primary-400 text-right">kcal</p>
+      </div>
+      <div class="flex flex-col">
+        <p class="text-2xl text-black text-right">{{totals.proteins | number}}g</p>
+        <p class="text-lg text-primary-400 text-right">
+          baltymų</p>
+      </div>
+      <div class="flex flex-col">
+        <p class="text-2xl text-black text-right">{{totals.carbs | number}}g</p>
+        <p class="text-lg text-primary-400 text-right">
+          angliavandenių</p>
+      </div>
+      <div class="flex flex-col">
+        <p class="text-2xl text-black text-right">{{totals.fats | number}}g</p>
+        <p class="text-lg text-primary-400 text-right">riebalų</p>
+      </div>
+    </div>
+  </div>
+  <div class="bg-white grid md:grid-cols-2 sm:grid-cols-1 gap-2 h-full w-full p-4" id="product-section"
+       *ngIf="showProducts">
     <div *ngFor="let product of userProducts; index as i;trackBy: trackByIndex"
          class="flex justify-between my-2 p-2 border-primary-100 border-2">
       <div class="flex flex-col justify-center">
@@ -62,8 +100,10 @@
                   class="text-sm rounded-lg text-white bg-primary-400 hover:bg-primary-600 px-3 py-2 m-4"
                   [ngClass]="{'bg-secondary-400': product.editMode}"
                   (click)="toggleEditMode(product)">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
             </svg>
           </button>
         </div>

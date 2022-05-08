@@ -4,6 +4,10 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Product, ProductDocument } from "../common/schemas/product";
 import productsJSON from "../common/data/products.json";
 import { EnteredProduct, EnteredProductSchema } from "../common/schemas/entered-product.schema";
+import { endOfDay, startOfDay } from "date-fns";
+
+import {zonedTimeToUtc} from 'date-fns-tz';
+
 
 @Injectable()
 export class ProductService {
@@ -33,7 +37,13 @@ export class ProductService {
   async findAll(where: {field: string, value: string | number} = null){
     return this.productModel.find(where || {}).lean();
   }
-  async findAllUserProducts(userId: string){
-    return this.userProductModel.find({userId} || {}).populate('productId').lean();
+  async findAllUserProducts(userId: string, query: string){
+    const offset: number = new Date().getTimezoneOffset() * 60000;
+    const date: Date = new Date(new Date(query).getTime()+ offset);
+
+    const from: Date = startOfDay(date);
+    const to: Date = endOfDay(date);
+
+    return this.userProductModel.find({userId, createdAt: {$gte: from, $lte: to }}).populate('productId').lean();
   }
 }

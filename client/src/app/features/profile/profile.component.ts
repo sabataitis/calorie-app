@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {UserProductDTO, UserProductListDTO} from "../../shared/dto/user-product.dto";
 import {AuthUserDTO} from "../../shared/dto/user.dto";
 import {NutrientsType, QUANTITY_SELECTION} from "../../shared/dto/selected-product.dto";
+import {format, sub} from 'date-fns';
 
 @Component({
   selector: 'calorie-app-profile',
@@ -17,17 +18,41 @@ export class ProfileComponent implements OnInit {
   userProducts: UserProductListDTO[];
   user: AuthUserDTO;
 
+  currentDate: string = format(new Date(), "yyyy-MM-dd");
+  threeDaysBeforeDate: string = format(sub(new Date(this.currentDate), {
+    days: 2
+  }), "yyyy-MM-dd");
+
+  dateInput: string = this.currentDate;
+  showProducts: boolean = false;
+
+  totals = {
+    calories: 0,
+    proteins: 0,
+    carbs: 0,
+    fats: 0,
+  }
+
   constructor(private store: Store) {
     this.userState$ = this.store.select(StoreSelectors.selectUserState);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(StoreActions.getUserProducts());
+    this.store.dispatch(StoreActions.getUserProducts({payload: {date: this.currentDate}}));
     this.subscribeToUserState();
   }
 
+  toggleProducts(): void{
+    this.showProducts = !this.showProducts;
+  }
+
+
   trackByIndex(index: number, object: any): number {
     return index;
+  }
+
+  changeDate(date: string){
+    this.store.dispatch(StoreActions.getUserProducts({payload: {date}}));
   }
 
   getQuantityAndMeasurement(product: UserProductDTO): any{
@@ -76,7 +101,18 @@ export class ProfileComponent implements OnInit {
         break;
     }
     // TODO add totals someplace
-    // this.calculateTotals();
+    this.calculateTotals();
+  }
+
+  calculateTotals(): void {
+    this.totals = {calories: 0, proteins: 0, carbs: 0, fats: 0};
+
+    this.userProducts.forEach((product: UserProductListDTO) => {
+      this.totals.calories += product.nutrients.calories;
+      this.totals.proteins += product.nutrients.proteins;
+      this.totals.carbs += product.nutrients.carbs;
+      this.totals.fats += product.nutrients.fats;
+    })
   }
 
 
@@ -87,6 +123,7 @@ export class ProfileComponent implements OnInit {
           return product;
         })));
         this.user = userState.user;
+        this.calculateTotals();
       }
     })
   }
