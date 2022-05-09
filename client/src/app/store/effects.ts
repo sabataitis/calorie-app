@@ -23,6 +23,17 @@ export class StoreEffects {
     private router: Router,
   ) {}
 
+  getUserGraphs$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(StoreActions.getUserGraphs),
+      switchMap(({payload}) =>
+        this.userService.graphs(payload).pipe(
+          map((response: any) => StoreActions.getUserGraphsSuccess({ response })),
+          catchError((error: HttpException) => of(StoreActions.getUserGraphsFailure(error))),
+        ),
+      ),
+    ),
+  );
   getUsernames$ = createEffect(() =>
     this.actions.pipe(
       ofType(StoreActions.getUsernames),
@@ -150,7 +161,7 @@ export class StoreEffects {
     this.actions.pipe(
       ofType(StoreActions.getUserProducts),
       switchMap(({payload})=>
-        this.userService.products(payload.date).pipe(
+        this.userService.products(payload).pipe(
           switchMap((response: any)=> [
             StoreActions.getUserProductsSuccess({response}),
           ]),

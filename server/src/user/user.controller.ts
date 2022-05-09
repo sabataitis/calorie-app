@@ -1,18 +1,24 @@
-import { Body, Controller, Get, Post, Query, Request, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Query, Request, UseGuards } from "@nestjs/common";
 import { CreateUserDTO } from "../common/dto/user.dto";
 import { UserService } from "./user.service";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { UserDomainName } from "./name.const";
-import { ProductService } from "../product/product.service";
+import { EnteredProductService } from "../entered-product/entered-product.service";
 
 @Controller(UserDomainName)
 export class UserController{
-  constructor(private userService: UserService, private productService: ProductService) {}
+  constructor(private userService: UserService, private enteredProductService: EnteredProductService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get('products')
   products(@Request() req, @Query('date') query){
-    return this.productService.findAllUserProducts(req.user.userId, query);
+    return this.enteredProductService.findAllUserProducts(req.user.userId, query);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('graphs')
+  graphs(@Request() req, @Query('date') query){
+    return this.enteredProductService.graphs(req.user.userId, query);
   }
 
   @Post()

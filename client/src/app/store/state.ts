@@ -16,8 +16,13 @@ export interface ProductState extends DefaultState{
   products: ProductDTO[]
 }
 
+export interface GraphsState extends DefaultState{
+  graphs: any
+}
+
 export interface State {
   usernamesState: UsernamesState;
   userState: UserState;
-  productState: ProductState
+  productState: ProductState,
+  graphsState: GraphsState
 }

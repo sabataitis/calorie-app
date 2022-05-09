@@ -4,6 +4,10 @@ import {FailureActionProps} from "./interfaces/actions/failure-action-props.inte
 import {RequestActionProps} from "./interfaces/actions/request-action-props.interface";
 
 export enum ActionTypes {
+  GET_USER_GRAPHS = '[User] Get User Graphs Request',
+  GET_USER_GRAPHS_SUCCESS = '[User] Get User Graphs Success Response',
+  GET_USER_GRAPHS_FAILURE = '[User] Get User Graphs Failure Response',
+
   ENTER_PRODUCTS = '[Product] Enter Products Request',
   ENTER_PRODUCTS_SUCCESS = '[Product] Enter Products Success Response',
   ENTER_PRODUCTS_FAILURE = '[Product] Enter Products Failure Response',
@@ -39,6 +43,15 @@ export enum ActionTypes {
   GET_CURRENT_USER_FAILURE = '[Auth] Get Current User Failure Response',
 }
 
+export const getUserGraphs = createAction(ActionTypes.GET_USER_GRAPHS, props<RequestActionProps<any>>())
+export const getUserGraphsSuccess = createAction(
+  ActionTypes.GET_USER_GRAPHS_SUCCESS,
+  props<SuccessActionProps<any>>(),
+);
+export const getUserGraphsFailure = createAction(
+  ActionTypes.GET_USER_GRAPHS_FAILURE,
+  props<FailureActionProps>(),
+);
 export const getUsernames = createAction(ActionTypes.GET_USERNAMES)
 export const getUsernamesSuccess = createAction(
   ActionTypes.GET_USERNAMES_SUCCESS,

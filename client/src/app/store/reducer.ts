@@ -25,7 +25,8 @@ export const initialState: State = {
     },
     products: []
   },
-  productState: {...DefaultStateValues, products: []}
+  productState: {...DefaultStateValues, products: []},
+  graphsState: {...DefaultStateValues, graphs: []}
 };
 
 export const StoreReducer = createReducer<State>(
@@ -228,6 +229,34 @@ export const StoreReducer = createReducer<State>(
     ...state,
     userState: {
       ...state.userState,
+    }
+  })),
+
+  on(StoreActions.getUserGraphs, (state: State, _) => ({
+    ...state,
+    graphsState: {
+      ...state.graphsState,
+      loading: true,
+    }
+  })),
+
+  on(StoreActions.getUserGraphsSuccess, (state: State, action) => ({
+    ...state,
+    graphsState: {
+      loading: false,
+      success: true,
+      error: null,
+      graphs: action.response
+    }
+  })),
+
+  on(StoreActions.getUserGraphsFailure, (state: State, action) => ({
+    ...state,
+    usernamesState: {
+      loading: false,
+      success: false,
+      error: action.error,
+      usernames: null
     }
   })),
 )

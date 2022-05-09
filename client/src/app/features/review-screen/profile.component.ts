@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {UserState} from "../../store/state";
+import {GraphsState, UserState} from "../../store/state";
 import {Store} from "@ngrx/store";
 import {StoreActions, StoreSelectors} from "../../store";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {UserProductDTO, UserProductListDTO} from "../../shared/dto/user-product.dto";
 import {AuthUserDTO} from "../../shared/dto/user.dto";
 import {NutrientsType, QUANTITY_SELECTION} from "../../shared/dto/selected-product.dto";
 import {format, sub} from 'date-fns';
 import {enterAnimation} from "../../shared/animations/enter";
 import {TotalsDTO} from "../../shared/dto/totals.dto";
+import {ChartSizeDTO} from "../../shared/dto/chart-size.dto";
 
 @Component({
   selector: 'calorie-app-review-screen',
@@ -18,8 +19,21 @@ import {TotalsDTO} from "../../shared/dto/totals.dto";
 })
 export class ProfileComponent implements OnInit {
   userState$: Observable<UserState>;
+  graphsState$: Observable<GraphsState>;
   userProducts: UserProductListDTO[];
   user: AuthUserDTO;
+
+  categoriesGraphData: BehaviorSubject<any> = new BehaviorSubject(
+    {
+    labels: [],
+    datasets: [{data: []}]
+  }
+  )
+
+  categoriesGraphSize: ChartSizeDTO = {
+    width: '20rem',
+    height: '20rem'
+  };
 
   currentDate: string = format(new Date(), "yyyy-MM-dd");
   threeDaysBeforeDate: string = format(sub(new Date(this.currentDate), {
@@ -38,23 +52,28 @@ export class ProfileComponent implements OnInit {
 
   constructor(private store: Store) {
     this.userState$ = this.store.select(StoreSelectors.selectUserState);
+    this.graphsState$ = this.store.select(StoreSelectors.selectGraphsState);
   }
 
   ngOnInit(): void {
     this.store.dispatch(StoreActions.getUserProducts({payload: {date: this.currentDate}}));
+    this.store.dispatch(StoreActions.getUserGraphs({payload: {date: this.currentDate }}));
     this.subscribeToUserState();
+    this.subscribeToGraphsState();
   }
   toggleProducts(): void{
     this.showProducts = !this.showProducts;
   }
   changeDate(date: string){
     this.store.dispatch(StoreActions.getUserProducts({payload: {date}}));
+    this.store.dispatch(StoreActions.getUserGraphs({payload: {date }}));
   }
   toggleEditMode(product: UserProductListDTO){
     product.editMode = !product.editMode;
     if(product.changesMade){
       const update = {_id: product._id, nutrients: product.nutrients, quantity: product.quantity};
       this.store.dispatch(StoreActions.updateEnteredProduct({payload: {products: this.userProducts, update}}))
+      this.store.dispatch(StoreActions.getUserGraphs({payload: {date: this.currentDate }}));
     }
   }
   quantityChange(product: UserProductListDTO) {
@@ -92,11 +111,29 @@ export class ProfileComponent implements OnInit {
   private subscribeToUserState(): void{
     this.userState$.subscribe((userState: UserState)=>{
       if(userState.user.isAuthenticated){
+        this.user = userState.user;
         this.userProducts = JSON.parse(JSON.stringify(userState.products.map((product: UserProductDTO)=>{
           return product;
         })));
-        this.user = userState.user;
         this.calculateTotals();
+      }
+    })
+  }
+  private subscribeToGraphsState(): void{
+    this.graphsState$.subscribe((graphsState: GraphsState)=>{
+      if(graphsState.success){
+        this.categoriesGraphData.next({labels: [], datasets: [{data: []}]});
+
+        let data: string[] = [];
+        let labels: string[] = [];
+        const graphs = graphsState.graphs;
+        if(graphs['caloriesByCategory']?.length){
+          graphs['caloriesByCategory'].forEach((category: any)=>{
+             data.push(category.sum);
+             labels.push(category.name)
+          })
+          this.categoriesGraphData.next({labels, datasets: [{data}]})
+        }
       }
     })
   }

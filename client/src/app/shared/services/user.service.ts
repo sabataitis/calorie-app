@@ -8,8 +8,12 @@ export class UserService{
   constructor(private apiService: ApiService) {}
   USER_URL = 'user';
 
-  products(date: string): Observable<any>{
-    return this.apiService.get(this.USER_URL +`/products?date=${date}`);
+  products(payload: any): Observable<any>{
+    return this.apiService.get(this.USER_URL + `/products?date=${payload.date}`);
+  }
+
+  graphs(payload: any): Observable<any>{
+    return this.apiService.get(this.USER_URL + `/graphs?date=${payload.date}`);
   }
 
   register(payload: any): Observable<Partial<UserDTO>>{

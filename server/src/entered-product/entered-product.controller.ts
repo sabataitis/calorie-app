@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { EnteredProductDomainName } from "./name.const";
 import { UserProductDTO } from "../common/dto/userProduct.dto";
