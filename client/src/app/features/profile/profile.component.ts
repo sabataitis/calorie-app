@@ -7,11 +7,20 @@ import {UserProductDTO, UserProductListDTO} from "../../shared/dto/user-product.
 import {AuthUserDTO} from "../../shared/dto/user.dto";
 import {NutrientsType, QUANTITY_SELECTION} from "../../shared/dto/selected-product.dto";
 import {format, sub} from 'date-fns';
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'calorie-app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  animations: [
+    trigger('enter', [
+      transition(':enter', [
+        style({transform: 'scale(0)'}),
+        animate('185ms ease', style({transform: 'scale(1)'}))
+      ]),
+    ]),
+  ]
 })
 export class ProfileComponent implements OnInit {
   userState$: Observable<UserState>;
