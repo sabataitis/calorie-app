@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomeComponent} from "./features/home/home.component";
+import {SearchContainerComponent} from "./features/search-screen/containers/search-container/search-container.component";
 import {RegisterComponent} from "./features/register/register.component";
 import {LoginComponent} from "./features/login/login.component";
-import {ProfileComponent} from "./features/profile/profile.component";
+import {ProfileComponent} from "./features/review-screen/profile.component";
 import {AuthGuard} from "./shared/guards/auth-guard.service";
 import {LoginGuard} from "./shared/guards/login-guard.service";
 
@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'paieska',
-    component: HomeComponent
+    component: SearchContainerComponent
   },
   {
     path: 'registracija',

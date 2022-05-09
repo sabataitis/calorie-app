@@ -1,6 +1,0 @@
-<section class="app-background flex">
-  <calorie-app-non-auth-header [isAuthenticated]="isAuthenticated"></calorie-app-non-auth-header>
-  <calorie-app-products *ngIf="isAuthenticated" [user]="user" [products]="products" (saveProductsEvent)="enterProducts($event)"></calorie-app-products>
-</section>
-
-

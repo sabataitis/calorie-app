@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NavbarComponent } from './navbar/navbar.component';
-import { HomeComponent } from './home/home.component';
+import { SearchContainerComponent } from './search-screen/containers/search-container/search-container.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule } from "@angular/router";
@@ -10,22 +10,28 @@ import {ApiService} from "../shared/services/api.service";
 import {UserService} from "../shared/services/user.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AuthService} from "../shared/services/auth.service";
-import { ProfileComponent } from './profile/profile.component';
-import { ProductsComponent } from './home/components/products/products.component';
+import { ProfileComponent } from './review-screen/profile.component';
 import {NgChartsModule} from "ng2-charts";
-import { PieComponent } from './charts/pie/pie.component';
-import { NonAuthHeaderComponent } from './home/components/non-auth-header/non-auth-header.component';
+import { PieComponent } from './shared/charts/pie/pie.component';
+import { NonAuthHeaderComponent } from './search-screen/components/non-auth-header/non-auth-header.component';
+import { TotalsRowComponent } from './shared/totals-row/totals-row.component';
+import { SelectProductListComponent } from './shared/select-product-list/select-product-list.component';
+import { SearchBarComponent } from './shared/search-bar/search-bar.component';
+import {UserProductListComponent} from "./shared/user-product-list/user-product-list.component";
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    HomeComponent,
+    SearchContainerComponent,
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    ProductsComponent,
     PieComponent,
     NonAuthHeaderComponent,
+    TotalsRowComponent,
+    SelectProductListComponent,
+    UserProductListComponent,
+    SearchBarComponent,
   ],
     imports: [
         BrowserModule,

@@ -1,0 +1,20 @@
+<div class="flex gap-2 w-full">
+  <div class="flex flex-col">
+    <p [ngClass]="{'text-2xl': size === 'md', 'text-md': size === 'sm'}" class="text-black text-center">{{totals.calories | number}}</p>
+    <p [ngClass]="{'text-lg': size === 'md', 'text-sm': size === 'sm'}" class="text-primary-400 text-right">kcal</p>
+  </div>
+  <div class="flex flex-col">
+    <p [ngClass]="{'text-2xl': size === 'md', 'text-md': size === 'sm'}" class="text-black text-center">{{totals.proteins | number}}g</p>
+    <p [ngClass]="{'text-lg': size === 'md', 'text-sm': size === 'sm'}" class="text-primary-400 text-right">
+      baltymų</p>
+  </div>
+  <div class="flex flex-col">
+    <p [ngClass]="{'text-2xl': size === 'md', 'text-md': size === 'sm'}" class="text-black text-center">{{totals.carbs | number}}g</p>
+    <p [ngClass]="{'text-lg': size === 'md', 'text-sm': size === 'sm'}" class="text-primary-400 text-right">
+      angliavandenių</p>
+  </div>
+  <div class="flex flex-col">
+    <p [ngClass]="{'text-2xl': size === 'md', 'text-md': size === 'sm'}" class="text-black text-center">{{totals.fats | number}}g</p>
+    <p [ngClass]="{'text-lg': size === 'md', 'text-sm': size === 'sm'}" class="text-primary-400 text-right">riebalų</p>
+  </div>
+</div>

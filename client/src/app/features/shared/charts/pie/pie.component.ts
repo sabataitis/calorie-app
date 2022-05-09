@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {ChartConfiguration, ChartData, ChartEvent, ChartOptions, ChartType} from "chart.js";
 import {BaseChartDirective} from "ng2-charts";
-import {ChartSizeDTO} from "../../../shared/dto/chart-size.dto";
+import {ChartSizeDTO} from "../../../../shared/dto/chart-size.dto";
 
 @Component({
   selector: 'calorie-app-pie',

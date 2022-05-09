@@ -9,6 +9,7 @@ import {UsernamesState} from "../../store/state";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {ACTIVITY_FACTOR} from "../../shared/enum/activity-factor.enum";
 import {GOALS} from "../../shared/enum/goals.enum";
+import {enterAnimation} from "../../shared/animations/enter";
 
 type TextValue = { text: string, value: string };
 
@@ -22,14 +23,7 @@ export interface Wizard {
   selector: 'calorie-app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  animations: [
-    trigger('enter', [
-      transition(':enter', [
-        style({transform: 'scale(0)'}),
-        animate('185ms ease', style({transform: 'scale(1)'}))
-      ]),
-    ]),
-  ]
+  animations: [enterAnimation]
 })
 
 export class RegisterComponent implements OnInit {

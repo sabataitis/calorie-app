@@ -7,11 +7,14 @@ import {UserProductDTO, UserProductListDTO} from "../../shared/dto/user-product.
 import {AuthUserDTO} from "../../shared/dto/user.dto";
 import {NutrientsType, QUANTITY_SELECTION} from "../../shared/dto/selected-product.dto";
 import {format, sub} from 'date-fns';
+import {enterAnimation} from "../../shared/animations/enter";
+import {TotalsDTO} from "../../shared/dto/totals.dto";
 
 @Component({
-  selector: 'calorie-app-profile',
+  selector: 'calorie-app-review-screen',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  animations: [enterAnimation]
 })
 export class ProfileComponent implements OnInit {
   userState$: Observable<UserState>;
@@ -26,7 +29,7 @@ export class ProfileComponent implements OnInit {
   dateInput: string = this.currentDate;
   showProducts: boolean = false;
 
-  totals = {
+  totals: TotalsDTO = {
     calories: 0,
     proteins: 0,
     carbs: 0,
@@ -41,35 +44,12 @@ export class ProfileComponent implements OnInit {
     this.store.dispatch(StoreActions.getUserProducts({payload: {date: this.currentDate}}));
     this.subscribeToUserState();
   }
-
   toggleProducts(): void{
     this.showProducts = !this.showProducts;
   }
-
-
-  trackByIndex(index: number, object: any): number {
-    return index;
-  }
-
   changeDate(date: string){
     this.store.dispatch(StoreActions.getUserProducts({payload: {date}}));
   }
-
-  getQuantityAndMeasurement(product: UserProductDTO): any{
-    switch(product.quantity.selected){
-      case QUANTITY_SELECTION.UNIT:
-        return {
-          quantity: product.quantity.units,
-          measurement: 'vnt'
-        }
-      case QUANTITY_SELECTION.GRAM:
-        return {
-          quantity: product.quantity.grams,
-          measurement: 'g'
-        }
-    }
-  }
-
   toggleEditMode(product: UserProductListDTO){
     product.editMode = !product.editMode;
     if(product.changesMade){
@@ -77,19 +57,6 @@ export class ProfileComponent implements OnInit {
       this.store.dispatch(StoreActions.updateEnteredProduct({payload: {products: this.userProducts, update}}))
     }
   }
-
-  calculateNutrients(measurement: string, product: UserProductListDTO): void {
-    if (measurement === QUANTITY_SELECTION.GRAM) {
-      for(const nutrient in product.productId.nutrients){
-        product.nutrients[nutrient as keyof NutrientsType]= Number((product.productId.nutrients[nutrient as keyof NutrientsType] * (product.quantity.grams / 100)).toFixed(2));
-      }
-    } else {
-      for(const nutrient in product.productId.nutrients){
-        product.nutrients[nutrient as keyof NutrientsType]= Number((product.productId.nutrients[nutrient as keyof NutrientsType] * product.quantity.units * product.productId.quantities.unit_g / 100).toFixed(2));
-      }
-    }
-  }
-
   quantityChange(product: UserProductListDTO) {
     product.changesMade = true;
     switch (product.quantity.selected) {
@@ -100,13 +67,21 @@ export class ProfileComponent implements OnInit {
         this.calculateNutrients(QUANTITY_SELECTION.UNIT, product);
         break;
     }
-    // TODO add totals someplace
     this.calculateTotals();
   }
-
-  calculateTotals(): void {
+  private calculateNutrients(measurement: string, product: UserProductListDTO): void {
+    if (measurement === QUANTITY_SELECTION.GRAM) {
+      for(const nutrient in product.productId.nutrients){
+        product.nutrients[nutrient as keyof NutrientsType]= Number((product.productId.nutrients[nutrient as keyof NutrientsType] * (product.quantity.grams / 100)).toFixed(2));
+      }
+    } else {
+      for(const nutrient in product.productId.nutrients){
+        product.nutrients[nutrient as keyof NutrientsType]= Number((product.productId.nutrients[nutrient as keyof NutrientsType] * product.quantity.units * product.productId.quantities.unit_g / 100).toFixed(2));
+      }
+    }
+  }
+  private calculateTotals(): void {
     this.totals = {calories: 0, proteins: 0, carbs: 0, fats: 0};
-
     this.userProducts.forEach((product: UserProductListDTO) => {
       this.totals.calories += product.nutrients.calories;
       this.totals.proteins += product.nutrients.proteins;
@@ -114,8 +89,6 @@ export class ProfileComponent implements OnInit {
       this.totals.fats += product.nutrients.fats;
     })
   }
-
-
   private subscribeToUserState(): void{
     this.userState$.subscribe((userState: UserState)=>{
       if(userState.user.isAuthenticated){
@@ -127,5 +100,4 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
-
 }
