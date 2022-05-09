@@ -1,18 +1,16 @@
-<div class="flex bg-white rounded-md border-2">
-  <div class="flex gap-2 items-center shadow-md w-full w-1/2">
+<div class="flex items-center bg-white rounded-md border-secondary-200 border-2 w-full">
       <span class="px-4">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
            stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
       </svg>
       </span>
-    <input
-      list="products"
-      [(ngModel)]="term"
-      (change)="productChange(term)"
-      class="outline-0 appearance-none w-full text-sm text-slate-900 placeholder-slate-400 rounded-md py-2"
-      type="text" aria-label="Filter projects" placeholder="Produkto ar recepto pavadinimas...">
-  </div>
+  <input
+    list="products"
+    [(ngModel)]="term"
+    (change)="productChange(term)"
+    class="outline-0 appearance-none w-full text-sm text-slate-900 placeholder-slate-400 rounded-md py-2"
+    type="text" aria-label="Filter projects" placeholder="Produkto ar recepto pavadinimas...">
 </div>
 <datalist id="products">
   <option *ngFor="let product of products" [value]="product.name">{{product.nutrients.calories}} <span
