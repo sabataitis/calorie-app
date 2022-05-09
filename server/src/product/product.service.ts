@@ -44,6 +44,6 @@ export class ProductService {
     const from: Date = startOfDay(date);
     const to: Date = endOfDay(date);
 
-    return this.userProductModel.find({userId, createdAt: {$gte: from, $lte: to }}).populate('productId').lean();
+    return this.userProductModel.find({userId, createdAt: {$gte: from, $lte: to }}).sort({createdAt: -1}).populate('productId').lean();
   }
 }
