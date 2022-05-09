@@ -19,19 +19,9 @@ export class PolarAreaComponent implements OnChanges{
   ngOnChanges(changes: SimpleChanges) {
     if(changes['chartData'].currentValue){
       this.data = this.chartData;
-      console.log(this.data);
     }
     if(changes['chartSize']){
       this.size =this.chartSize;
     }
-  }
-
-  // events
-  public chartClicked({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
   }
 }

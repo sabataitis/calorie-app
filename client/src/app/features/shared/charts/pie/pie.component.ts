@@ -29,14 +29,4 @@ export class PieComponent implements OnChanges{
       this.size =this.chartSize;
     }
   }
-  public pieChartType: ChartType = 'pie';
-
-  // events
-  public chartClicked({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: ChartEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
 }
