@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GraphsState, UserState} from "../../store/state";
+import {CategoryGraphState, LinearGraphState, UserState} from "../../store/state";
 import {Store} from "@ngrx/store";
 import {StoreActions, StoreSelectors} from "../../store";
 import {BehaviorSubject, Observable} from "rxjs";
@@ -21,15 +21,23 @@ import {NutrientLabelsConst} from "../../shared/constants/nutrient-labels.const"
 })
 export class ProfileComponent implements OnInit {
   userState$: Observable<UserState>;
-  graphsState$: Observable<GraphsState>;
+  userCategoryGraphState$: Observable<CategoryGraphState>;
+  userLinearGraphState$: Observable<LinearGraphState>;
   userProducts: UserProductListDTO[];
   user: AuthUserDTO;
 
   categoriesGraphData: BehaviorSubject<any> = new BehaviorSubject(
     {
-    labels: [],
-    datasets: [{data: []}]
-  }
+      labels: [],
+      datasets: [{data: []}]
+    }
+  )
+
+  linearGraphData: BehaviorSubject<any> = new BehaviorSubject(
+    {
+      labels: [],
+      datasets: [{data: []}]
+    }
   )
 
   categoriesGraphSize: ChartSizeDTO = {
@@ -66,30 +74,37 @@ export class ProfileComponent implements OnInit {
 
   constructor(private store: Store) {
     this.userState$ = this.store.select(StoreSelectors.selectUserState);
-    this.graphsState$ = this.store.select(StoreSelectors.selectGraphsState);
+    this.userCategoryGraphState$ = this.store.select(StoreSelectors.selectUserCategoryGraphState);
+    this.userLinearGraphState$ = this.store.select(StoreSelectors.selectUserLinearGraphState);
   }
 
   ngOnInit(): void {
     this.store.dispatch(StoreActions.getUserProducts({payload: {date: this.currentDate}}));
-    this.store.dispatch(StoreActions.getUserGraphs({payload: {date: this.currentDate }}));
+    this.store.dispatch(StoreActions.getUserCategoryGraph({payload: {date: this.currentDate}}));
+    this.store.dispatch(StoreActions.getUserLinearGraph({payload: {days: 3}}));
     this.subscribeToUserState();
     this.subscribeToGraphsState();
+    this.subscribeToLinearGraphState();
   }
-  toggleProducts(): void{
+
+  toggleProducts(): void {
     this.showProducts = !this.showProducts;
   }
-  changeDate(date: string){
+
+  changeDate(date: string) {
     this.store.dispatch(StoreActions.getUserProducts({payload: {date}}));
-    this.store.dispatch(StoreActions.getUserGraphs({payload: {date }}));
+    this.store.dispatch(StoreActions.getUserCategoryGraph({payload: {date}}));
   }
-  toggleEditMode(product: UserProductListDTO){
+
+  toggleEditMode(product: UserProductListDTO) {
     product.editMode = !product.editMode;
-    if(product.changesMade){
+    if (product.changesMade) {
       const update = {_id: product._id, nutrients: product.nutrients, quantity: product.quantity};
       this.store.dispatch(StoreActions.updateEnteredProduct({payload: {products: this.userProducts, update}}))
-      this.store.dispatch(StoreActions.getUserGraphs({payload: {date: this.currentDate }}));
+      this.store.dispatch(StoreActions.getUserCategoryGraph({payload: {date: this.currentDate}}));
     }
   }
+
   quantityChange(product: UserProductListDTO) {
     product.changesMade = true;
     switch (product.quantity.selected) {
@@ -102,17 +117,19 @@ export class ProfileComponent implements OnInit {
     }
     this.calculateTotals();
   }
+
   private calculateNutrients(measurement: string, product: UserProductListDTO): void {
     if (measurement === QUANTITY_SELECTION.GRAM) {
-      for(const nutrient in product.productId.nutrients){
-        product.nutrients[nutrient as keyof NutrientsType]= Number((product.productId.nutrients[nutrient as keyof NutrientsType] * (product.quantity.grams / 100)).toFixed(2));
+      for (const nutrient in product.productId.nutrients) {
+        product.nutrients[nutrient as keyof NutrientsType] = Number((product.productId.nutrients[nutrient as keyof NutrientsType] * (product.quantity.grams / 100)).toFixed(2));
       }
     } else {
-      for(const nutrient in product.productId.nutrients){
-        product.nutrients[nutrient as keyof NutrientsType]= Number((product.productId.nutrients[nutrient as keyof NutrientsType] * product.quantity.units * product.productId.quantities.unit_g / 100).toFixed(2));
+      for (const nutrient in product.productId.nutrients) {
+        product.nutrients[nutrient as keyof NutrientsType] = Number((product.productId.nutrients[nutrient as keyof NutrientsType] * product.quantity.units * product.productId.quantities.unit_g / 100).toFixed(2));
       }
     }
   }
+
   private calculateTotals(): void {
     this.totals = {calories: 0, proteins: 0, carbs: 0, fats: 0};
     this.userProducts.forEach((product: UserProductListDTO) => {
@@ -122,11 +139,12 @@ export class ProfileComponent implements OnInit {
       this.totals.fats += product.nutrients.fats;
     })
   }
-  private subscribeToUserState(): void{
-    this.userState$.subscribe((userState: UserState)=>{
-      if(userState.user.isAuthenticated){
+
+  private subscribeToUserState(): void {
+    this.userState$.subscribe((userState: UserState) => {
+      if (userState.user.isAuthenticated) {
         this.user = userState.user;
-        this.userProducts = JSON.parse(JSON.stringify(userState.products.map((product: UserProductDTO)=>{
+        this.userProducts = JSON.parse(JSON.stringify(userState.products.map((product: UserProductDTO) => {
           return product;
         })));
         this.calculateTotals();
@@ -134,9 +152,9 @@ export class ProfileComponent implements OnInit {
           ...this.floatingBarData.value,
           datasets: [
             {
-            label: 'Suvartota',
-            data: [[0, this.totals.proteins], [0, this.totals.carbs], [0, this.totals.fats]]
-          },
+              label: 'Suvartota',
+              data: [[0, this.totals.proteins], [0, this.totals.carbs], [0, this.totals.fats]]
+            },
             {
               label: 'Rekomenduoja Paros Norma',
               data: [
@@ -150,21 +168,42 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
-  private subscribeToGraphsState(): void{
-    this.graphsState$.subscribe((graphsState: GraphsState)=>{
-      if(graphsState.success){
+
+  private subscribeToGraphsState(): void {
+    this.userCategoryGraphState$.subscribe((categoryGraphState: CategoryGraphState) => {
+      if (categoryGraphState.success) {
         this.categoriesGraphData.next({labels: [], datasets: [{data: []}]});
 
         let data: string[] = [];
         let labels: string[] = [];
-        const graphs = graphsState.graphs;
-        if(graphs['caloriesByCategory']?.length){
-          graphs['caloriesByCategory'].forEach((category: any)=>{
-             data.push(category.sum);
-             labels.push(category.name)
+        const graphs = categoryGraphState.data;
+        if (graphs['caloriesByCategory']?.length) {
+          graphs['caloriesByCategory'].forEach((category: any) => {
+            data.push(category.sum);
+            labels.push(category.name)
           })
           this.categoriesGraphData.next({labels, datasets: [{data}]})
         }
+      }
+    })
+  }
+
+  private subscribeToLinearGraphState(): void {
+    this.userLinearGraphState$.subscribe((linearGraphState: LinearGraphState) => {
+      if (linearGraphState.success) {
+        console.log(linearGraphState.data);
+        // this.categoriesGraphData.next({labels: [], datasets: [{data: []}]});
+        //
+        // let data: string[] = [];
+        // let labels: string[] = [];
+        // const graphs = categoryGraphState.data;
+        // if(graphs['caloriesByCategory']?.length){
+        //   graphs['caloriesByCategory'].forEach((category: any)=>{
+        //     data.push(category.sum);
+        //     labels.push(category.name)
+        //   })
+        //   this.categoriesGraphData.next({labels, datasets: [{data}]})
+        // }
       }
     })
   }

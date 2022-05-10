@@ -23,13 +23,24 @@ export class StoreEffects {
     private router: Router,
   ) {}
 
-  getUserGraphs$ = createEffect(() =>
+  getUserCategoryGraph$ = createEffect(() =>
     this.actions.pipe(
-      ofType(StoreActions.getUserGraphs),
+      ofType(StoreActions.getUserCategoryGraph),
       switchMap(({payload}) =>
-        this.userService.graphs(payload).pipe(
-          map((response: any) => StoreActions.getUserGraphsSuccess({ response })),
-          catchError((error: HttpException) => of(StoreActions.getUserGraphsFailure(error))),
+        this.userService.categoryGraph(payload).pipe(
+          map((response: any) => StoreActions.getUserCategoryGraphSuccess({ response })),
+          catchError((error: HttpException) => of(StoreActions.getUserCategoryGraphFailure(error))),
+        ),
+      ),
+    ),
+  );
+  getUserLinearGraph$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(StoreActions.getUserLinearGraph),
+      switchMap(({payload}) =>
+        this.userService.linearGraph(payload).pipe(
+          map((response: any) => StoreActions.getUserLinearGraphSuccess({ response })),
+          catchError((error: HttpException) => of(StoreActions.getUserLinearGraphFailure(error))),
         ),
       ),
     ),

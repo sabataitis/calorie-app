@@ -4,9 +4,13 @@ import {FailureActionProps} from "./interfaces/actions/failure-action-props.inte
 import {RequestActionProps} from "./interfaces/actions/request-action-props.interface";
 
 export enum ActionTypes {
-  GET_USER_GRAPHS = '[User] Get User Graphs Request',
-  GET_USER_GRAPHS_SUCCESS = '[User] Get User Graphs Success Response',
-  GET_USER_GRAPHS_FAILURE = '[User] Get User Graphs Failure Response',
+  GET_USER_CATEGORY_GRAPH = '[User] Get User Category Graph Request',
+  GET_USER_CATEGORY_GRAPH_SUCCESS = '[User] Get User Category Graph Success Response',
+  GET_USER_CATEGORY_GRAPH_FAILURE = '[User] Get User Category Graph Failure Response',
+
+  GET_USER_LINEAR_GRAPH = '[User] Get User Linear Graph Request',
+  GET_USER_LINEAR_GRAPH_SUCCESS = '[User] Get User Linear Graph Success Response',
+  GET_USER_LINEAR_GRAPH_FAILURE = '[User] Get User Linear Graph Failure Response',
 
   ENTER_PRODUCTS = '[Product] Enter Products Request',
   ENTER_PRODUCTS_SUCCESS = '[Product] Enter Products Success Response',
@@ -43,13 +47,22 @@ export enum ActionTypes {
   GET_CURRENT_USER_FAILURE = '[Auth] Get Current User Failure Response',
 }
 
-export const getUserGraphs = createAction(ActionTypes.GET_USER_GRAPHS, props<RequestActionProps<any>>())
-export const getUserGraphsSuccess = createAction(
-  ActionTypes.GET_USER_GRAPHS_SUCCESS,
+export const getUserCategoryGraph = createAction(ActionTypes.GET_USER_CATEGORY_GRAPH, props<RequestActionProps<any>>())
+export const getUserCategoryGraphSuccess = createAction(
+  ActionTypes.GET_USER_CATEGORY_GRAPH_SUCCESS,
   props<SuccessActionProps<any>>(),
 );
-export const getUserGraphsFailure = createAction(
-  ActionTypes.GET_USER_GRAPHS_FAILURE,
+export const getUserCategoryGraphFailure = createAction(
+  ActionTypes.GET_USER_CATEGORY_GRAPH_FAILURE,
+  props<FailureActionProps>(),
+);
+export const getUserLinearGraph = createAction(ActionTypes.GET_USER_LINEAR_GRAPH, props<RequestActionProps<any>>())
+export const getUserLinearGraphSuccess = createAction(
+  ActionTypes.GET_USER_LINEAR_GRAPH_SUCCESS,
+  props<SuccessActionProps<any>>(),
+);
+export const getUserLinearGraphFailure = createAction(
+  ActionTypes.GET_USER_LINEAR_GRAPH_FAILURE,
   props<FailureActionProps>(),
 );
 export const getUsernames = createAction(ActionTypes.GET_USERNAMES)

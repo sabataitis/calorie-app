@@ -11,14 +11,20 @@ export class UserController{
 
   @UseGuards(JwtAuthGuard)
   @Get('products')
-  products(@Request() req, @Query('date') query){
-    return this.enteredProductService.findAllUserProducts(req.user.userId, query);
+  products(@Request() req, @Query('date') dateQuery){
+    return this.enteredProductService.findAllUserProducts(req.user.userId, dateQuery);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('graphs')
-  graphs(@Request() req, @Query('date') query){
-    return this.enteredProductService.graphs(req.user.userId, query);
+  @Get('category-graph')
+  categoryGraph(@Request() req, @Query('date') query){
+    return this.enteredProductService.categoryGraph(req.user.userId, query);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('linear-graph')
+  linearGraph(@Request() req, @Query('days') query){
+    return this.enteredProductService.linearGraph(req.user.userId, query);
   }
 
   @Post()

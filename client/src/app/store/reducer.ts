@@ -27,7 +27,8 @@ export const initialState: State = {
     products: []
   },
   productState: {...DefaultStateValues, products: []},
-  graphsState: {...DefaultStateValues, graphs: []}
+  categoryGraphState: {...DefaultStateValues, data: []},
+  linearGraphState: {...DefaultStateValues, data: []},
 };
 
 export const StoreReducer = createReducer<State>(
@@ -83,17 +84,6 @@ export const StoreReducer = createReducer<State>(
         ...action.response,
         isAuthenticated: true,
       },
-      // user: {
-      //   isAuthenticated: true,
-      //   _id: action.response.user._id,
-      //   username: action.response.user.username,
-      //   gender: action.response.user.gender,
-      //   age: action.response.user.age,
-      //   height: action.response.user.height,
-      //   weight: action.response.user.weight,
-      //   activity: action.response.user.activity,
-      //   calories: action.response.user.calories
-      // },
       products: []
     }
   })),
@@ -230,31 +220,53 @@ export const StoreReducer = createReducer<State>(
     }
   })),
 
-  on(StoreActions.getUserGraphs, (state: State, _) => ({
+  on(StoreActions.getUserCategoryGraph, (state: State, _) => ({
     ...state,
-    graphsState: {
-      ...state.graphsState,
+    categoryGraphState: {
+      ...initialState.categoryGraphState,
       loading: true,
     }
   })),
 
-  on(StoreActions.getUserGraphsSuccess, (state: State, action) => ({
+  on(StoreActions.getUserCategoryGraphSuccess, (state: State, action) => ({
     ...state,
-    graphsState: {
+    categoryGraphState: {
       loading: false,
       success: true,
       error: null,
-      graphs: action.response
+      data: action.response
     }
   })),
 
-  on(StoreActions.getUserGraphsFailure, (state: State, action) => ({
+  on(StoreActions.getUserCategoryGraphFailure, (state: State, action) => ({
     ...state,
-    usernamesState: {
-      loading: false,
-      success: false,
+    categoryGraphState: {
+      ...initialState.categoryGraphState,
       error: action.error,
-      usernames: null
+    }
+  })),
+  on(StoreActions.getUserLinearGraph, (state: State, _) => ({
+    ...state,
+    linearGraphState: {
+      ...initialState.linearGraphState,
+      loading: true,
+    }
+  })),
+  on(StoreActions.getUserLinearGraphSuccess, (state: State, action) => ({
+    ...state,
+    linearGraphState: {
+      loading: false,
+      success: true,
+      error: null,
+      data: action.response
+    }
+  })),
+
+  on(StoreActions.getUserLinearGraphFailure, (state: State, action) => ({
+    ...state,
+    linearGraphState: {
+      ...initialState.linearGraphState,
+      error: action.error,
     }
   })),
 )

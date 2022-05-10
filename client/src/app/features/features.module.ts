@@ -20,6 +20,7 @@ import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import {UserProductListComponent} from "./shared/user-product-list/user-product-list.component";
 import {PolarAreaComponent} from "./shared/charts/polar-area/polar-area.component";
 import {FloatingBarChartComponent} from "./shared/charts/floating-bar-chart/floating-bar-chart.component";
+import {LineChartComponent} from "./shared/charts/line-chart/line-chart.component";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {FloatingBarChartComponent} from "./shared/charts/floating-bar-chart/floa
     PieComponent,
     PolarAreaComponent,
     FloatingBarChartComponent,
+    LineChartComponent,
     NonAuthHeaderComponent,
     TotalsRowComponent,
     SelectProductListComponent,
