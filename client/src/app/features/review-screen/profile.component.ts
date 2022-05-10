@@ -10,6 +10,8 @@ import {format, sub} from 'date-fns';
 import {enterAnimation} from "../../shared/animations/enter";
 import {TotalsDTO} from "../../shared/dto/totals.dto";
 import {ChartSizeDTO} from "../../shared/dto/chart-size.dto";
+import {ChartData} from "chart.js";
+import {NutrientLabelsConst} from "../../shared/constants/nutrient-labels.const";
 
 @Component({
   selector: 'calorie-app-review-screen',
@@ -34,6 +36,18 @@ export class ProfileComponent implements OnInit {
     width: '20rem',
     height: '20rem'
   };
+
+  floatingBarGraphSize: ChartSizeDTO = {
+    width: '40rem',
+    height: '40rem'
+  };
+
+  floatingBarData: BehaviorSubject<ChartData<any>> = new BehaviorSubject<ChartData<any>>(
+    {
+      labels: NutrientLabelsConst,
+      datasets: [{data: []}]
+    }
+  )
 
   currentDate: string = format(new Date(), "yyyy-MM-dd");
   threeDaysBeforeDate: string = format(sub(new Date(this.currentDate), {
@@ -116,6 +130,23 @@ export class ProfileComponent implements OnInit {
           return product;
         })));
         this.calculateTotals();
+        this.floatingBarData.next({
+          ...this.floatingBarData.value,
+          datasets: [
+            {
+            label: 'Suvartota',
+            data: [[0, this.totals.proteins], [0, this.totals.carbs], [0, this.totals.fats]]
+          },
+            {
+              label: 'Rekomenduoja Paros Norma',
+              data: [
+                [this.user.recommendations.proteins.from, this.user.recommendations.proteins.to],
+                [this.user.recommendations.carbs.from, this.user.recommendations.carbs.to],
+                [this.user.recommendations.fats.from, this.user.recommendations.fats.to],
+              ]
+            }
+          ]
+        })
       }
     })
   }

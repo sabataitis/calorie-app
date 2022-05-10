@@ -11,12 +11,13 @@ import {ChartSizeDTO} from "../../../../shared/dto/chart-size.dto";
 import {ChartDataType, createPieChartData} from "../../../../shared/utils/create-pie-chart-data";
 import {pieChartBgColors} from "../../../../shared/constants/pie-chart-bg-colors";
 import {enterAnimation} from "../../../../shared/animations/enter";
+import {NutrientLabelsConst} from "../../../../shared/constants/nutrient-labels.const";
 
 @Component({
   selector: 'calorie-app-search-container',
   templateUrl: './search-container.component.html',
   styleUrls: ['./search-container.component.scss'],
-  animations:[
+  animations: [
     enterAnimation
   ]
 })
@@ -54,14 +55,13 @@ export class SearchContainerComponent implements OnInit {
   };
 
   chartData: BehaviorSubject<ChartDataType> = new BehaviorSubject<ChartDataType>(
-    createPieChartData(['Baltymai', 'Angliavandeniai', 'Riebalai'],
-      [
-        {
-          data: [0, 0, 0],
-          backgroundColor: pieChartBgColors
-        }
+    {
+      labels: NutrientLabelsConst,
+      datasets: [{
+        data: [0, 0, 0]
+      }
       ]
-    )
+    }
   );
 
   constructor(private store: Store) {
@@ -97,12 +97,12 @@ export class SearchContainerComponent implements OnInit {
 
   calculateNutrients(measurement: string, product: ProductDTO, selectedProduct: SelectedProductDTO): void {
     if (measurement === QUANTITY_SELECTION.GRAM) {
-      for(const nutrient in selectedProduct.nutrients){
-        selectedProduct.nutrients[nutrient as keyof NutrientsType]= Number((product.nutrients[nutrient as keyof NutrientsType] * (selectedProduct.quantity.grams / 100)).toFixed(2));
+      for (const nutrient in selectedProduct.nutrients) {
+        selectedProduct.nutrients[nutrient as keyof NutrientsType] = Number((product.nutrients[nutrient as keyof NutrientsType] * (selectedProduct.quantity.grams / 100)).toFixed(2));
       }
     } else {
-      for(const nutrient in selectedProduct.nutrients){
-        selectedProduct.nutrients[nutrient as keyof NutrientsType]= Number((product.nutrients[nutrient as keyof NutrientsType] * (selectedProduct.quantity.units * product.quantities.unit_g / 100)).toFixed(2));
+      for (const nutrient in selectedProduct.nutrients) {
+        selectedProduct.nutrients[nutrient as keyof NutrientsType] = Number((product.nutrients[nutrient as keyof NutrientsType] * (selectedProduct.quantity.units * product.quantities.unit_g / 100)).toFixed(2));
       }
     }
   }
@@ -138,7 +138,6 @@ export class SearchContainerComponent implements OnInit {
       ...this.chartData.value,
       datasets: [{
         data: [this.totals.proteins, this.totals.carbs, this.totals.fats],
-        backgroundColor: pieChartBgColors
       }]
     })
   }
@@ -156,7 +155,7 @@ export class SearchContainerComponent implements OnInit {
         hasUnits: !!product.quantities.unit_g,
         selected: QUANTITY_SELECTION.GRAM,
         grams: product.quantities.quantity_g,
-        units: product.quantities.unit_g?1:null
+        units: product.quantities.unit_g ? 1 : null
       }
     }
   }
@@ -169,6 +168,7 @@ export class SearchContainerComponent implements OnInit {
       }
     })
   }
+
   private subscribeToProductState(): void {
     this.productState$.subscribe((productState: ProductState) => {
       if (productState.success) {

@@ -19,6 +19,7 @@ import { SelectProductListComponent } from './shared/select-product-list/select-
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import {UserProductListComponent} from "./shared/user-product-list/user-product-list.component";
 import {PolarAreaComponent} from "./shared/charts/polar-area/polar-area.component";
+import {FloatingBarChartComponent} from "./shared/charts/floating-bar-chart/floating-bar-chart.component";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {PolarAreaComponent} from "./shared/charts/polar-area/polar-area.componen
     ProfileComponent,
     PieComponent,
     PolarAreaComponent,
+    FloatingBarChartComponent,
     NonAuthHeaderComponent,
     TotalsRowComponent,
     SelectProductListComponent,

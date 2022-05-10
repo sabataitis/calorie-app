@@ -1,3 +1,18 @@
+export interface Recommendations{
+  proteins: {
+    from: number,
+    to: number,
+  },
+  carbs: {
+    from: number,
+    to: number,
+  },
+  fats: {
+    from: number,
+    to: number,
+  }
+}
+
 export interface UserDTO{
   username: string,
   gender: string,
@@ -6,7 +21,7 @@ export interface UserDTO{
   weight: number,
   activity: string,
   calories: number,
-  calorieGoal?: number
+  recommendations: Recommendations
 }
 export interface AuthUserDTO extends UserDTO{
   _id: string,

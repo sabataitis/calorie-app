@@ -1,13 +1,13 @@
 <section class="p-6">
   <div class="py-4 text-left">
     <h1 class="font-semibold text-4xl uppercase">Apžvalga</h1>
-    <h2 class="text-lg font-semibold">Dienos tikslas ({{user?.calories}} kcal)</h2>
-    <h2 class="text-lg font-semibold">Liko ({{user?.calories - totals.calories }} kcal)</h2>
   </div>
   <div class="flex justify-between items-center cursor-pointer gap-2">
     <div class="flex gap-2">
       <div class="py-4">
-        <h1 class="font-semibold text-xl text-center">Produktai/Receptai</h1>
+        <h1 class="font-semibold text-2xl text-left">Dienos apžvalga</h1>
+        <h2 class="text-md font-semibold">Dienos tikslas ({{user?.calories}} kcal)</h2>
+        <h2 class="text-md font-semibold">Liko ({{user?.calories - totals.calories  | number}} kcal)</h2>
         <input
           type="date"
           class="text-primary-700"
@@ -31,8 +31,14 @@
     <calorie-app-totals-row [totals]="totals" [size]="'md'"></calorie-app-totals-row>
   </div>
   <calorie-app-user-product-list *ngIf="showProducts" [userProducts]="userProducts" (quantityChangeEvent)="quantityChange($event)" (toggleEditModeEvent)="toggleEditMode($event)"></calorie-app-user-product-list>
-  <div class="flex flex-col justify-start items-start">
-    <h1 class="font-semibold text-lg text-left">Kalorijų suvartojimas pagal kategoriją</h1>
-    <calorie-app-polar-area [chartData]="categoriesGraphData | async" [chartSize]="categoriesGraphSize"></calorie-app-polar-area>
+  <div class="graphs flex justify-around py-4">
+    <div class="flex flex-col justify-start items-start">
+      <h1 class="font-semibold text-lg text-left">Kalorijų suvartojimas pagal kategoriją</h1>
+      <calorie-app-polar-area [chartData]="categoriesGraphData | async" [chartSize]="categoriesGraphSize"></calorie-app-polar-area>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <h1 class="font-semibold text-lg text-center">Kalorijų suvartojimas pagal rekomenduojamos paros normas</h1>
+      <calorie-app-floating-bar-chart [chartData]="floatingBarData | async" [chartSize]="floatingBarGraphSize"></calorie-app-floating-bar-chart>
+    </div>
   </div>
 </section>

@@ -21,7 +21,8 @@ export const initialState: State = {
       height: null,
       weight: null,
       activity: null,
-      calories: null
+      calories: null,
+      recommendations:null
     },
     products: []
   },
@@ -79,16 +80,20 @@ export const StoreReducer = createReducer<State>(
       success: true,
       error: null,
       user: {
+        ...action.response,
         isAuthenticated: true,
-        _id: action.response.user._id,
-        username: action.response.user.username,
-        gender: action.response.user.gender,
-        age: action.response.user.age,
-        height: action.response.user.height,
-        weight: action.response.user.weight,
-        activity: action.response.user.activity,
-        calories: action.response.user.calories
       },
+      // user: {
+      //   isAuthenticated: true,
+      //   _id: action.response.user._id,
+      //   username: action.response.user.username,
+      //   gender: action.response.user.gender,
+      //   age: action.response.user.age,
+      //   height: action.response.user.height,
+      //   weight: action.response.user.weight,
+      //   activity: action.response.user.activity,
+      //   calories: action.response.user.calories
+      // },
       products: []
     }
   })),
@@ -127,15 +132,8 @@ export const StoreReducer = createReducer<State>(
       success: true,
       error: null,
       user: {
+        ...action.response,
         isAuthenticated: true,
-        _id: action.response._id,
-        username: action.response.username,
-        gender: action.response.gender,
-        age: action.response.age,
-        height: action.response.height,
-        weight: action.response.weight,
-        activity: action.response.activity,
-        calories: action.response.calories
       },
       products: []
     }
