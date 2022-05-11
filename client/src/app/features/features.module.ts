@@ -21,6 +21,7 @@ import {UserProductListComponent} from "./shared/user-product-list/user-product-
 import {PolarAreaComponent} from "./shared/charts/polar-area/polar-area.component";
 import {BarChartComponent} from "./shared/charts/bar-chart/bar-chart.component";
 import {LineChartComponent} from "./shared/charts/line-chart/line-chart.component";
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import {LineChartComponent} from "./shared/charts/line-chart/line-chart.componen
     SelectProductListComponent,
     UserProductListComponent,
     SearchBarComponent,
+    ProfileComponent,
   ],
     imports: [
         BrowserModule,

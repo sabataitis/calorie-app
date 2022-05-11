@@ -6,6 +6,7 @@ import {LoginComponent} from "./features/login/login.component";
 import {ReviewScreenComponent} from "./features/review-screen/review-screen.component";
 import {AuthGuard} from "./shared/guards/auth-guard.service";
 import {LoginGuard} from "./shared/guards/login-guard.service";
+import {ProfileComponent} from "./features/profile/profile.component";
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
   {
     path: 'apzvalga',
     component: ReviewScreenComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profilis',
+    component: ProfileComponent,
     canActivate: [AuthGuard]
   },
 ];

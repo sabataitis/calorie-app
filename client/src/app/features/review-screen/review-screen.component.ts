@@ -56,7 +56,7 @@ export class ReviewScreenComponent implements OnInit {
   lineChartOptions$: BehaviorSubject<ChartOptions<any>> = new BehaviorSubject<ChartOptions<any>>({});
 
   currentDate: string = format(new Date(), "yyyy-MM-dd");
-  threeDaysBeforeDate: string = format(sub(new Date(this.currentDate), {
+  minDate: string = format(sub(new Date(this.currentDate), {
     days: 2
   }), "yyyy-MM-dd");
 
@@ -230,7 +230,7 @@ export class ReviewScreenComponent implements OnInit {
     this.barChartState$.subscribe((barChartState: BarChartState)=>{
       if(barChartState.success){
         const datasets = barChartState.data.map((data:any)=>{
-          return {data: [data.sum], label: format(new Date(new Date().getFullYear(), new Date().getMonth(), data.day), 'MMM d') }
+          return {data: [data.sum], label: format(new Date(new Date().getFullYear(), new Date().getMonth(), data.day), 'yyyy-MM-dd') }
         })
         datasets.push({data: [this.user.calories], label: 'Dienos tikslas (kcal)'})
         this.barChartData$.next({...this.barChartData$.value, datasets});

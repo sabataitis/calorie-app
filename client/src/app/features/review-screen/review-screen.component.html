@@ -5,13 +5,13 @@
   <div class="flex justify-between items-center cursor-pointer gap-2">
     <div class="flex gap-2">
       <div class="py-4">
-        <h1 class="font-semibold text-2xl text-left">Dienos apžvalga</h1>
+        <h1 class="font-semibold uppercase text-2xl text-left">Dienos apžvalga</h1>
         <h2 class="text-md font-semibold">Dienos tikslas ({{user?.calories}} kcal)</h2>
         <h2 class="text-md font-semibold">Liko ({{user?.calories - totals.calories  | number}} kcal)</h2>
         <input
           type="date"
           class="text-primary-700"
-          [min]="threeDaysBeforeDate"
+          [min]="minDate"
           [max]="currentDate"
           [value]="dateInput"
           [(ngModel)]="dateInput"

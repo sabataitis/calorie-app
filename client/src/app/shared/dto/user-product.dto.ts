@@ -9,4 +9,5 @@ export interface UserProductDTO extends Omit<SelectedProductDTO, 'productId'>{
 export interface UserProductListDTO extends UserProductDTO{
   editMode: boolean,
   changesMade: boolean,
+  createdAt: string
 }

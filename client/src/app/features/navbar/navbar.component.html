@@ -1,21 +1,37 @@
-  <nav class="bg-primary-500 text-white p-4 flex justify-between items-center" role="navigation" aria-label="main navigation">
-    <div class="logo flex">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
-        <path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
-      </svg>
-      <a routerLink="" class="text-md font-normal">
-        Kalorijų Skaičiuoklė
-      </a>
-    </div>
-    <div class="flex gap-2" *ngIf="isAuthenticated">
-      <div class="flex items-center">
-        <a routerLink="/apzvalga" class="font-normal text-md">
-          Apžvalga
-        </a>
-      </div>
-      <button class="text-md rounded bg-primary-800 hover:bg-secondary-700 px-2 py-1 hover:bg-secondary-500" (click)="logout()">
-        Atsijungti
+<nav class="bg-primary-500 text-white p-4 flex justify-between items-center" role="navigation"
+     aria-label="main navigation">
+  <div class="logo flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+         stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/>
+      <path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>
+    </svg>
+    <h1 class="text-md font-normal">
+      Kalorijų Skaičiuoklė
+    </h1>
+    <div class="flex gap-2 ml-4" *ngIf="isAuthenticated">
+      <button routerLink="/paieska"
+              class="text-md rounded bg-primary-800 hover:bg-secondary-700 px-2 py-1 hover:bg-secondary-500">
+        Paieška
+      </button>
+      <button routerLink="/apzvalga"
+              class="text-md rounded bg-primary-800 hover:bg-secondary-700 px-2 py-1 hover:bg-secondary-500">
+        Apžvalga
       </button>
     </div>
-  </nav>
+  </div>
+  <div class="flex gap-2 items-center" *ngIf="isAuthenticated">
+    <button class="flex" routerLink="/profilis">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+           stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+      </svg>
+      {{user.username}}
+    </button>
+    <button class="text-md rounded bg-primary-800 hover:bg-secondary-700 px-2 py-1 hover:bg-secondary-500"
+            (click)="logout()">
+      Atsijungti
+    </button>
+  </div>
+</nav>
