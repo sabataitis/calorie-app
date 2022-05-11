@@ -103,6 +103,11 @@ export class ReviewScreenComponent implements OnInit {
     }
   }
 
+  removeItem(product: UserProductListDTO): void{
+    this.store.dispatch(StoreActions.removeUserProduct({payload: {id: product._id}}))
+    this.store.dispatch(StoreActions.getUserProducts({payload: {date:this.dateInput}}));
+  }
+
   quantityChange(product: UserProductListDTO): void {
     product.changesMade = true;
     switch (product.quantity.selected) {

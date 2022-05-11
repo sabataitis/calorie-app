@@ -14,4 +14,9 @@ export class EnteredProductService{
   update(payload: any): Observable<any>{
     return this.apiService.patch(this.URL + `/${payload._id}`, payload);
   }
+
+  delete(payload: any): Observable<any>{
+    return this.apiService.delete(this.URL + `/${payload.id}`);
+  }
+
 }

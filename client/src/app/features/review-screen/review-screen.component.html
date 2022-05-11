@@ -30,7 +30,7 @@
     </div>
     <calorie-app-totals-row [totals]="totals" [size]="'md'"></calorie-app-totals-row>
   </div>
-  <calorie-app-user-product-list *ngIf="showProducts" [userProducts]="userProducts" (quantityChangeEvent)="quantityChange($event)" (toggleEditModeEvent)="toggleEditMode($event)"></calorie-app-user-product-list>
+  <calorie-app-user-product-list *ngIf="showProducts" [userProducts]="userProducts" (quantityChangeEvent)="quantityChange($event)" (toggleEditModeEvent)="toggleEditMode($event)" (removeItemEvent)="removeItem($event)"></calorie-app-user-product-list>
   <div class="flex flex-col">
     <div class="flex flex-col md:flex-row gap-2">
       <calorie-app-line-chart [chartData]="lineChartData$ | async" [chartOptions]="lineChartOptions$ | async" class="md:w-6/12 sm:w-full"></calorie-app-line-chart>

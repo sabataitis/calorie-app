@@ -45,6 +45,17 @@ export class StoreEffects {
       ),
     ),
   );
+  removeUserProduct$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(StoreActions.removeUserProduct),
+      switchMap(({payload}) =>
+        this.enteredProductService.delete(payload).pipe(
+          map((response: any) => StoreActions.removeUserProductSuccess({ response })),
+          catchError((error: HttpException) => of(StoreActions.removeUserProductFailure(error))),
+        ),
+      ),
+    ),
+  );
   getUsernames$ = createEffect(() =>
     this.actions.pipe(
       ofType(StoreActions.getUsernames),

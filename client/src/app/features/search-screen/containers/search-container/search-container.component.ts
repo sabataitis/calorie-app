@@ -57,7 +57,7 @@ export class SearchContainerComponent implements OnInit {
     {
       labels: NutrientLabelsConst,
       datasets: [{
-        data: [0, 0, 0]
+        data: [1, 1, 1]
       }
       ]
     }

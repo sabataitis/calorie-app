@@ -11,7 +11,7 @@ import {UserProductDTO, UserProductListDTO} from "../../../shared/dto/user-produ
 export class UserProductListComponent {
   @Input('userProducts') userProducts: UserProductListDTO[];
   @Output() quantityChangeEvent = new EventEmitter<UserProductListDTO>();
-  @Output() removeItemEvent = new EventEmitter<number>();
+  @Output() removeItemEvent = new EventEmitter<UserProductListDTO>();
   @Output() toggleEditModeEvent = new EventEmitter<UserProductListDTO>();
 
   trackByIndex(index: number, object: any): number {
@@ -20,8 +20,8 @@ export class UserProductListComponent {
   quantityChange(p: UserProductListDTO) {
     this.quantityChangeEvent.emit(p)
   }
-  removeItem(i: number) {
-    this.removeItemEvent.emit(i)
+  removeItem(p: UserProductListDTO) {
+    this.removeItemEvent.emit(p)
   }
   toggleEditMode(product: UserProductListDTO){
     this.toggleEditModeEvent.emit(product);

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { EnteredProductDomainName } from "./name.const";
 import { UserProductDTO } from "../common/dto/userProduct.dto";
@@ -18,6 +18,12 @@ export class EnteredProductController{
   @Patch(':id')
   update(@Param('id') id: string, @Body() payload: any): any{
     return this.enteredProductService.update(id, payload);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  delete(@Param('id') id: string): any{
+    return this.enteredProductService.delete(id);
   }
 
 }

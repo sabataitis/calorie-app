@@ -70,4 +70,10 @@ export class EnteredProductService {
     return payload;
   }
 
+  async delete(id: string){
+    await this.userProductModel.deleteOne({_id: id});
+    return {id};
+  }
+
+
 }

@@ -14,8 +14,8 @@ export class PieComponent implements OnChanges{
   @Input('chartOptions') chartOptions: ChartConfiguration<"pie" & "pie", number[], string | string[]>['options'];
   @Input('chartSize') chartSize: ChartSizeDTO;
 
-  data: ChartData<'pie', number[], string | string[]>;
-  options: ChartConfiguration<"pie" & "pie", number[], string | string[]>['options'];
+  data: ChartData<any>;
+  options: ChartOptions<any>;
   size: ChartSizeDTO;
 
   ngOnChanges(changes: SimpleChanges) {

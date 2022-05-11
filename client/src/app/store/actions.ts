@@ -45,6 +45,10 @@ export enum ActionTypes {
   GET_CURRENT_USER = '[Auth] Get Current User Request',
   GET_CURRENT_USER_SUCCESS = '[Auth] Get Current User Success Response',
   GET_CURRENT_USER_FAILURE = '[Auth] Get Current User Failure Response',
+
+  REMOVE_USER_PRODUCT = '[User] Remove User Product Request',
+  REMOVE_USER_PRODUCT_SUCCESS = '[User] Remove User Product Success Response',
+  REMOVE_USER_PRODUCT_FAILURE = '[User] Remove User Product Failure Response',
 }
 
 export const getUserPolarChart = createAction(ActionTypes.GET_USER_POLAR_CHART, props<RequestActionProps<any>>())
@@ -140,5 +144,15 @@ export const updateEnteredProductSuccess = createAction(
 );
 export const updateEnteredProductFailure = createAction(
   ActionTypes.UPDATE_ENTERED_PRODUCT_FAILURE,
+  props<FailureActionProps>(),
+);
+
+export const removeUserProduct = createAction(ActionTypes.REMOVE_USER_PRODUCT, props<RequestActionProps<any>>());
+export const removeUserProductSuccess = createAction(
+  ActionTypes.REMOVE_USER_PRODUCT_SUCCESS,
+  props<SuccessActionProps<any>>(),
+);
+export const removeUserProductFailure = createAction(
+  ActionTypes.REMOVE_USER_PRODUCT_FAILURE,
   props<FailureActionProps>(),
 );
