@@ -3,3 +3,9 @@ export enum GOALS{
   LOOSE = 'loose',
   GAIN = 'gain',
 }
+
+export enum GOALS_LT{
+  'maintain' = 'Palaikyti svorį',
+  'loose'= 'Numesti svorio',
+  'gain' = 'Priaugti svorio'
+}

@@ -1,17 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../shared/services/user.service";
 import {Store} from "@ngrx/store";
-
 import {StoreActions, StoreSelectors} from '../../store/index'
 import {Observable} from "rxjs";
 import {UsernamesState} from "../../store/state";
-import {animate, style, transition, trigger} from "@angular/animations";
 import {ACTIVITY_FACTOR} from "../../shared/enum/activity-factor.enum";
 import {GOALS} from "../../shared/enum/goals.enum";
 import {enterAnimation} from "../../shared/animations/enter";
+import {GoalsConst} from "../../shared/constants/goals.const";
+import {ActivitiesConst} from "../../shared/constants/activities.const";
 
-type TextValue = { text: string, value: string };
 
 export interface Wizard {
   "step_one": boolean,
@@ -26,7 +25,7 @@ export interface Wizard {
   animations: [enterAnimation]
 })
 
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, AfterContentChecked {
   registerForm: FormGroup;
   usernames$: Observable<UsernamesState>;
   usernames: String[];
@@ -37,21 +36,10 @@ export class RegisterComponent implements OnInit {
     "step_three": false,
   };
 
-  goals: TextValue[] = [
-    {text: 'Palaikyti svorį', value: GOALS.MAINTAIN},
-    {text: 'Numesti svorio', value: GOALS.LOOSE},
-    {text: 'Priaugti svorio', value: GOALS.GAIN},
-  ];
+  goals = GoalsConst;
+  activities = ActivitiesConst;
 
-  activities: TextValue[] = [
-    {text: 'Sėdimas darbas ir pasyvus laisvalaikis', value: ACTIVITY_FACTOR.SEDENTARY},
-    {text: 'Sėdimas arba lengvas darbas ir nedidelis fizinis aktyvumas', value: ACTIVITY_FACTOR.LIGHT},
-    {text: 'Vidutinio sunkumo darbas ir vidutinis/aktyvus laisvalaikis', value: ACTIVITY_FACTOR.MODERATE},
-    {text: 'Sunkus darbas ir vidutinis/aktyvus laisvalaikis', value: ACTIVITY_FACTOR.HIGH},
-  ];
-
-
-  constructor(private userService: UserService, private fb: FormBuilder, private store: Store) {
+  constructor(private userService: UserService, private fb: FormBuilder, private store: Store, private cd: ChangeDetectorRef) {
     this.usernames$ = this.store.select(StoreSelectors.selectUsernamesState);
     this.createRegisterForm();
     this.subscribeToUsernamesState();
@@ -60,6 +48,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(StoreActions.getUsernames());
     this.subscribeToGoalValueChanges();
+  }
+  ngAfterContentChecked() {
+    this.cd.detectChanges();
   }
 
   hasErrorsAndTouched(field: string): boolean {
@@ -116,9 +107,12 @@ export class RegisterComponent implements OnInit {
     })
   }
   private subscribeToGoalValueChanges(): void{
-    this.registerForm.get('goal').valueChanges.subscribe((control: AbstractControl)=>{
-      if(control.value !== GOALS.MAINTAIN){
+    this.registerForm.get('goal').valueChanges.subscribe((control: string)=>{
+      if(control !== GOALS.MAINTAIN){
         this.registerForm.get('goalNum').setValidators([Validators.required, Validators.min(1), Validators.max(10), Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
+      } else{
+        this.registerForm.get('goalNum').setErrors(null);
+        this.registerForm.get('goal').setErrors(null);
       }
     })
   }

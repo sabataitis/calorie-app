@@ -49,6 +49,10 @@ export enum ActionTypes {
   REMOVE_USER_PRODUCT = '[User] Remove User Product Request',
   REMOVE_USER_PRODUCT_SUCCESS = '[User] Remove User Product Success Response',
   REMOVE_USER_PRODUCT_FAILURE = '[User] Remove User Product Failure Response',
+
+  UPDATE_PROFILE = '[User] Update Profile Request',
+  UPDATE_PROFILE_SUCCESS = '[User] Update Profile Success Response',
+  UPDATE_PROFILE_FAILURE = '[User] Update Profile Failure Response',
 }
 
 export const getUserPolarChart = createAction(ActionTypes.GET_USER_POLAR_CHART, props<RequestActionProps<any>>())
@@ -154,5 +158,15 @@ export const removeUserProductSuccess = createAction(
 );
 export const removeUserProductFailure = createAction(
   ActionTypes.REMOVE_USER_PRODUCT_FAILURE,
+  props<FailureActionProps>(),
+);
+
+export const updateProfile = createAction(ActionTypes.UPDATE_PROFILE, props<RequestActionProps<any>>());
+export const updateProfileSuccess = createAction(
+  ActionTypes.UPDATE_PROFILE_SUCCESS,
+  props<SuccessActionProps<any>>(),
+);
+export const updateProfileFailure = createAction(
+  ActionTypes.UPDATE_PROFILE_FAILURE,
   props<FailureActionProps>(),
 );

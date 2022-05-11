@@ -20,6 +20,9 @@ export class UserService{
   register(payload: any): Observable<Partial<UserDTO>>{
     return this.apiService.post(this.USER_URL, payload);
   }
+  update(payload: any): Observable<any>{
+    return this.apiService.patch(this.USER_URL, payload);
+  }
   getUsernames(): Observable<String[]>{
     return this.apiService.get(this.USER_URL + '/usernames');
   }

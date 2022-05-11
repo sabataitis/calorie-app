@@ -1,3 +1,5 @@
+import {GOALS} from "../enum/goals.enum";
+
 export interface Recommendations{
   proteins: {
     from: number,
@@ -20,8 +22,11 @@ export interface UserDTO{
   height: number,
   weight: number,
   activity: string,
+  goal: GOALS,
+  goalNum?: number,
   calories: number,
-  recommendations: Recommendations
+  recommendations: Recommendations,
+  formula: string
 }
 export interface AuthUserDTO extends UserDTO{
   _id: string,

@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Post, Query, Request, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post, Query, Request, UseGuards } from "@nestjs/common";
 import { CreateUserDTO } from "../common/dto/user.dto";
 import { UserService } from "./user.service";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { UserDomainName } from "./name.const";
 import { EnteredProductService } from "../entered-product/entered-product.service";
+import { UpdateUserDTO } from "../common/dto/update-user.dto";
 
 @Controller(UserDomainName)
 export class UserController{
@@ -27,15 +28,15 @@ export class UserController{
     return this.enteredProductService.barChart(req.user.userId, query);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Patch()
+  async update(@Request() req,@Body() updateUserDTO: UpdateUserDTO){
+    return this.userService.update(req.user.userId, updateUserDTO);
+  }
+
   @Post()
   async create(@Body() createUserDTO: CreateUserDTO){
     return this.userService.create(createUserDTO);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  profile(@Request() req){
-    return req.user;
   }
 
   @Get('usernames')

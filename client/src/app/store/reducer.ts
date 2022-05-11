@@ -7,6 +7,23 @@ import {State} from "./state";
 
 import {StoreActions} from './index';
 import {UserProductDTO} from "../shared/dto/user-product.dto";
+import {AuthUserDTO} from "../shared/dto/user.dto";
+
+const userDefaultValues: AuthUserDTO = {
+  isAuthenticated: false,
+  _id: null,
+  username: null,
+  gender: null,
+  age: null,
+  height: null,
+  weight: null,
+  activity: null,
+  goal: null,
+  goalNum: null,
+  calories: null,
+  recommendations:null,
+  formula: null
+}
 
 export const initialState: State = {
   usernamesState: {...DefaultStateValues, usernames: null},
@@ -21,8 +38,11 @@ export const initialState: State = {
       height: null,
       weight: null,
       activity: null,
+      goal: null,
+      goalNum: null,
       calories: null,
-      recommendations:null
+      recommendations:null,
+      formula: null
     },
     products: []
   },
@@ -33,6 +53,17 @@ export const initialState: State = {
 
 export const StoreReducer = createReducer<State>(
   initialState,
+
+  on(StoreActions.updateProfileSuccess, (state: State, action) => ({
+    ...state,
+    userState: {
+      loading: false,
+      success: true,
+      error: null,
+      user: {...action.response, isAuthenticated: true},
+      products: []
+    }
+  })),
 
   on(StoreActions.getUsernames, (state: State, _) => ({
     ...state,
@@ -178,7 +209,8 @@ export const StoreReducer = createReducer<State>(
     ...state,
     userState: {
       ...state.userState,
-      products: action.response}
+      products: action.response.products
+    }
   })),
 
   on(StoreActions.getUserProductsFailure, (state: State, action) => ({

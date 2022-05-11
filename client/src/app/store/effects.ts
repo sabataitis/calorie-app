@@ -204,4 +204,23 @@ export class StoreEffects {
         )
       )
     ))
+  updateProfile$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(StoreActions.updateProfile),
+      switchMap(({payload}) =>
+        this.userService.update(payload).pipe(
+          map((response: any) => StoreActions.updateProfileSuccess({ response })),
+          catchError((error: HttpException) => of(StoreActions.updateProfileFailure(error))),
+        ),
+      ),
+    ),
+  );
+
+  updateProfileSuccess$ = createEffect(()=>
+    this.actions.pipe(
+      ofType(StoreActions.updateProfileSuccess),
+      map(()=>
+        ToastrActions.showSuccess({message: 'Profilis atnaujintas.'}),
+      ),
+    ))
 }
