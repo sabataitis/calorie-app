@@ -8,10 +8,9 @@ import {ProductDTO} from "../../../../shared/dto/product.dto";
 import {NutrientsType, QUANTITY_SELECTION, SelectedProductDTO} from "../../../../shared/dto/selected-product.dto";
 import {TotalsDTO} from "../../../../shared/dto/totals.dto";
 import {ChartSizeDTO} from "../../../../shared/dto/chart-size.dto";
-import {ChartDataType, createPieChartData} from "../../../../shared/utils/create-pie-chart-data";
-import {pieChartBgColors} from "../../../../shared/constants/pie-chart-bg-colors";
 import {enterAnimation} from "../../../../shared/animations/enter";
 import {NutrientLabelsConst} from "../../../../shared/constants/nutrient-labels.const";
+import {PieChartDataTypeInterface} from "../../../../shared/interfaces/pie-chart-data-type.interface";
 
 @Component({
   selector: 'calorie-app-search-container',
@@ -54,7 +53,7 @@ export class SearchContainerComponent implements OnInit {
     }
   };
 
-  chartData: BehaviorSubject<ChartDataType> = new BehaviorSubject<ChartDataType>(
+  chartData: BehaviorSubject<PieChartDataTypeInterface> = new BehaviorSubject<PieChartDataTypeInterface>(
     {
       labels: NutrientLabelsConst,
       datasets: [{

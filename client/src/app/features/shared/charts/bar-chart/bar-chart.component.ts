@@ -2,37 +2,36 @@ import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/co
 import {Chart, ChartConfiguration, ChartData, ChartDataset, ChartEvent, ChartOptions, ChartType, Color} from "chart.js";
 import {BaseChartDirective} from "ng2-charts";
 import {ChartSizeDTO} from "../../../../shared/dto/chart-size.dto";
+import {createFloatingBarChartOptions} from "../../../../shared/utils/create-floating-bar-chart-options";
 
 @Component({
-  selector: 'calorie-app-floating-bar-chart',
-  templateUrl: './floating-bar-chart.component.html',
-  styleUrls: ['./floating-bar-chart.component.scss']
+  selector: 'calorie-app-bar-chart',
+  templateUrl: './bar-chart.component.html',
+  styleUrls: ['./bar-chart.component.scss']
 })
-export class FloatingBarChartComponent implements OnChanges{
+export class BarChartComponent implements OnChanges{
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   @Input('chartData') chartData: ChartData<any>;
+  @Input('chartType') chartType: 'floating' | 'regular';
   @Input('chartSize') chartSize: ChartSizeDTO;
 
-  data: ChartData<any>;
   size: ChartSizeDTO;
+  options: ChartOptions<any>;
 
-  options: ChartOptions = {
-    responsive: true,
-    indexAxis: 'y',
-    scales: {
-      x: {
-        beginAtZero: true
-      },
-      y: {
-        stacked: true,
-        beginAtZero: true
-      }
-    }
-  }
+  data: ChartData<any>;
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes['chartData']?.currentValue){
       this.data = changes['chartData'].currentValue;
+    }
+    if(changes['chartType']?.currentValue){
+      if(changes['chartType'].currentValue === 'floating'){
+        this.options = createFloatingBarChartOptions();
+      } else{
+        this.options = {
+          responsive: true,
+        }
+      }
     }
     if(changes['chartSize']?.currentValue){
       this.size = changes['chartSize'].currentValue;

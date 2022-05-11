@@ -23,24 +23,24 @@ export class StoreEffects {
     private router: Router,
   ) {}
 
-  getUserCategoryGraph$ = createEffect(() =>
+  getUserPolarChart$ = createEffect(() =>
     this.actions.pipe(
-      ofType(StoreActions.getUserCategoryGraph),
+      ofType(StoreActions.getUserPolarChart),
       switchMap(({payload}) =>
-        this.userService.categoryGraph(payload).pipe(
-          map((response: any) => StoreActions.getUserCategoryGraphSuccess({ response })),
-          catchError((error: HttpException) => of(StoreActions.getUserCategoryGraphFailure(error))),
+        this.userService.polarChart(payload).pipe(
+          map((response: any) => StoreActions.getUserPolarChartSuccess({ response })),
+          catchError((error: HttpException) => of(StoreActions.getUserPolarChartFailure(error))),
         ),
       ),
     ),
   );
-  getUserLinearGraph$ = createEffect(() =>
+  getUserBarChart$ = createEffect(() =>
     this.actions.pipe(
-      ofType(StoreActions.getUserLinearGraph),
+      ofType(StoreActions.getUserBarChart),
       switchMap(({payload}) =>
-        this.userService.linearGraph(payload).pipe(
-          map((response: any) => StoreActions.getUserLinearGraphSuccess({ response })),
-          catchError((error: HttpException) => of(StoreActions.getUserLinearGraphFailure(error))),
+        this.userService.barChart(payload).pipe(
+          map((response: any) => StoreActions.getUserBarChartSuccess({ response })),
+          catchError((error: HttpException) => of(StoreActions.getUSerBarChartFailure(error))),
         ),
       ),
     ),

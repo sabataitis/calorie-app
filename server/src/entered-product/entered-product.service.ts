@@ -9,7 +9,7 @@ export class EnteredProductService {
   constructor(@InjectModel(EnteredProduct.name) private userProductModel: Model<EnteredProductSchema>) {
   }
 
-  async categoryGraph(userId: string, query: string) {
+  async polarChart(userId: string, query: string) {
     const offset: number = new Date().getTimezoneOffset() * 60000;
     const date: Date = new Date(new Date(query).getTime() + offset);
 
@@ -28,28 +28,18 @@ export class EnteredProductService {
     };
   }
 
-  async linearGraph(userId: string, days: number) {
+  async barChart(userId: string, days: number) {
     const offset: number = new Date().getTimezoneOffset() * 60000;
     const currentDate: Date = new Date(new Date().getTime() + offset);
 
     const from: Date = startOfDay(subDays(currentDate, days));
     const to: Date = endOfDay(currentDate);
 
-    const linearCalories = await this.userProductModel.aggregate([
+    return this.userProductModel.aggregate([
       { $match: { userId: new mongoose.Types.ObjectId(userId), createdAt: { $gte: from, $lte: to } } },
-      { $sort: { "createdAt": 1 } },
-      {
-        $group: {
-          _id: { $dayOfMonth: "$createdAt" },
-          items: { $push: { calories: "$nutrients.calories", createdAt: { $hour: "$createdAt" } } }
-        }
-      },
-      { $project: { _id: 1, items: 1 } }
-    ]);
-
-    return {
-      linearCalories
-    };
+      {$group: {_id: {$dayOfMonth: {date:"$createdAt", timezone: 'Europe/Vilnius'}},items: {$push: {_id: "$_id", calories: "$nutrients.calories"}}}},
+      { $project: { _id: 0, day: "$_id", sum: { $sum: "$items.calories" } } }
+    ]).sort({day: 1});
   }
 
   async findAllUserProducts(userId: string, query: string) {
@@ -62,7 +52,7 @@ export class EnteredProductService {
     return this.userProductModel.find({
       userId,
       createdAt: { $gte: from, $lte: to }
-    }).sort({ createdAt: -1 }).populate("productId").lean();
+    }).sort({ createdAt: 1 }).populate("productId").lean();
   }
 
   async create(payload: any) {

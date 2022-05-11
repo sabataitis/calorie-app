@@ -16,11 +16,11 @@ export interface ProductState extends DefaultState{
   products: ProductDTO[]
 }
 
-export interface CategoryGraphState extends DefaultState{
+export interface PolarChartState extends DefaultState{
   data: any
 }
 
-export interface LinearGraphState extends DefaultState{
+export interface BarChartState extends DefaultState{
   data: any
 }
 
@@ -28,6 +28,6 @@ export interface State {
   usernamesState: UsernamesState;
   userState: UserState;
   productState: ProductState,
-  categoryGraphState: CategoryGraphState,
-  linearGraphState: LinearGraphState
+  polarChartState: PolarChartState,
+  barChartState: BarChartState
 }

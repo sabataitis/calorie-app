@@ -31,14 +31,20 @@
     <calorie-app-totals-row [totals]="totals" [size]="'md'"></calorie-app-totals-row>
   </div>
   <calorie-app-user-product-list *ngIf="showProducts" [userProducts]="userProducts" (quantityChangeEvent)="quantityChange($event)" (toggleEditModeEvent)="toggleEditMode($event)"></calorie-app-user-product-list>
-  <div class="graphs flex justify-around py-4">
-    <div class="flex flex-col justify-start items-start">
-      <h1 class="font-semibold text-lg text-left">Kalorijų suvartojimas pagal kategoriją</h1>
-      <calorie-app-polar-area [chartData]="categoriesGraphData | async" [chartSize]="categoriesGraphSize"></calorie-app-polar-area>
+  <div class="flex flex-col">
+    <div class="flex flex-col md:flex-row gap-2">
+      <calorie-app-line-chart [chartData]="lineChartData$ | async" [chartOptions]="lineChartOptions$ | async" class="md:w-6/12 sm:w-full"></calorie-app-line-chart>
+      <calorie-app-bar-chart [chartData]="barChartData$ | async" [chartType]="'regular'" class="md:w-6/12 sm:w-full"></calorie-app-bar-chart>
     </div>
-    <div class="flex flex-col justify-center items-center">
-      <h1 class="font-semibold text-lg text-center">Kalorijų suvartojimas pagal rekomenduojamos paros normas</h1>
-      <calorie-app-floating-bar-chart [chartData]="floatingBarData | async" [chartSize]="floatingBarGraphSize"></calorie-app-floating-bar-chart>
+    <div class="flex flex-col md:flex-row my-4">
+      <div class="flex flex-col md:w-6/12 md:h-3/6">
+        <h1 class="font-semibold text-lg text-center">Kalorijų suvartojimas pagal kategoriją</h1>
+        <calorie-app-polar-area [chartData]="polarChartData$ | async"></calorie-app-polar-area>
+      </div>
+      <div class="flex flex-col md:w-6/12 md:h-3/6">
+        <h1 class="font-semibold text-lg text-center">Kalorijų suvartojimas pagal rekomenduojamos paros normas</h1>
+        <calorie-app-bar-chart [chartData]="floatingChartData$ | async" [chartType]="'floating'"></calorie-app-bar-chart>
+      </div>
     </div>
   </div>
 </section>

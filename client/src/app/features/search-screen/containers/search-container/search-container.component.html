@@ -22,7 +22,7 @@
           [chartData]="chartData | async"
           [chartOptions]="chartOptions">
         </calorie-app-pie>
-        <calorie-app-totals-row [totals]="totals"></calorie-app-totals-row>
+        <calorie-app-totals-row [totals]="totals" [size]="'md'"></calorie-app-totals-row>
       </div>
     </div>
     <div *ngIf="!selectedProducts.length" class="w-full flex flex-col gap-2">

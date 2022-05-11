@@ -11,11 +11,11 @@ export class UserService{
   products(payload: any): Observable<any>{
     return this.apiService.get(this.USER_URL + `/products?date=${payload.date}`);
   }
-  categoryGraph(payload: any): Observable<any>{
-    return this.apiService.get(this.USER_URL + `/category-graph?date=${payload.date}`);
+  polarChart(payload: any): Observable<any>{
+    return this.apiService.get(this.USER_URL + `/polar-chart?date=${payload.date}`);
   }
-  linearGraph(payload: any): Observable<any>{
-    return this.apiService.get(this.USER_URL + `/linear-graph?days=${payload.days}`);
+  barChart(payload: any): Observable<any>{
+    return this.apiService.get(this.USER_URL + `/bar-chart?days=${payload.days}`);
   }
   register(payload: any): Observable<Partial<UserDTO>>{
     return this.apiService.post(this.USER_URL, payload);

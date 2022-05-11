@@ -1,7 +1,7 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {
-  CategoryGraphState,
-  LinearGraphState,
+  PolarChartState,
+  BarChartState,
   ProductState,
   State,
   UsernamesState,
@@ -22,10 +22,10 @@ export const selectProductState =
   createSelector(selectStoreState, (state: State): ProductState =>
     state.productState);
 
-export const selectUserCategoryGraphState =
-  createSelector(selectStoreState, (state: State): CategoryGraphState =>
-    state.categoryGraphState);
+export const selectPolarChartState =
+  createSelector(selectStoreState, (state: State): PolarChartState =>
+    state.polarChartState);
 
-export const selectUserLinearGraphState =
-  createSelector(selectStoreState, (state: State): LinearGraphState =>
-    state.linearGraphState);
+export const selectBarChartState =
+  createSelector(selectStoreState, (state: State): BarChartState =>
+    state.barChartState);

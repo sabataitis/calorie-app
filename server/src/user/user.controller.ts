@@ -16,15 +16,15 @@ export class UserController{
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('category-graph')
+  @Get('polar-chart')
   categoryGraph(@Request() req, @Query('date') query){
-    return this.enteredProductService.categoryGraph(req.user.userId, query);
+    return this.enteredProductService.polarChart(req.user.userId, query);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('linear-graph')
+  @Get('bar-chart')
   linearGraph(@Request() req, @Query('days') query){
-    return this.enteredProductService.linearGraph(req.user.userId, query);
+    return this.enteredProductService.barChart(req.user.userId, query);
   }
 
   @Post()

@@ -10,7 +10,7 @@ import {ApiService} from "../shared/services/api.service";
 import {UserService} from "../shared/services/user.service";
 import {HttpClientModule} from "@angular/common/http";
 import {AuthService} from "../shared/services/auth.service";
-import { ProfileComponent } from './review-screen/profile.component';
+import { ReviewScreenComponent } from './review-screen/review-screen.component';
 import {NgChartsModule} from "ng2-charts";
 import { PieComponent } from './shared/charts/pie/pie.component';
 import { NonAuthHeaderComponent } from './search-screen/components/non-auth-header/non-auth-header.component';
@@ -19,7 +19,7 @@ import { SelectProductListComponent } from './shared/select-product-list/select-
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
 import {UserProductListComponent} from "./shared/user-product-list/user-product-list.component";
 import {PolarAreaComponent} from "./shared/charts/polar-area/polar-area.component";
-import {FloatingBarChartComponent} from "./shared/charts/floating-bar-chart/floating-bar-chart.component";
+import {BarChartComponent} from "./shared/charts/bar-chart/bar-chart.component";
 import {LineChartComponent} from "./shared/charts/line-chart/line-chart.component";
 
 @NgModule({
@@ -28,10 +28,10 @@ import {LineChartComponent} from "./shared/charts/line-chart/line-chart.componen
     SearchContainerComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
+    ReviewScreenComponent,
     PieComponent,
     PolarAreaComponent,
-    FloatingBarChartComponent,
+    BarChartComponent,
     LineChartComponent,
     NonAuthHeaderComponent,
     TotalsRowComponent,

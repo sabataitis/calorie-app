@@ -27,8 +27,8 @@ export const initialState: State = {
     products: []
   },
   productState: {...DefaultStateValues, products: []},
-  categoryGraphState: {...DefaultStateValues, data: []},
-  linearGraphState: {...DefaultStateValues, data: []},
+  polarChartState: {...DefaultStateValues, data: []},
+  barChartState: {...DefaultStateValues, data: []},
 };
 
 export const StoreReducer = createReducer<State>(
@@ -80,10 +80,7 @@ export const StoreReducer = createReducer<State>(
       loading: false,
       success: true,
       error: null,
-      user: {
-        ...action.response,
-        isAuthenticated: true,
-      },
+      user: {...action.response.user, isAuthenticated: true},
       products: []
     }
   })),
@@ -220,17 +217,17 @@ export const StoreReducer = createReducer<State>(
     }
   })),
 
-  on(StoreActions.getUserCategoryGraph, (state: State, _) => ({
+  on(StoreActions.getUserPolarChart, (state: State, _) => ({
     ...state,
-    categoryGraphState: {
-      ...initialState.categoryGraphState,
+    polarChartState: {
+      ...initialState.polarChartState,
       loading: true,
     }
   })),
 
-  on(StoreActions.getUserCategoryGraphSuccess, (state: State, action) => ({
+  on(StoreActions.getUserPolarChartSuccess, (state: State, action) => ({
     ...state,
-    categoryGraphState: {
+    polarChartState: {
       loading: false,
       success: true,
       error: null,
@@ -238,23 +235,23 @@ export const StoreReducer = createReducer<State>(
     }
   })),
 
-  on(StoreActions.getUserCategoryGraphFailure, (state: State, action) => ({
+  on(StoreActions.getUserPolarChartFailure, (state: State, action) => ({
     ...state,
-    categoryGraphState: {
-      ...initialState.categoryGraphState,
+    polarChartState: {
+      ...initialState.polarChartState,
       error: action.error,
     }
   })),
-  on(StoreActions.getUserLinearGraph, (state: State, _) => ({
+  on(StoreActions.getUserBarChart, (state: State, _) => ({
     ...state,
-    linearGraphState: {
-      ...initialState.linearGraphState,
+    barChartState: {
+      ...initialState.barChartState,
       loading: true,
     }
   })),
-  on(StoreActions.getUserLinearGraphSuccess, (state: State, action) => ({
+  on(StoreActions.getUserBarChartSuccess, (state: State, action) => ({
     ...state,
-    linearGraphState: {
+    barChartState: {
       loading: false,
       success: true,
       error: null,
@@ -262,10 +259,10 @@ export const StoreReducer = createReducer<State>(
     }
   })),
 
-  on(StoreActions.getUserLinearGraphFailure, (state: State, action) => ({
+  on(StoreActions.getUSerBarChartFailure, (state: State, action) => ({
     ...state,
-    linearGraphState: {
-      ...initialState.linearGraphState,
+    barChartState: {
+      ...initialState.barChartState,
       error: action.error,
     }
   })),

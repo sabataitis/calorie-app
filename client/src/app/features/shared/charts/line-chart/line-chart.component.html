@@ -7,10 +7,12 @@
 <!--      </canvas>-->
 <!--</div>-->
 
-<div style="display: block;" [style.width]="chartSize.width" [style.height]="chartSize.height">
+<!--div style="display: block;" [style.width]="chartSize.width" [style.height]="chartSize.height">-->
+
+<div class="flex w-full h-full">
   <canvas baseChart
     [data]="data"
     [options]="options"
-    [type]="'bar'">
+    [type]="'line'">
   </canvas>
 </div>

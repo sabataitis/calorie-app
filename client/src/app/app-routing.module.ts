@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {SearchContainerComponent} from "./features/search-screen/containers/search-container/search-container.component";
 import {RegisterComponent} from "./features/register/register.component";
 import {LoginComponent} from "./features/login/login.component";
-import {ProfileComponent} from "./features/review-screen/profile.component";
+import {ReviewScreenComponent} from "./features/review-screen/review-screen.component";
 import {AuthGuard} from "./shared/guards/auth-guard.service";
 import {LoginGuard} from "./shared/guards/login-guard.service";
 
@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'apzvalga',
-    component: ProfileComponent,
+    component: ReviewScreenComponent,
     canActivate: [AuthGuard]
   },
 ];
