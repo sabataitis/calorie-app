@@ -162,8 +162,8 @@ export class SearchContainerComponent implements OnInit {
   private subscribeToUserState(): void {
     this.userState$.subscribe((userState: UserState) => {
       if (userState.success) {
-        this.isAuthenticated = userState.user.isAuthenticated;
-        this.user = userState.user;
+        this.isAuthenticated = userState.current.isAuthenticated;
+        this.user = userState.current;
       }
     })
   }

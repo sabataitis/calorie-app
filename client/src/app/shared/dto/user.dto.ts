@@ -1,4 +1,5 @@
 import {GOALS} from "../enum/goals.enum";
+import {ACTIVITY_FACTOR} from "../enum/activity-factor.enum";
 
 export interface Recommendations{
   proteins: {
@@ -28,7 +29,22 @@ export interface UserDTO{
   recommendations: Recommendations,
   formula: string
 }
-export interface AuthUserDTO extends UserDTO{
-  _id: string,
-  isAuthenticated: boolean,
+
+export interface AuthUserDTO extends UserStatisticsDTO{
+  isAuthenticated: boolean;
+  _id: string;
+  username: string;
+}
+
+export interface UserStatisticsDTO {
+  gender: string,
+  age: number,
+  height: number,
+  weight: number,
+  activity: ACTIVITY_FACTOR,
+  goal: GOALS,
+  goalNum: number,
+  calories: number,
+  recommendations:Recommendations,
+  formula: string
 }

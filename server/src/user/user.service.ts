@@ -9,6 +9,7 @@ import { calculateCalorieGoal } from "../common/utils/calculate-calorie-goal";
 import { calculateRecommendations } from "../common/utils/calculate-recommendations";
 import { UpdateUserDTO } from "../common/dto/update-user.dto";
 import { FORMULA } from "../common/enum/formula.enum";
+import { endOfDay, format, startOfDay, subDays, subMinutes } from "date-fns";
 
 @Injectable()
 export class UserService {
@@ -30,13 +31,12 @@ export class UserService {
 
   async create(user: CreateUserDTO): Promise<any>{
     const hash = await bcrypt.hash(user.password, 10);
-    const currentDate = new Date();
 
     const newUser = new this.userModel({
       ...user,
       username: user.username,
       password: hash,
-      formulas: [{from: currentDate, to: null, formula: FORMULA.HARRIS_BENEDICT}],
+      formulas: FORMULA.HARRIS_BENEDICT,
     });
 
     const calories = calculateCalorieGoal(user, FORMULA.HARRIS_BENEDICT);
@@ -50,14 +50,17 @@ export class UserService {
 
   async update(id: string, updateUserDTO: UpdateUserDTO): Promise<any>{
     const currentUser = await this.userModel.findById(id);
-    const currentDate = new Date();
+    const date: string = format(new Date(), "yyyy-MM-dd");
+    const offset: number = new Date().getTimezoneOffset() * 60000;
+    const currentDate: Date = new Date(new Date(date).getTime() + offset);
 
     if(currentUser?.updates){
+      currentUser.updates[currentUser.updates.length-1].to = currentDate;
       currentUser.updates = [
         ...currentUser?.updates,
         {
-          from: currentDate,
-          to: null,
+          from: currentUser.updates[currentUser.updates.length-1].to,
+          to: startOfDay(subDays(currentDate,1)),
           height: currentUser.height,
           weight: currentUser.weight,
           activity: currentUser.activity,

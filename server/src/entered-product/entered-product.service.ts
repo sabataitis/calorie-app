@@ -62,16 +62,13 @@ export class EnteredProductService {
       createdAt: { $gte: from, $lte: to }
     }).sort({ createdAt: 1 }).populate("productId").lean();
 
-
-    if (!user?.updates || isToday(date)) {
-      console.log("IF");
+    if (!user?.updates) {
       return {
         products,
         previousInfo: null
       };
     } else {
-      console.log("ELSE");
-      const latestUpdatesFound = user.updates.filter(update => update.from >= from && update.from <= to);
+      const latestUpdatesFound = user.updates.filter(update => update.to > from);
       return {
         products,
         previousInfo: latestUpdatesFound[latestUpdatesFound.length - 1]

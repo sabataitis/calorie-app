@@ -21,7 +21,7 @@ const userDefaultValues: AuthUserDTO = {
   goal: null,
   goalNum: null,
   calories: null,
-  recommendations:null,
+  recommendations: null,
   formula: null
 }
 
@@ -29,7 +29,7 @@ export const initialState: State = {
   usernamesState: {...DefaultStateValues, usernames: null},
   userState: {
     ...DefaultStateValues,
-    user: {
+    current: {
       isAuthenticated: false,
       _id: null,
       username: null,
@@ -41,7 +41,19 @@ export const initialState: State = {
       goal: null,
       goalNum: null,
       calories: null,
-      recommendations:null,
+      recommendations: null,
+      formula: null
+    },
+    previous: {
+      gender: null,
+      age: null,
+      height: null,
+      weight: null,
+      activity: null,
+      goal: null,
+      goalNum: null,
+      calories: null,
+      recommendations: null,
       formula: null
     },
     products: []
@@ -60,7 +72,9 @@ export const StoreReducer = createReducer<State>(
       loading: false,
       success: true,
       error: null,
-      user: {...action.response, isAuthenticated: true},
+      ...state.userState,
+      current: {...action.response, isAuthenticated: true},
+      previous: null,
       products: []
     }
   })),
@@ -111,7 +125,8 @@ export const StoreReducer = createReducer<State>(
       loading: false,
       success: true,
       error: null,
-      user: {...action.response.user, isAuthenticated: true},
+      current: {...action.response.user, isAuthenticated: true},
+      previous: null,
       products: []
     }
   })),
@@ -149,10 +164,8 @@ export const StoreReducer = createReducer<State>(
       loading: false,
       success: true,
       error: null,
-      user: {
-        ...action.response,
-        isAuthenticated: true,
-      },
+      current: {...action.response, isAuthenticated: true},
+      previous: null,
       products: []
     }
   })),
@@ -209,6 +222,7 @@ export const StoreReducer = createReducer<State>(
     ...state,
     userState: {
       ...state.userState,
+      previous: action.response?.previousInfo ? action.response.previousInfo : null,
       products: action.response.products
     }
   })),
@@ -233,8 +247,8 @@ export const StoreReducer = createReducer<State>(
     ...state,
     userState: {
       ...state.userState,
-      products: [...state.userState.products].map((product: UserProductDTO)=> {
-        if(product._id === action.response._id){
+      products: [...state.userState.products].map((product: UserProductDTO) => {
+        if (product._id === action.response._id) {
           return {...product, nutrients: action.response.nutrients, quantity: action.response.quantity}
         }
         return product;

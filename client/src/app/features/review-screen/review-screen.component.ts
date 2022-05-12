@@ -188,8 +188,12 @@ export class ReviewScreenComponent implements OnInit {
 
   private subscribeToUserState(): void {
     this.userState$.subscribe((userState: UserState) => {
-      if (userState.user.isAuthenticated) {
-        this.user = userState.user;
+      if (userState.current.isAuthenticated) {
+        if(userState.previous){
+          this.user = userState.previous as AuthUserDTO;
+        } else{
+          this.user = userState.current;
+        }
         this.userProducts = JSON.parse(JSON.stringify(userState.products.map((product: UserProductDTO) => {
           return product;
         })));

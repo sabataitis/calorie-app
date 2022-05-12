@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
   private subscribeToUserState(): void {
     this.userState$.subscribe((userState: UserState) => {
       if (userState.success) {
-        this.user = userState.user;
+        this.user = userState.current;
 
         this.profileForm = this.fb.group({
           height: [this.user.height, [Validators.required, Validators.min(54), Validators.max(272), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
