@@ -1,62 +1,79 @@
-<section class="p-4">
-  <h1 class="font-semibold uppercase text-2xl text-center">Informacija:</h1>
-  <div class="flex flex-col items-center" *ngIf="!editMode">
-    <p class="text-md text-semibold">Ūgis: {{user?.height}} </p>
-    <p class="text-md text-semibold">Svoris: {{user?.weight}} </p>
-    <p class="text-md text-semibold">Amžius: {{user?.age}} </p>
-    <p class="text-md text-semibold">Aktyvumas: {{user?.activity}} </p>
-    <p class="text-md text-semibold" *ngIf="user?.goal === 'maintain'">Tikslas: {{GOALS_LT[user?.goal]}}</p>
-    <p class="text-md text-semibold" *ngIf="user?.goal !== 'maintain'">Tikslas: {{GOALS_LT[user?.goal]}} ({{user?.goalNum}} kg)</p>
-    <p class="text-md text-semibold">Dabartinis dienos tikslas: {{user?.calories}} </p>
-  </div>
-  <div *ngIf="editMode" class="flex justify-center">
-      <form [formGroup]="profileForm" (ngSubmit)="submitForm()" class="flex flex-col gap-2 w-3/12">
+<section class="p-6">
+  <h1 class="font-semibold uppercase text-4xl text-start py-4">Informacija:</h1>
+  <div class="flex justify-start">
+    <div class="flex flex-col items-start gap-2" *ngIf="!editMode" [@enter]>
+      <p class="text-md font-semibold">Ūgis: <span class="font-normal"> {{user?.height}}</span></p>
+      <p class="text-md font-semibold">Svoris:<span class="font-normal"> {{user?.weight}}</span></p>
+      <p class="text-md font-semibold">Amžius:<span class="font-normal"> {{user?.age}}</span>
+      </p>
+      <p class="text-md font-semibold">Aktyvumas:<span class="font-normal"> {{ACTIVITY_FACTOR_LT[user?.activity]}}</span>
+      </p>
+      <ng-container [ngSwitch]="user?.goal">
+        <p class="text-md font-semibold" *ngSwitchCase="'maintain'">Tikslas:<span
+          class="font-normal">{{GOALS_LT[user?.goal]}}</span>
+        </p>
+        <p class="text-md font-semibold" *ngSwitchDefault>Tikslas:<span
+          class="font-normal"> {{GOALS_LT[user?.goal]}} {{user?.goalNum}} (kg)</span>
+        </p>
+      </ng-container>
+      <p class="text-md font-semibold">Dabartinis dienos tikslas:<span class="font-normal"> {{user?.calories}}</span>
+      </p>
+    </div>
+    <div *ngIf="editMode" class="flex justify-start" [@enter]>
+      <form [formGroup]="profileForm" (ngSubmit)="submitForm()" class="flex flex-col gap-2">
         <div class="flex flex-col">
-            <label class="text-black text-left">Ūgis</label>
-            <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" [ngClass]="{'border-red-500': hasErrorsAndTouched('height')}" type="number" formControlName="height">
+          <label class="text-black text-left">Ūgis</label>
+          <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+                 [ngClass]="getErrorClasses('height')" type="number" formControlName="height">
         </div>
         <div class="flex flex-col">
           <label class="text-black">Svoris</label>
           <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
                  placeholder="Svoris (kg)" type="number" formControlName="weight"
-                 [ngClass]="{'border-red-500': hasErrorsAndTouched('weight')}">
+                 [ngClass]="getErrorClasses('weight')">
         </div>
         <div class="flex flex-col">
           <label class="text-black">Amžius</label>
           <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="number"
-                 formControlName="age" [ngClass]="{'border-red-500': hasErrorsAndTouched('age')}">
+                 formControlName="age" [ngClass]="getErrorClasses('age')">
         </div>
         <div class="flex flex-col">
           <label class="text-black">Aktyvumas</label>
           <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
-                  formControlName="activity" [ngClass]="{'border-red-500': hasErrorsAndTouched('activity')}">
+                  formControlName="activity" [ngClass]="getErrorClasses('activity')">
             <option *ngFor="let activity of activities" [value]="activity.value">{{activity.text}}</option>
           </select>
           <div class="flex flex-col">
             <label class="text-black">Tikslas</label>
             <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
-                    formControlName="goal" [ngClass]="{'border-red-500': hasErrorsAndTouched('goal')}">
+                    formControlName="goal" [ngClass]="getErrorClasses('goal')">
               <option *ngFor="let goal of goals" [value]="goal.value">{{goal.text}}</option>
             </select>
           </div>
           <div class="flex flex-col">
             <label class="text-black">Kiekis kg</label>
-            <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md disabled:bg-secondary-200"
-                   placeholder="kilogramais" type="number" formControlName="goalNum"
-                   [ngClass]="{'border-red-500': hasErrorsAndTouched('goalNum')}">
+            <input
+              class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md disabled:bg-secondary-200"
+              placeholder="kilogramais" type="number" formControlName="goalNum"
+              [ngClass]="getErrorClasses('goalNum')">
           </div>
           <div class="flex flex-col">
             <label class="text-black">Skaičiavimo formulė</label>
             <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
-                    formControlName="formula" [ngClass]="{'border-red-500': hasErrorsAndTouched('formula')}">
+                    formControlName="formula" [ngClass]="getErrorClasses('formula')">
               <option *ngFor="let formula of formulas" [value]="formula">{{formula}}</option>
             </select>
           </div>
         </div>
       </form>
+    </div>
   </div>
-  <div class="flex gap-2 mt-4 justify-center">
-    <button *ngIf="editMode" class="rounded-md bg-primary-500 hover:bg-secondary-500 px-3 py-2 disabled:bg-secondary-500" (click)="submitForm()" [disabled]="profileForm.invalid">Patvirtinti</button>
-    <button class="rounded-md bg-secondary-500 hover:bg-primary-500 px-3 py-2" (click)="toggleEditMode()">{{editMode?'Atšaukti':'Keisti'}}</button>
+  <div class="flex gap-2 mt-4">
+    <button *ngIf="editMode"
+            class="rounded-md bg-primary-500 hover:bg-secondary-500 px-3 py-2 disabled:bg-secondary-500"
+            (click)="submitForm()" [disabled]="profileForm.invalid">Patvirtinti
+    </button>
+    <button class="rounded-md bg-secondary-500 hover:bg-primary-500 px-3 py-2"
+            (click)="toggleEditMode()">{{editMode ? 'Atšaukti' : 'Keisti'}}</button>
   </div>
 </section>

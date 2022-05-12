@@ -10,6 +10,7 @@ import {GOALS} from "../../shared/enum/goals.enum";
 import {enterAnimation} from "../../shared/animations/enter";
 import {GoalsConst} from "../../shared/constants/goals.const";
 import {ActivitiesConst} from "../../shared/constants/activities.const";
+import {getInputErrorClasses} from "../../shared/utils/get-input-error-classes";
 
 
 export interface Wizard {
@@ -53,8 +54,8 @@ export class RegisterComponent implements OnInit, AfterContentChecked {
     this.cd.detectChanges();
   }
 
-  hasErrorsAndTouched(field: string): boolean {
-    return this.registerForm.get(field).errors && this.registerForm.get(field).touched;
+  getErrorClasses(field: string){
+    return getInputErrorClasses(field, this.registerForm);
   }
 
   arePropertiesInvalid(p1: string, p2: string): boolean {

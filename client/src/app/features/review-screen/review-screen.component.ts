@@ -79,7 +79,7 @@ export class ReviewScreenComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(StoreActions.getUserProducts({payload: {date: this.currentDate}}));
     this.store.dispatch(StoreActions.getUserPolarChart({payload: {date: this.currentDate}}));
-    this.store.dispatch(StoreActions.getUserBarChart({payload: {days: 3}}));
+    this.store.dispatch(StoreActions.getUserBarChart({payload: {days: 2}}));
     this.subscribeToUserState();
     this.subscribeToPolarChartState();
     this.subscribeToBarChartState();

@@ -9,11 +9,17 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivitiesConst} from "../../shared/constants/activities.const";
 import {GoalsConst} from "../../shared/constants/goals.const";
 import {FormulasConst} from "../../shared/constants/formulas.const";
+import {enterAnimation} from "../../shared/animations/enter";
+import {ACTIVITY_FACTOR_LT} from "../../shared/enum/activity-factor.enum";
+import {getInputErrorClasses} from "../../shared/utils/get-input-error-classes";
 
 @Component({
   selector: 'calorie-app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  animations: [
+    enterAnimation
+  ]
 })
 export class ProfileComponent implements OnInit {
   userState$: Observable<UserState>
@@ -21,10 +27,12 @@ export class ProfileComponent implements OnInit {
   user: AuthUserDTO;
   editMode: boolean = false;
 
-  GOALS_LT = GOALS_LT
   activities = ActivitiesConst;
   goals = GoalsConst;
   formulas = FormulasConst;
+
+  GOALS_LT = GOALS_LT
+  ACTIVITY_FACTOR_LT = ACTIVITY_FACTOR_LT;
 
   constructor(private store: Store, private fb: FormBuilder) {
     this.userState$ = this.store.select(StoreSelectors.selectUserState);
@@ -34,12 +42,12 @@ export class ProfileComponent implements OnInit {
     this.subscribeToUserState();
   }
 
-  hasErrorsAndTouched(field: string): boolean {
-    return this.profileForm.get(field).errors !== null
-  }
-
   toggleEditMode(): void {
     this.editMode = !this.editMode;
+  }
+
+  getErrorClasses(field: string){
+    return getInputErrorClasses(field, this.profileForm);
   }
 
   submitForm(): void {
@@ -70,7 +78,6 @@ export class ProfileComponent implements OnInit {
           this.profileForm.get('goalNum').setErrors(null);
           this.profileForm.get('goal').setErrors(null);
         }
-
         this.subscribeToGoalValueChanges();
       }
     })

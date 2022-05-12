@@ -8,11 +8,11 @@
   <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="p-8 flex flex-col gap-3 w-80">
     <div class="flex flex-col">
       <label class="text-white">Slapyvardis</label>
-      <input class="text-black py-1 px-4 focus:outline-secondary-500 rounded-md" [ngClass]="{'border-red-500': hasErrorsAndTouched('username')}" type="text" formControlName="username">
+      <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" [ngClass]="getErrorClasses('username')" type="text" formControlName="username">
     </div>
     <div class="flex flex-col">
       <label class="text-white">Slaptažodis</label>
-      <input class="text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="password" formControlName="password" [ngClass]="{'border-red-500': hasErrorsAndTouched('password')}">
+      <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="password" formControlName="password" [ngClass]="getErrorClasses('password')">
     </div>
     <div class="flex gap-2">
       <button type="submit" class="text-sm rounded text-white bg-primary-500 px-3 py-2 disabled:bg-secondary-200" [disabled]="loginForm.invalid">Pirmyn</button>

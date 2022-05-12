@@ -11,14 +11,14 @@
     <div *ngIf="wizard['step_one']" class="flex flex-col gap-3" [@enter]>
       <div class="flex flex-col">
         <label class="text-white">Slapyvardis</label>
-        <input class="text-slate-900 py-1 px-4 focus:outline-secondary-500 rounded-md"
-               [ngClass]="{'border-red-500': hasErrorsAndTouched('username')}" type="text" formControlName="username">
+        <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+               [ngClass]="getErrorClasses('username')" type="text" formControlName="username">
         <p *ngIf="registerForm.get('username').getError('notUnique')" class="text-red-500 pt-1">Slapyvardis užimtas</p>
       </div>
       <div class="flex flex-col">
         <label class="text-white">Slaptažodis</label>
-        <input class="text-slate-900 py-1 px-4 focus:outline-secondary-500 rounded-md" type="password"
-               formControlName="password" [ngClass]="{'border-red-500': hasErrorsAndTouched('password')}">
+        <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="password"
+               formControlName="password" [ngClass]="getErrorClasses('password')">
       </div>
       <div class="flex gap-2">
         <button type="button"
@@ -35,16 +35,16 @@
     <div class="flex flex-col gap-3" *ngIf="wizard['step_two']" [@enter]>
       <div class="flex flex-col">
         <label class="text-white">Lytis</label>
-        <select class="text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
-                formControlName="gender" [ngClass]="{'border-red-500': hasErrorsAndTouched('gender')}">
+        <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+                formControlName="gender" [ngClass]="getErrorClasses('gender')">
           <option [ngValue]="'Moteris'">Moteris</option>
           <option [ngValue]="'Vyras'">Vyras</option>
         </select>
       </div>
       <div class="flex flex-col">
         <label class="text-white">Amžius</label>
-        <input class="text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="number"
-               formControlName="age" [ngClass]="{'border-red-500': hasErrorsAndTouched('age')}">
+        <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="number"
+               formControlName="age" [ngClass]="getErrorClasses('age')">
       </div>
       <div class="flex gap-2">
         <button type="button"
@@ -60,37 +60,37 @@
         <div class="flex flex-col w-1/2">
           <div class="flex flex-col">
             <label class="text-white">Ūgis</label>
-            <input class="text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+            <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
                    placeholder="Ūgis (cm)" type="number" formControlName="height"
-                   [ngClass]="{'border-red-500': hasErrorsAndTouched('height')}">
+                   [ngClass]="getErrorClasses('height')">
           </div>
           <div class="flex flex-col">
             <label class="text-white">Svoris</label>
-            <input class="text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+            <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
                    placeholder="Svoris (kg)" type="number" formControlName="weight"
-                   [ngClass]="{'border-red-500': hasErrorsAndTouched('weight')}">
+                   [ngClass]="getErrorClasses('weight')">
           </div>
         </div>
         <div class="flex flex-col w-1/2">
           <div class="flex flex-col">
             <label class="text-white">Aktyvumas</label>
-            <select class="text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
-                    formControlName="activity" [ngClass]="{'border-red-500': hasErrorsAndTouched('activity')}">
+            <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+                    formControlName="activity" [ngClass]="getErrorClasses('activity')">
               <option *ngFor="let activity of activities" [value]="activity.value">{{activity.text}}</option>
             </select>
           </div>
           <div class="flex flex-col">
             <label class="text-white">Tikslas</label>
-            <select class="text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
-                    formControlName="goal" [ngClass]="{'border-red-500': hasErrorsAndTouched('goal')}" #goal>
+            <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+                    formControlName="goal" [ngClass]="getErrorClasses('goal')" #goal>
               <option *ngFor="let goal of goals" [value]="goal.value">{{goal.text}}</option>
             </select>
           </div>
           <div class="flex flex-col" *ngIf="goal.value !== 'maintain' && goal.value">
             <label class="text-white">Kiekis kg</label>
-            <input class="text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+            <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
                    placeholder="kilogramais" type="number" formControlName="goalNum"
-                   [ngClass]="{'border-red-500': hasErrorsAndTouched('goalNum')}">
+                   [ngClass]="getErrorClasses('goalNum')">
           </div>
         </div>
       </div>

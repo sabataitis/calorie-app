@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {StoreActions} from "../../store";
+import {getInputErrorClasses} from "../../shared/utils/get-input-error-classes";
 
 @Component({
   selector: 'calorie-app-login',
@@ -15,8 +16,8 @@ export class LoginComponent {
     this.createLoginForm();
   }
 
-  hasErrorsAndTouched(field: string): boolean{
-    return this.loginForm.get(field).errors && this.loginForm.get(field).touched;
+  getErrorClasses(field: string){
+    return getInputErrorClasses(field, this.loginForm);
   }
 
   async submitForm(): Promise<void>{
