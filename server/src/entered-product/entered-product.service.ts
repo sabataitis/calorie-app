@@ -1,14 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import mongoose, { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { EnteredProduct, EnteredProductSchema } from "../common/schemas/entered-product.schema";
-import { endOfDay, isToday, startOfDay, subDays } from "date-fns";
+import { EnteredProduct, EnteredProductDocument } from "../common/schemas/entered-product.schema";
+import { endOfDay, startOfDay, subDays } from "date-fns";
 import { User, UserDocument } from "../common/schemas/user";
 
 @Injectable()
 export class EnteredProductService {
-  constructor(@InjectModel(EnteredProduct.name) private userProductModel: Model<EnteredProductSchema>, @InjectModel(User.name) private userModel: Model<UserDocument>) {
-  }
+  constructor(@InjectModel(EnteredProduct.name) private userProductModel: Model<EnteredProductDocument>, @InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async polarChart(userId: string, query: string) {
     const offset: number = new Date().getTimezoneOffset() * 60000;
@@ -84,7 +83,12 @@ export class EnteredProductService {
 
   async update(id: string, payload: any) {
     const enteredProduct = await this.userProductModel.findById(id);
-    enteredProduct.nutrients = payload.nutrients;
+    enteredProduct.nutrients = {
+      calories: Number(payload.nutrients.calories.toFixed(2)),
+      proteins: Number(payload.nutrients.proteins.toFixed(2)),
+      carbs: Number(payload.nutrients.carbs.toFixed(2)),
+      fats: Number(payload.nutrients.fats.toFixed(2)),
+    };
     enteredProduct.quantity = payload.quantity;
     await enteredProduct.save();
 

@@ -11,17 +11,17 @@
     </h1>
     <div class="flex gap-2 ml-4" *ngIf="isAuthenticated">
       <button routerLink="/paieska"
-              class="text-md rounded bg-primary-800 hover:bg-secondary-700 px-2 py-1 hover:bg-secondary-500">
+              class="text-md rounded bg-primary-800 hover:bg-primary-700 px-2 py-1">
         Paieška
       </button>
       <button routerLink="/apzvalga"
-              class="text-md rounded bg-primary-800 hover:bg-secondary-700 px-2 py-1 hover:bg-secondary-500">
+              class="text-md rounded bg-primary-800 hover:bg-primary-700 px-2 py-1">
         Apžvalga
       </button>
     </div>
   </div>
   <div class="flex gap-2 items-center" *ngIf="isAuthenticated">
-    <button class="flex" routerLink="/profilis">
+    <button class="flex" routerLink="/vartotojas">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
            stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round"
@@ -29,7 +29,7 @@
       </svg>
       {{user.username}}
     </button>
-    <button class="text-md rounded bg-primary-800 hover:bg-secondary-700 px-2 py-1 hover:bg-secondary-500"
+    <button class="text-md rounded bg-primary-800 hover:bg-primary-700 px-2 py-1"
             (click)="logout()">
       Atsijungti
     </button>

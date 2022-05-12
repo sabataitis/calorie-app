@@ -1,0 +1,71 @@
+<form [formGroup]="addProductForm" (ngSubmit)="submitForm()" class="flex flex-col gap-2">
+  <div class="flex flex-col w-4/12">
+    <label class="text-black text-left">Pavadinimas</label>
+    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+           [ngClass]="getErrorClasses('name')" type="text" formControlName="name">
+  </div>
+  <div class="flex flex-col w-4/12">
+    <label class="text-black text-left">Kategorija</label>
+    <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+            formControlName="category" [ngClass]="getErrorClasses('category')">
+      <option *ngFor="let category of categories" [value]="category._id">{{category.name}}</option>
+    </select>
+  </div>
+  <div class="flex flex-col w-4/12">
+    <label class="text-black text-left">Ar receptas?</label>
+    <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+            formControlName="isMeal" [ngClass]="getErrorClasses('isMeal')">
+      <option [ngValue]="true">Taip</option>
+      <option [ngValue]="false">Ne</option>
+    </select>
+  </div>
+  <div class="flex flex-col w-4/12" *ngIf="!isMeal.value">
+    <label class="text-black text-left">Svorio mato vienetas</label>
+    <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+            formControlName="measurement" [ngClass]="getErrorClasses('measurement')">
+      <option *ngFor="let measurement of measurements" [value]="measurement['value']">{{measurement['text']}}</option>
+    </select>
+  </div>
+  <div class="flex flex-col w-4/12" *ngIf="measurement.value === 'unit'">
+    <label class="text-black text-left">Vieneto svoris gramais</label>
+    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+           [ngClass]="getErrorClasses('measurementByUnit')" type="number" formControlName="measurementByUnit">
+  </div>
+  <div class="flex flex-col w-4/12" *ngIf="isMeal.value">
+    <label class="text-black text-left">Pasirinkite ingridientus</label>
+    <calorie-app-search-bar [products]="products" (productChangeEvent)="productChange($event)"></calorie-app-search-bar>
+  </div>
+  <div class="flex flex-col w-4/12" *ngIf="isMeal.value">
+    <label class="text-black text-left">Porcijos dydis gramais</label>
+    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+           [ngClass]="getErrorClasses('mealPortionSize')" type="number" formControlName="mealPortionSize">
+  </div>
+  <div *ngIf="selectedProducts.length">
+    <calorie-app-select-product-list [selectedProducts]="selectedProducts" [products]="products" (removeItemEvent)="removeItem($event)" (quantityChangeEvent)="productQuantityChange($event)"></calorie-app-select-product-list>
+  </div>
+  <div class="flex flex-col w-4/12">
+    <label class="text-black text-left">Kalorijų kiekis</label>
+    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+           [ngClass]="getErrorClasses('calories')" type="number" formControlName="calories">
+  </div>
+  <div class="flex flex-col w-4/12">
+    <label class="text-black text-left">Baltymų kiekis</label>
+    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+           [ngClass]="getErrorClasses('proteins')" type="number" formControlName="proteins">
+  </div>
+  <div class="flex flex-col w-4/12">
+    <label class="text-black text-left">Angliavandenių kiekis</label>
+    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+           [ngClass]="getErrorClasses('carbs')" type="number" formControlName="carbs">
+  </div>
+  <div class="flex flex-col w-4/12">
+    <label class="text-black text-left">Riebalų kiekis</label>
+    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+           [ngClass]="getErrorClasses('fats')" type="number" formControlName="fats">
+  </div>
+  <button
+    type="submit"
+    class="rounded-md bg-primary-500 hover:bg-secondary-500 px-3 py-2 disabled:bg-secondary-500"
+     [disabled]="addProductForm.invalid">Patvirtinti
+  </button>
+</form>

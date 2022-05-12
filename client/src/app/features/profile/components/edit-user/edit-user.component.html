@@ -1,0 +1,50 @@
+<form [formGroup]="editUserForm" (ngSubmit)="submitForm()" class="flex flex-col gap-2 w-4/12">
+  <div class="flex flex-col">
+    <label class="text-black text-left">Ūgis</label>
+    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+           [ngClass]="getErrorClasses('height')" type="number" formControlName="height">
+  </div>
+  <div class="flex flex-col">
+    <label class="text-black">Svoris</label>
+    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+           placeholder="Svoris (kg)" type="number" formControlName="weight"
+           [ngClass]="getErrorClasses('weight')">
+  </div>
+  <div class="flex flex-col">
+    <label class="text-black">Amžius</label>
+    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="number"
+           formControlName="age" [ngClass]="getErrorClasses('age')">
+  </div>
+  <div class="flex flex-col">
+    <label class="text-black">Aktyvumas</label>
+    <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+            formControlName="activity" [ngClass]="getErrorClasses('activity')">
+      <option *ngFor="let activity of activities" [value]="activity.value">{{activity.text}}</option>
+    </select>
+  </div>
+  <div class="flex flex-col">
+    <label class="text-black">Tikslas</label>
+    <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+            formControlName="goal" [ngClass]="getErrorClasses('goal')">
+      <option *ngFor="let goal of goals" [value]="goal.value">{{goal.text}}</option>
+    </select>
+  </div>
+  <div class="flex flex-col">
+    <label class="text-black">Kiekis kg</label>
+    <input
+      class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md disabled:bg-secondary-200"
+      placeholder="kilogramais" type="number" formControlName="goalNum"
+      [ngClass]="getErrorClasses('goalNum')">
+  </div>
+  <div class="flex flex-col">
+    <label class="text-black">Skaičiavimo formulė</label>
+    <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+            formControlName="formula" [ngClass]="getErrorClasses('formula')">
+      <option *ngFor="let formula of formulas" [value]="formula">{{formula}}</option>
+    </select>
+  </div>
+  <button
+    class="rounded-md bg-secondary-500 hover:bg-primary-500 px-3 py-2 disabled:bg-secondary-200"
+    (click)="submitForm()" [disabled]="editUserForm.invalid">Patvirtinti
+  </button>
+</form>

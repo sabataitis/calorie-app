@@ -8,6 +8,7 @@ export class Category {
   @Prop({
     unique: true
   })
+  @Prop()
   name: string;
 }
 

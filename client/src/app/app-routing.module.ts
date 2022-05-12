@@ -1,12 +1,15 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {SearchContainerComponent} from "./features/search-screen/containers/search-container/search-container.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {
+  SearchContainerComponent
+} from "./features/search-screen/containers/search-container/search-container.component";
 import {RegisterComponent} from "./features/register/register.component";
 import {LoginComponent} from "./features/login/login.component";
 import {ReviewScreenComponent} from "./features/review-screen/review-screen.component";
 import {AuthGuard} from "./shared/guards/auth-guard.service";
 import {LoginGuard} from "./shared/guards/login-guard.service";
-import {ProfileComponent} from "./features/profile/profile.component";
+import {ProfileContainerComponent} from "./features/profile/containers/profile-container/profile-container.component";
+import {PageNotFoundComponent} from "./features/page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {
@@ -16,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: 'paieska',
-    component: SearchContainerComponent
+    component: SearchContainerComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'registracija',
@@ -34,9 +38,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'profilis',
-    component: ProfileComponent,
-    canActivate: [AuthGuard]
+    path: 'vartotojas',
+    component: ProfileContainerComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
 
@@ -44,4 +52,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

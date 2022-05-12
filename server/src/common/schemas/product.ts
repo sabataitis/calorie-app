@@ -3,6 +3,7 @@ import { Document } from "mongoose";
 import { IsOptional } from "class-validator";
 import { User } from "./user";
 import * as Mongoose from "mongoose";
+import { ProductsEnteredDTO } from "../dto/userProduct.dto";
 
 export type ProductDocument = Product & Document;
 
@@ -36,8 +37,13 @@ export class Product {
   @Prop()
   category: string;
 
-  @Prop( {type: Nutrients})
-  nutrients: Nutrients;
+  @Prop({type: Nutrients})
+  nutrients:{
+    calories: number;
+    proteins: number;
+    carbs: number;
+    fats: number;
+  }
 
   @Prop( {type: Quantities})
   quantities: Quantities;
@@ -46,8 +52,8 @@ export class Product {
   isMeal: boolean;
 
   @IsOptional()
-  @Prop({type: Ingredients})
-  ingredients: Ingredients[]
+  @Prop({type: ProductsEnteredDTO})
+  ingredients: ProductsEnteredDTO[]
 
   @Prop({default: null, ref: User.name})
   for: Mongoose.Schema.Types.ObjectId;

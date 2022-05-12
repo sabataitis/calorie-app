@@ -10,6 +10,7 @@ import {ToastrActions} from './toastr/index';
 import {AuthService} from "../shared/services/auth.service";
 import {ProductService} from "../shared/services/product.service";
 import {EnteredProductService} from "../shared/services/entered-product.service";
+import {CategoryService} from "../shared/services/category.service";
 
 @Injectable()
 export class StoreEffects {
@@ -17,6 +18,7 @@ export class StoreEffects {
   constructor(
     private actions: Actions,
     private authService: AuthService,
+    private categoryService: CategoryService,
     private userService: UserService,
     private productService: ProductService,
     private enteredProductService: EnteredProductService,
@@ -147,8 +149,8 @@ export class StoreEffects {
   getProducts$ = createEffect(()=>
     this.actions.pipe(
       ofType(StoreActions.getProducts),
-      switchMap(()=>
-        this.productService.findAll().pipe(
+      switchMap(({payload})=>
+        this.productService.findAll(payload).pipe(
           switchMap((response: any)=> [
             StoreActions.getProductsSuccess({response}),
           ]),
@@ -156,6 +158,28 @@ export class StoreEffects {
         )
       )
     ))
+
+  addProduct$ = createEffect(()=>
+    this.actions.pipe(
+      ofType(StoreActions.addProduct),
+      switchMap(({payload})=>
+        this.productService.create(payload).pipe(
+          switchMap((response: any)=> [
+            StoreActions.addProductSuccess({response}),
+          ]),
+          catchError((error: HttpException)=> of(StoreActions.addProductFailure(error)))
+        )
+      )
+    ))
+
+  addProductSuccess$ = createEffect(()=>
+    this.actions.pipe(
+      ofType(StoreActions.addProductSuccess),
+      map(()=>
+        ToastrActions.showSuccess({message: 'Produktas sėkmingai pridėtas.'})
+      ),
+      tap(()=> window.location.reload()),
+    ));
 
   enterProducts$ = createEffect(()=>
     this.actions.pipe(
@@ -220,7 +244,19 @@ export class StoreEffects {
     this.actions.pipe(
       ofType(StoreActions.updateProfileSuccess),
       map(()=>
-        ToastrActions.showSuccess({message: 'Profilis atnaujintas.'}),
+        ToastrActions.showSuccess({message: 'Vartotojas atnaujintas.'}),
       ),
     ))
+
+  getCategories$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(StoreActions.getCategories),
+      switchMap(() =>
+        this.categoryService.categories().pipe(
+          map((response: any) => StoreActions.getCategoriesSuccess({ response })),
+          catchError((error: HttpException) => of(StoreActions.getCategoriesFailure(error))),
+        ),
+      ),
+    ),
+  );
 }

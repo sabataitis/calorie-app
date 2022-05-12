@@ -69,7 +69,7 @@ export class SearchContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(StoreActions.getProducts());
+    this.store.dispatch(StoreActions.getProducts({payload: {options: {component: 'search'}}}));
     this.subscribeToUserState();
     this.subscribeToProductState();
   }

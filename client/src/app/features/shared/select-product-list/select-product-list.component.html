@@ -13,8 +13,9 @@
       <div>
         <input
           *ngIf="product.quantity.selected==='gram'"
-          min=1
-          max=1000
+          [min]=1
+          [max]=1000
+          [pattern]="'/(,*[\d]+,*[\d]*)+/'"
           type="number"
           placeholder="Kiekis gramais.."
           [value]="product.quantity.selected === 'gram'?100:1"

@@ -7,57 +7,13 @@ import {State} from "./state";
 
 import {StoreActions} from './index';
 import {UserProductDTO} from "../shared/dto/user-product.dto";
-import {AuthUserDTO} from "../shared/dto/user.dto";
-
-const userDefaultValues: AuthUserDTO = {
-  isAuthenticated: false,
-  _id: null,
-  username: null,
-  gender: null,
-  age: null,
-  height: null,
-  weight: null,
-  activity: null,
-  goal: null,
-  goalNum: null,
-  calories: null,
-  recommendations: null,
-  formula: null
-}
+import {DefaultAuthUserValuesConst} from "../shared/constants/default-auth-user-values";
+import {DefaultUserStatisticsValuesConst} from "../shared/constants/default-user-statistics-values";
 
 export const initialState: State = {
   usernamesState: {...DefaultStateValues, usernames: null},
-  userState: {
-    ...DefaultStateValues,
-    current: {
-      isAuthenticated: false,
-      _id: null,
-      username: null,
-      gender: null,
-      age: null,
-      height: null,
-      weight: null,
-      activity: null,
-      goal: null,
-      goalNum: null,
-      calories: null,
-      recommendations: null,
-      formula: null
-    },
-    previous: {
-      gender: null,
-      age: null,
-      height: null,
-      weight: null,
-      activity: null,
-      goal: null,
-      goalNum: null,
-      calories: null,
-      recommendations: null,
-      formula: null
-    },
-    products: []
-  },
+  userState: {...DefaultStateValues, current: DefaultAuthUserValuesConst, previous: DefaultUserStatisticsValuesConst, products: []},
+  categoryState: {...DefaultStateValues, categories: []},
   productState: {...DefaultStateValues, products: []},
   polarChartState: {...DefaultStateValues, data: []},
   barChartState: {...DefaultStateValues, data: []},
@@ -79,35 +35,32 @@ export const StoreReducer = createReducer<State>(
     }
   })),
 
-  on(StoreActions.getUsernames, (state: State, _) => ({
+  on(StoreActions.getCategories, (state: State, _) => ({
     ...state,
-    usernamesState: {
+    categoryState: {
+      ...initialState.categoryState,
       loading: true,
-      success: false,
-      error: null,
-      usernames: null
     }
   })),
 
-  on(StoreActions.getUsernamesSuccess, (state: State, action) => ({
+  on(StoreActions.getCategoriesSuccess, (state: State, action) => ({
     ...state,
-    usernamesState: {
+    categoryState: {
       loading: false,
       success: true,
       error: null,
-      usernames: action.response
+      categories: action.response
     }
   })),
 
-  on(StoreActions.getUsernamesFailure, (state: State, action) => ({
+  on(StoreActions.getCategoriesFailure, (state: State, action) => ({
     ...state,
-    usernamesState: {
-      loading: false,
-      success: false,
+    categoryState: {
+      ...initialState.categoryState,
       error: action.error,
-      usernames: null
     }
   })),
+
 
   on(StoreActions.login, (state: State, _) => ({
     ...state,

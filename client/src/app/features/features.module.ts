@@ -21,7 +21,11 @@ import {UserProductListComponent} from "./shared/user-product-list/user-product-
 import {PolarAreaComponent} from "./shared/charts/polar-area/polar-area.component";
 import {BarChartComponent} from "./shared/charts/bar-chart/bar-chart.component";
 import {LineChartComponent} from "./shared/charts/line-chart/line-chart.component";
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileContainerComponent } from './profile/containers/profile-container/profile-container.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UserInfoComponent } from './profile/components/user-info/user-info.component';
+import { EditUserComponent } from './profile/components/edit-user/edit-user.component';
+import { AddProductComponent } from './profile/components/add-product/add-product.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,11 @@ import { ProfileComponent } from './profile/profile.component';
     SelectProductListComponent,
     UserProductListComponent,
     SearchBarComponent,
-    ProfileComponent,
+    ProfileContainerComponent,
+    PageNotFoundComponent,
+    UserInfoComponent,
+    EditUserComponent,
+    AddProductComponent,
   ],
     imports: [
         BrowserModule,

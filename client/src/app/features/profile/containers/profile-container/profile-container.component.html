@@ -1,0 +1,19 @@
+<section class="p-6">
+  <div class="flex gap-2 items-center">
+    <h1 class="font-semibold uppercase text-4xl text-left py-4">Vartotojo zona</h1>
+    <button class="text-white rounded-md bg-primary-500 hover:bg-primary-600 px-2 py-1 my-4" (click)="toggleEdit()">{{isUpdatingProfile ? 'Atšaukti' : 'Atnaujinti informaciją'}}</button>
+    <button class="text-white rounded bg-primary-500 hover:bg-secondary-700 px-2 py-1" (click)="toggleAddProduct()">{{isAddingProduct ? 'Atšaukti' : 'Pridėti produktus/receptus'}}</button>
+  </div>
+  <div *ngIf="!isAddingProduct">
+    <calorie-app-user-info *ngIf="!isUpdatingProfile" [user]="(userState$ | async ).current"></calorie-app-user-info>
+    <calorie-app-edit-user *ngIf="isUpdatingProfile" [user]="(userState$ | async).current" (submitFormEvent)="updateProfile($event)"></calorie-app-edit-user>
+  </div>
+  <div *ngIf="isAddingProduct">
+    <calorie-app-add-product
+      [user]="(userState$ | async).current"
+      [categories]="(categoryState$ | async).categories"
+      [products]="(productsState$ | async).products"
+      (submitFormEvent)="addNewProduct($event)"
+    ></calorie-app-add-product>
+  </div>
+</section>

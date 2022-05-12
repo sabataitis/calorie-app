@@ -4,7 +4,7 @@ import { User } from "./user";
 import { Nutrients, Product } from "./product";
 import * as Mongoose from "mongoose";
 
-export type EnteredProductSchema = EnteredProduct & Document;
+export type EnteredProductDocument = EnteredProduct & Document;
 
 export class Quantity{
   hasUnits: boolean;

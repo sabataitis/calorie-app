@@ -11,7 +11,7 @@
       <div>
         <h1 class="font-semibold text-2xl uppercase">Receptų ir produktų paieška</h1>
         <h2 class="text-md font-semibold">Dienos tikslas ({{user.calories}} kcal)</h2>
-        <h2 class="text-md font-semibold">Liko ({{user.calories - totals.calories }} kcal)</h2>
+        <h2 class="text-md font-semibold">Liko ({{(user.calories - totals.calories) | number }} kcal)</h2>
       </div>
       <div class="flex gap-6">
         <calorie-app-pie

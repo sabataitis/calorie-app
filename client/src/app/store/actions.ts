@@ -2,6 +2,9 @@ import {createAction, props} from "@ngrx/store";
 import {SuccessActionProps} from "./interfaces/actions/success-action-props.interface";
 import {FailureActionProps} from "./interfaces/actions/failure-action-props.interface";
 import {RequestActionProps} from "./interfaces/actions/request-action-props.interface";
+import {GetProductsDTO} from "../shared/dto/get-products.dto";
+import {AddProductDTO} from "../shared/dto/add-product.dto";
+import {CreateProductDTO} from "../shared/dto/create-product.dto";
 
 export enum ActionTypes {
   GET_USER_POLAR_CHART = '[User] Get User Polar Chart Request',
@@ -32,6 +35,10 @@ export enum ActionTypes {
   GET_USERNAMES_SUCCESS = '[Users] Get Usernames Success Response',
   GET_USERNAMES_FAILURE = '[Users] Get Usernames Failure Response',
 
+  GET_CATEGORIES = '[Category] Get Categories Request',
+  GET_CATEGORIES_SUCCESS = '[Category] Get Categories Success Response',
+  GET_CATEGORIES_FAILURE = '[Category] Get Categories Failure Response',
+
   REGISTER = '[Users] Register Request',
   REGISTER_SUCCESS = '[Users] Register Success Response',
   REGISTER_FAILURE = '[Users] Register Failure Response',
@@ -53,7 +60,31 @@ export enum ActionTypes {
   UPDATE_PROFILE = '[User] Update Profile Request',
   UPDATE_PROFILE_SUCCESS = '[User] Update Profile Success Response',
   UPDATE_PROFILE_FAILURE = '[User] Update Profile Failure Response',
+
+  ADD_PRODUCT = '[User] Add Product Request',
+  ADD_PRODUCT_SUCCESS = '[User] Add Product Success Response',
+  ADD_PRODUCT_FAILURE = '[User] Add Product Failure Response',
 }
+
+export const addProduct = createAction(ActionTypes.ADD_PRODUCT, props<RequestActionProps<CreateProductDTO>>())
+export const addProductSuccess = createAction(
+  ActionTypes.ADD_PRODUCT_SUCCESS,
+  props<SuccessActionProps<any>>()
+);
+export const addProductFailure = createAction(
+  ActionTypes.ADD_PRODUCT_FAILURE,
+  props<FailureActionProps>(),
+);
+
+export const getCategories = createAction(ActionTypes.GET_CATEGORIES)
+export const getCategoriesSuccess = createAction(
+  ActionTypes.GET_CATEGORIES_SUCCESS,
+  props<SuccessActionProps<any>>()
+);
+export const getCategoriesFailure = createAction(
+  ActionTypes.GET_CATEGORIES_FAILURE,
+  props<FailureActionProps>(),
+);
 
 export const getUserPolarChart = createAction(ActionTypes.GET_USER_POLAR_CHART, props<RequestActionProps<any>>())
 export const getUserPolarChartSuccess = createAction(
@@ -111,7 +142,7 @@ export const getCurrentUserFailure = createAction(
   props<FailureActionProps>()
 );
 
-export const getProducts = createAction(ActionTypes.GET_PRODUCTS)
+export const getProducts = createAction(ActionTypes.GET_PRODUCTS, props<RequestActionProps<GetProductsDTO>>())
 export const getProductsSuccess = createAction(
   ActionTypes.GET_PRODUCTS_SUCCESS,
   props<SuccessActionProps<any>>(),

@@ -5,7 +5,7 @@ import {
   ProductState,
   State,
   UsernamesState,
-  UserState
+  UserState, CategoryState
 } from "./state";
 
 export const selectStoreState = createFeatureSelector<State>('store');
@@ -13,6 +13,10 @@ export const selectStoreState = createFeatureSelector<State>('store');
 export const selectUsernamesState =
   createSelector(selectStoreState, (state: State): UsernamesState =>
     state.usernamesState);
+
+export const selectCategoryState =
+  createSelector(selectStoreState, (state: State): CategoryState =>
+    state.categoryState);
 
 export const selectUserState =
   createSelector(selectStoreState, (state: State): UserState =>
