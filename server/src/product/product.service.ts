@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from "@nestjs/mongoose";
 import { Product, ProductDocument } from "../common/schemas/product";
 import productsJSON from "../common/data/products.json";
+import recipesJSON from "../common/data/recipes.json";
 import { EnteredProduct, EnteredProductSchema } from "../common/schemas/entered-product.schema";
 
 @Injectable()
@@ -10,7 +11,7 @@ export class ProductService {
   constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>, @InjectModel(EnteredProduct.name) private userProductModel: Model<EnteredProductSchema>) {}
 
   async seed(): Promise<void>{
-    const bulkWriteOptions = productsJSON.map(function (product) {
+    const bulkProducts = productsJSON.map(function (product) {
         return {
           updateOne: {
             filter: { name: product.name },
@@ -21,8 +22,20 @@ export class ProductService {
         }
       }
     );
+    const bulkRecipes = recipesJSON.map(function (recipe) {
+        return {
+          updateOne: {
+            filter: { name: recipe.name },
+            update: recipe,
+            upsert: true,
+            new: true
+          }
+        }
+      }
+    );
     try {
-      await this.productModel.bulkWrite(bulkWriteOptions);
+      await this.productModel.bulkWrite(bulkProducts);
+      await this.productModel.bulkWrite(bulkRecipes);
     } catch (err) {
       throw new HttpException('Error Seeding Products', HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -33,4 +46,9 @@ export class ProductService {
   async findAll(where: {field: string, value: string | number} = null){
     return this.productModel.find(where || {}).lean();
   }
+
+  async create(createProductDTO: any){
+    return createProductDTO;
+  }
+
 }

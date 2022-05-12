@@ -1,5 +1,19 @@
 [
   {
+    "name": "Avokadas",
+    "category": "Daržovės",
+    "nutrients":{
+      "calories": 160,
+      "proteins": 2.0,
+      "carbs": 9.0,
+      "fats": 15.0
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": 136
+    }
+  },
+  {
     "name": "Bananai",
     "category": "Vaisiai",
     "nutrients":{
@@ -38,12 +52,12 @@
     },
     "quantities":{
       "quantity_g": 100,
-      "unit_g": null,
+      "unit_g": null
     }
   },
   {
     "name": "Naminis Rokiškio sūris",
-    "category": "Pieno Produktai",
+    "category": "Pieno produktai, pienas",
     "nutrients":{
       "calories": 282,
       "proteins": 20,
@@ -57,7 +71,7 @@
   },
   {
     "name": "Dvaro sviestas",
-    "category": "Pieno Produktai",
+    "category": "Pieno produktai, pienas",
     "nutrients":{
       "calories": 774,
       "proteins": 0.7,
@@ -71,7 +85,7 @@
   },
   {
     "name": "Močiūtės duona, juoda",
-    "category": "Pieno Produktai",
+    "category": "Duona, kepiniai",
     "nutrients":{
       "calories": 254,
       "proteins": 6,

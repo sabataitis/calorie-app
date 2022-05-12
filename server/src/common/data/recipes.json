@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Bulvytės fri",
+    "category": "Greitas maistas",
+    "nutrients":{
+      "calories": 402,
+      "proteins": 5.3,
+      "carbs": 55.0,
+      "fats": 17.9
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    },
+    "isMeal": true,
+    "ingredients": []
+  },
+  {
+    "name": "Kebabas Jammi",
+    "category": "Greitas maistas",
+    "nutrients":{
+      "calories": 274,
+      "proteins": 9,
+      "carbs": 19.9,
+      "fats": 17.6
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": 430
+    },
+    "isMeal": true,
+    "ingredients": []
+  },
+  {
+    "name": "Mesainis su sūriu, McDonalds",
+    "category": "Greitas maistas",
+    "nutrients":{
+      "calories": 395,
+      "proteins": 16.6,
+      "carbs": 33.1,
+      "fats": 21.4
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": 110
+    },
+    "isMeal": true,
+    "ingredients": []
+  },
+  {
+    "name": "Šokoladiniai ledai",
+    "category": "Greitas maistas",
+    "nutrients":{
+      "calories": 222,
+      "proteins": 4.1,
+      "carbs": 22.0,
+      "fats":13
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": 86
+    },
+    "isMeal": true,
+    "ingredients": []
+  }
+]

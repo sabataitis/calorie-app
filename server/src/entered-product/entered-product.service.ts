@@ -49,7 +49,7 @@ export class EnteredProductService {
   }
 
   async findAllUserProducts(userId: string, query: string) {
-    const user: any = await this.userModel.findById(userId);
+    const user: UserDocument = await this.userModel.findById(userId);
 
     const offset: number = new Date().getTimezoneOffset() * 60000;
     const date: Date = new Date(new Date(query).getTime() + offset);
@@ -95,6 +95,5 @@ export class EnteredProductService {
     await this.userProductModel.deleteOne({ _id: id });
     return { id };
   }
-
 
 }

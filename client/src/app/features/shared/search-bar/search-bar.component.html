@@ -9,10 +9,12 @@
     list="products"
     [(ngModel)]="term"
     (change)="productChange(term)"
-    class="outline-0 appearance-none w-full text-sm text-slate-900 placeholder-slate-400 rounded-md py-2"
+    class="outline-0 appearance-none w-6/12 text-sm text-black placeholder-secondary-200 rounded-md py-2"
     type="text" aria-label="Filter projects" placeholder="Produkto ar recepto pavadinimas...">
 </div>
 <datalist id="products">
-  <option *ngFor="let product of products" [value]="product.name">{{product.nutrients.calories}} <span
-    class="text-primary-600">kcal/100g</span></option>
+  <option *ngFor="let product of products" [value]="product.name" class="flex justify-between">
+    <span class="text-primary-600">{{product.category}} | </span>
+    <span class="text-primary-600">{{product.nutrients.calories}} kcal</span>
+  </option>
 </datalist>

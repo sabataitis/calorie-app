@@ -2,14 +2,14 @@ import { Injectable } from "@nestjs/common";
 import { CreateUserDTO, UserDTO } from "../common/dto/user.dto";
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { Updates, User, UserDocument } from "../common/schemas/user";
+import { User, UserDocument } from "../common/schemas/user";
 
 import * as bcrypt from "bcrypt";
 import { calculateCalorieGoal } from "../common/utils/calculate-calorie-goal";
 import { calculateRecommendations } from "../common/utils/calculate-recommendations";
 import { UpdateUserDTO } from "../common/dto/update-user.dto";
 import { FORMULA } from "../common/enum/formula.enum";
-import { endOfDay, format, startOfDay, subDays, subMinutes } from "date-fns";
+import { format, startOfDay, subDays } from "date-fns";
 
 @Injectable()
 export class UserService {
