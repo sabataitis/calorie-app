@@ -1,7 +1,7 @@
 <div class="bg-white grid md:grid-cols-2 sm:grid-cols-1 gap-2 p-4">
   <div *ngFor="let product of selectedProducts; index as i;trackBy: trackByIndex"
-       class="flex justify-between my-2 p-2 border-primary-100 border-2">
-    <div class="flex flex-col justify-center">
+       class="flex flex-col md:flex-row justify-start md:justify-between my-0 p-4 md:my-2 md:p-2 border-primary-100 border-2">
+    <div class="flex md:flex-col items-center md:items-start justify-center">
       <div class="flex gap-2">
         <h4 class="text-lg text-black font-semibold">{{product.productName}}</h4>
         <select type="text"
@@ -22,7 +22,6 @@
           [(ngModel)]="product.quantity.grams"
           (change)="quantityChange(product)"
         >
-
         <select
           *ngIf="product.quantity.selected==='unit'"
           type="text"
@@ -34,11 +33,11 @@
         </select>
       </div>
     </div>
-    <div class="flex gap-4 items-center">
-      <calorie-app-totals-row [totals]="product.nutrients" [size]="'sm'"></calorie-app-totals-row>
-      <div class="border-l-2 border-primary-500 flex items-center justify-center">
+    <div class="flex flex-col md:flex-row gap-4 items-center justify-center">
+      <calorie-app-totals-row [totals]="product.nutrients" [size]="'sm'" class="p-4 md:p-0"></calorie-app-totals-row>
+      <div class="border-none md:border-l-2 border-primary-500 flex items-center justify-center">
         <button type="button"
-                class="text-sm rounded-lg text-white bg-secondary-500 hover:bg-primary-500 px-3 py-2 m-4"
+                class="text-sm rounded-lg text-white bg-secondary-500 hover:bg-primary-500 md:px-3 md:py-2 md:m-4 p-1 m-0"
                 (click)="removeItem(i)">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                stroke="currentColor"

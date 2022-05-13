@@ -1,8 +1,8 @@
 <div class="bg-white grid md:grid-cols-2 sm:grid-cols-1 gap-2 p-4" id="product-section">
   <div *ngFor="let product of userProducts; index as i;trackBy: trackByIndex"
-       class="flex justify-between my-2 p-2 border-primary-100 border-2">
-    <div class="flex flex-col justify-center">
-      <div class="flex items-center gap-1">
+       class="flex flex-col md:flex-row justify-start md:justify-between my-0 p-4 md:my-2 md:p-2 border-primary-100 border-2">
+    <div class="flex md:flex-col items-center md:items-start justify-center">
+      <div class="flex gap-2">
         <h4 class="text-lg text-black font-semibold">{{product.productName}}</h4>
         <div *ngIf="!product.editMode" class="flex gap-1 items-center">
           <p class="text-md text-black text-left">{{getQuantityAndMeasurement(product).quantity}}</p>
@@ -37,11 +37,11 @@
         </select>
       </div>
     </div>
-    <div class="flex gap-4 items-center p-2">
+    <div class="flex flex-col md:flex-row gap-4 items-center justify-center">
       <calorie-app-totals-row [totals]="product.nutrients" [size]="'sm'"></calorie-app-totals-row>
-      <div class="border-l-2 border-primary-500 flex justify-center gap-2 pl-2">
+      <div class="border-none md:border-l-2 border-primary-500 flex items-center justify-center">
         <button type="button"
-                class="text-sm rounded-lg text-white hover:bg-primary-500 px-2 py-1"
+                class="text-sm rounded-lg text-white bg-secondary-500 hover:bg-primary-500 md:px-3 md:py-2 md:m-4 p-1 m-0"
                 [ngClass]="{'bg-primary-500': product.editMode, 'bg-secondary-500': !product.editMode}"
                 (click)="toggleEditMode(product)">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -51,7 +51,7 @@
           </svg>
         </button>
         <button type="button"
-                class="text-sm rounded-lg text-white bg-secondary-500 hover:bg-primary-500 px-2 py-1"
+                class="text-sm rounded-lg text-white bg-secondary-500 hover:bg-primary-500 md:px-3 md:py-2 md:m-4 p-1 m-0"
                 (click)="removeItem(product)">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
