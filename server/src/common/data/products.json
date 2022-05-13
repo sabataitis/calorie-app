@@ -96,5 +96,271 @@
       "quantity_g": 100,
       "unit_g": null
     }
+  },
+  {
+    "name": "Makaronai Pasaka",
+    "category": "Makaronai",
+    "nutrients":{
+      "calories": 176,
+      "proteins": 11.5,
+      "carbs": 28.7,
+      "fats": 0.9
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Vištienos krūtinelė",
+    "category": "Mėsa, jos gaminiai",
+    "nutrients":{
+      "calories": 142,
+      "proteins": 26.7,
+      "carbs": 0,
+      "fats": 3.1
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": 142
+    }
+  },
+  {
+    "name": "Sūris fermentinis LILIPUT",
+    "category": "Pieno produktai, pienas",
+    "nutrients":{
+      "calories": 334,
+      "proteins": 25.0,
+      "carbs": 0,
+      "fats": 26.0
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Sūris Mocarela San Fabio",
+    "category": "Pieno produktai, pienas",
+    "nutrients":{
+      "calories": 245,
+      "proteins": 18.0,
+      "carbs": 1.5,
+      "fats": 18.5
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Sūris kietasis Rokiškio 37%",
+    "category": "Pieno produktai, pienas",
+    "nutrients":{
+      "calories": 362,
+      "proteins": 34.9,
+      "carbs": 0,
+      "fats": 24.1
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Salotos ICEBERG",
+    "category": "Daržovės",
+    "nutrients":{
+      "calories": 14,
+      "proteins": 1,
+      "carbs": 3,
+      "fats": 0.1
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Salotos ICEBERG",
+    "category": "Daržovės",
+    "nutrients":{
+      "calories": 14,
+      "proteins": 1,
+      "carbs": 3,
+      "fats": 0.1
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Lašiša",
+    "category": "Žuvis, jūros gėrybės",
+    "nutrients":{
+      "calories": 145,
+      "proteins": 19,
+      "carbs": 0.3,
+      "fats": 13
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Pomidorai",
+    "category": "Daržovės",
+    "nutrients":{
+      "calories": 27,
+      "proteins": 1,
+      "carbs": 5.8,
+      "fats": 0.4
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Bulvės",
+    "category": "Daržovės",
+    "nutrients":{
+      "calories": 83,
+      "proteins": 2,
+      "carbs": 19.7,
+      "fats": 0.1
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Svogūnai",
+    "category": "Daržovės",
+    "nutrients":{
+      "calories": 38,
+      "proteins": 1.1,
+      "carbs": 8.6,
+      "fats": 1.1
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Pienas, sūris",
+    "category": "Pieno produktai, pienas",
+    "nutrients":{
+      "calories": 63,
+      "proteins": 3.2,
+      "carbs": 4.7,
+      "fats": 3.5
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Šoninė DELIKATESAS",
+    "category": "Mėsa, jos gaminiai",
+    "nutrients":{
+      "calories": 167,
+      "proteins": 19.1,
+      "carbs": 4.5,
+      "fats": 8.1
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Kiaušiniai Optima",
+    "category": "Pieno produktai, pienas",
+    "nutrients":{
+      "calories": 141,
+      "proteins": 12.6,
+      "carbs": 0.8,
+      "fats": 9.7
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": 60
+    }
+  },
+  {
+    "name": "Batonas SOSTINĖS",
+    "category": "Duona, kepiniai",
+    "nutrients":{
+      "calories": 238,
+      "proteins": 8.2,
+      "carbs": 44.4,
+      "fats": 2.8
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Kumpis ALDI",
+    "category": "Mėsa, jos gaminiai",
+    "nutrients":{
+      "calories": 220,
+      "proteins": 27,
+      "carbs": 1,
+      "fats": 12
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Kumpis ALDI",
+    "category": "Mėsa, jos gaminiai",
+    "nutrients":{
+      "calories": 220,
+      "proteins": 27,
+      "carbs": 1,
+      "fats": 12
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Miltai",
+    "category": "Duona, kepiniai",
+    "nutrients":{
+      "calories": 350,
+      "proteins": 12.0,
+      "carbs": 70.6,
+      "fats": 1.2
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
+  },
+  {
+    "name": "Gretinė 30%",
+    "category": "Pieno produktai, pienas",
+    "nutrients":{
+      "calories": 350,
+      "proteins": 12.0,
+      "carbs": 70.6,
+      "fats": 1.2
+    },
+    "quantities":{
+      "quantity_g": 100,
+      "unit_g": null
+    }
   }
 ]
