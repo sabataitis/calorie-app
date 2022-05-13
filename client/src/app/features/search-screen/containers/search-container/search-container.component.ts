@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, DoCheck, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {ProductState, UserState} from "../../../../store/state";
 import {AuthUserDTO} from "../../../../shared/dto/user.dto";
@@ -21,7 +21,7 @@ import {format} from "date-fns";
     enterAnimation
   ]
 })
-export class SearchContainerComponent implements OnInit {
+export class SearchContainerComponent implements OnInit{
   userState$: Observable<UserState>;
   productState$: Observable<ProductState>;
   isAuthenticated = false;
@@ -72,10 +72,10 @@ export class SearchContainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(StoreActions.getProducts({payload: {options: {component: 'search'}}}));
-    this.store.dispatch(StoreActions.getUserProducts({payload: {date: this.currentDate}}));
     this.subscribeToUserState();
     this.subscribeToProductState();
+    this.store.dispatch(StoreActions.getProducts({payload: {options: {component: 'search'}}}));
+    this.store.dispatch(StoreActions.getUserProducts({payload: {date: this.currentDate}}));
   }
 
   productChange(term: string) {
@@ -166,6 +166,7 @@ export class SearchContainerComponent implements OnInit {
   private subscribeToUserState(): void {
     this.userState$.subscribe((userState: UserState) => {
       if (userState.success) {
+
         this.isAuthenticated = userState.current.isAuthenticated;
         this.user = userState.current;
         this.currentCalorieSum = userState.products.reduce((partialSum, a) => partialSum + a.nutrients.calories, 0);

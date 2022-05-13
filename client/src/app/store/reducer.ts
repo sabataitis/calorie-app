@@ -22,6 +22,32 @@ export const initialState: State = {
 export const StoreReducer = createReducer<State>(
   initialState,
 
+  on(StoreActions.getUsernames, (state: State, _) => ({
+    ...state,
+    usernamesState: {
+      ...initialState.usernamesState,
+      loading: true,
+    }
+  })),
+
+  on(StoreActions.getUsernamesSuccess, (state: State, action) => ({
+    ...state,
+    usernamesState: {
+      loading: false,
+      success: true,
+      error: null,
+      usernames: action.response
+    }
+  })),
+
+  on(StoreActions.getUsernamesFailure, (state: State, action) => ({
+    ...state,
+    usernamesState: {
+      ...initialState.usernamesState,
+      error: action.error,
+    }
+  })),
+
   on(StoreActions.updateProfileSuccess, (state: State, action) => ({
     ...state,
     userState: {
