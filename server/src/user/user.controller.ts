@@ -44,4 +44,10 @@ export class UserController{
     return this.userService.getUsernames();
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('earliest-entry-date')
+  async earliestEntryDate(@Request() req){
+    return this.userService.earliestEntryDate(req.user.userId);
+  }
+
 }

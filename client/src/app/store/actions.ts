@@ -7,6 +7,10 @@ import {AddProductDTO} from "../shared/dto/add-product.dto";
 import {CreateProductDTO} from "../shared/dto/create-product.dto";
 
 export enum ActionTypes {
+  GET_EARLIEST_ENTRY_DATE = '[User] Get Get Earliest Invoice Date Request',
+  GET_EARLIEST_ENTRY_DATE_SUCCESS = '[User] Get Get Earliest Invoice Date Success Response',
+  GET_EARLIEST_ENTRY_DATE_FAILURE = '[User] Get Get Earliest Invoice Date Failure Response',
+
   GET_USER_POLAR_CHART = '[User] Get User Polar Chart Request',
   GET_USER_POLAR_CHART_SUCCESS = '[User] Get User Polar Chart Success Response',
   GET_USER_POLAR_CHART_FAILURE = '[User] Get User Polar Chart Failure Response',
@@ -65,6 +69,16 @@ export enum ActionTypes {
   ADD_PRODUCT_SUCCESS = '[User] Add Product Success Response',
   ADD_PRODUCT_FAILURE = '[User] Add Product Failure Response',
 }
+
+export const getEarliestInvoiceDate = createAction(ActionTypes.GET_EARLIEST_ENTRY_DATE)
+export const getEarliestInvoiceDateSuccess = createAction(
+  ActionTypes.GET_EARLIEST_ENTRY_DATE_SUCCESS,
+  props<SuccessActionProps<any>>()
+);
+export const getEarliestInvoiceDateFailure = createAction(
+  ActionTypes.GET_EARLIEST_ENTRY_DATE_FAILURE,
+  props<FailureActionProps>(),
+);
 
 export const addProduct = createAction(ActionTypes.ADD_PRODUCT, props<RequestActionProps<CreateProductDTO>>())
 export const addProductSuccess = createAction(

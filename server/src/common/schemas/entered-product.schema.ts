@@ -39,6 +39,8 @@ export class EnteredProduct {
     grams: number,
     units: number,
   }
+  @Prop()
+  createdAt: Date
 }
 
 export const EnteredProductSchema = SchemaFactory.createForClass(EnteredProduct);

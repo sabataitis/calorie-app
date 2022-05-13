@@ -25,6 +25,7 @@ export class ReviewScreenComponent implements OnInit {
   barChartState$: Observable<BarChartState>;
   userProducts: UserProductListDTO[];
   user: AuthUserDTO;
+  earliestEntryDate: Date;
 
   polarChartData$: BehaviorSubject<any> = new BehaviorSubject(
     {
@@ -77,6 +78,7 @@ export class ReviewScreenComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(StoreActions.getEarliestInvoiceDate());
     this.store.dispatch(StoreActions.getUserProducts({payload: {date: this.currentDate}}));
     this.store.dispatch(StoreActions.getUserPolarChart({payload: {date: this.currentDate}}));
     this.store.dispatch(StoreActions.getUserBarChart({payload: {days: 2}}));
@@ -189,6 +191,8 @@ export class ReviewScreenComponent implements OnInit {
   private subscribeToUserState(): void {
     this.userState$.subscribe((userState: UserState) => {
       if (userState.current.isAuthenticated) {
+        this.earliestEntryDate = userState.earliestEntryDate;
+
         if(userState.previous){
           this.user = userState.previous as AuthUserDTO;
         } else{

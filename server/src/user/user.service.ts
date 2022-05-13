@@ -10,10 +10,11 @@ import { calculateRecommendations } from "../common/utils/calculate-recommendati
 import { UpdateUserDTO } from "../common/dto/update-user.dto";
 import { FORMULA } from "../common/enum/formula.enum";
 import { format, startOfDay, subDays } from "date-fns";
+import { EnteredProduct, EnteredProductDocument } from "../common/schemas/entered-product.schema";
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, @InjectModel(EnteredProduct.name) private enteredProductModel: Model<EnteredProductDocument>) {
   }
 
   async findOne(username: string): Promise<any> {
@@ -27,6 +28,15 @@ export class UserService {
   async getUsernames(): Promise<string[]>{
     const response = await this.userModel.find({}, {_id: 0, username: 1});
     return response.map(obj=> obj.username);
+  }
+
+  async earliestEntryDate(userId: string): Promise<any>{
+    const offset: number = new Date().getTimezoneOffset() * 60000;
+    const response = await this.enteredProductModel.find({userId}).sort({createdAt: 1});
+    if(response.length){
+      return {response: format(new Date(response[0].createdAt).getTime()+offset, "yyyy-MM-dd")};
+    }
+    return {response: format(new Date().getTime()+offset, "yyyy-MM-dd")};
   }
 
   async create(user: CreateUserDTO): Promise<any>{

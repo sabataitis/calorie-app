@@ -12,7 +12,7 @@ import {DefaultUserStatisticsValuesConst} from "../shared/constants/default-user
 
 export const initialState: State = {
   usernamesState: {...DefaultStateValues, usernames: null},
-  userState: {...DefaultStateValues, current: DefaultAuthUserValuesConst, previous: DefaultUserStatisticsValuesConst, products: []},
+  userState: {...DefaultStateValues, current: DefaultAuthUserValuesConst, previous: DefaultUserStatisticsValuesConst, products: [], earliestEntryDate: null},
   categoryState: {...DefaultStateValues, categories: []},
   productState: {...DefaultStateValues, products: []},
   polarChartState: {...DefaultStateValues, data: []},
@@ -32,6 +32,23 @@ export const StoreReducer = createReducer<State>(
       current: {...action.response, isAuthenticated: true},
       previous: null,
       products: []
+    }
+  })),
+
+  on(StoreActions.getEarliestInvoiceDateSuccess, (state: State, action) => ({
+    ...state,
+    userState: {
+      ...state.userState,
+      earliestEntryDate: action.response.response
+    }
+  })),
+
+  on(StoreActions.getEarliestInvoiceDateFailure, (state: State, action) => ({
+    ...state,
+    userState: {
+      ...state.userState,
+      earliestEntryDate: null,
+      error: action.error
     }
   })),
 
@@ -80,7 +97,8 @@ export const StoreReducer = createReducer<State>(
       error: null,
       current: {...action.response.user, isAuthenticated: true},
       previous: null,
-      products: []
+      products: [],
+      earliestEntryDate: null
     }
   })),
 
@@ -119,7 +137,8 @@ export const StoreReducer = createReducer<State>(
       error: null,
       current: {...action.response, isAuthenticated: true},
       previous: null,
-      products: []
+      products: [],
+      earliestEntryDate: null
     }
   })),
 

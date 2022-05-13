@@ -172,6 +172,19 @@ export class StoreEffects {
       )
     ))
 
+  getEarliestInvoiceDate$ = createEffect(()=>
+    this.actions.pipe(
+      ofType(StoreActions.getEarliestInvoiceDate),
+      switchMap(()=>
+        this.userService.getEarliestEntryDate().pipe(
+          switchMap((response: Date)=> [
+            StoreActions.getEarliestInvoiceDateSuccess({response}),
+          ]),
+          catchError((error: HttpException)=> of(StoreActions.getEarliestInvoiceDateFailure(error)))
+        )
+      )
+    ))
+
   addProductSuccess$ = createEffect(()=>
     this.actions.pipe(
       ofType(StoreActions.addProductSuccess),

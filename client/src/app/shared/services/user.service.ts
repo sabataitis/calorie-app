@@ -26,4 +26,8 @@ export class UserService{
   getUsernames(): Observable<String[]>{
     return this.apiService.get(this.USER_URL + '/usernames');
   }
+
+  getEarliestEntryDate(): Observable<Date>{
+    return this.apiService.get(this.USER_URL + '/earliest-entry-date');
+  }
 }

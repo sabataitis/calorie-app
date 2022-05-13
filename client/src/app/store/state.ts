@@ -12,6 +12,7 @@ export interface UserState extends DefaultState{
   current: AuthUserDTO ;
   previous: UserStatisticsDTO;
   products: UserProductDTO[];
+  earliestEntryDate: Date;
 }
 
 export interface ProductState extends DefaultState{
