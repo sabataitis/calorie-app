@@ -80,7 +80,7 @@ export class SearchContainerComponent implements OnInit{
 
   productChange(term: string) {
     this.selectedProduct = this.getSelectedProductByName(term);
-    if (Object.keys(this.selectedProduct).length > 0) {
+    if (this.selectedProduct) {
       this.selectedProducts.push(this.selectedProduct);
       this.calculateTotals();
       this.term = "";
@@ -130,7 +130,6 @@ export class SearchContainerComponent implements OnInit{
 
   enterProducts() {
     const payload = {
-      userId: this.user._id,
       products: this.selectedProducts
     }
     this.store.dispatch(StoreActions.enterProducts({payload}));
@@ -145,22 +144,25 @@ export class SearchContainerComponent implements OnInit{
     })
   }
 
-  private getSelectedProductByName(selectedName: string): SelectedProductDTO {
-    const product = this.products.find(product => product.name === selectedName);
+  private getSelectedProductByName(selectedName: string): SelectedProductDTO | null {
+    const product = this.products.find(product => product.name.includes(selectedName));
 
-    return {
-      productId: product._id,
-      productName: product.name,
-      nutrients: {
-        ...product.nutrients
-      },
-      quantity: {
-        hasUnits: !!product.quantities.unit_g,
-        selected: QUANTITY_SELECTION.GRAM,
-        grams: product.quantities.quantity_g,
-        units: product.quantities.unit_g ? 1 : null
+    if(product){
+      return {
+        productId: product._id,
+        productName: product.name,
+        nutrients: {
+          ...product.nutrients
+        },
+        quantity: {
+          hasUnits: !!product.quantities.unit_g,
+          selected: QUANTITY_SELECTION.GRAM,
+          grams: product.quantities.quantity_g,
+          units: product.quantities.unit_g ? 1 : null
+        }
       }
     }
+    return null;
   }
 
   private subscribeToUserState(): void {

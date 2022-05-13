@@ -4,6 +4,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { EnteredProduct, EnteredProductDocument } from "../common/schemas/entered-product.schema";
 import { endOfDay, startOfDay, subDays } from "date-fns";
 import { User, UserDocument } from "../common/schemas/user";
+import { UserProductDTO } from "../common/dto/userProduct.dto";
 
 @Injectable()
 export class EnteredProductService {
@@ -75,9 +76,9 @@ export class EnteredProductService {
     }
   }
 
-  async create(payload: any) {
+  async create(userId: string, payload: UserProductDTO) {
     return Promise.all(payload.products.map(product => {
-      return this.userProductModel.create({ userId: payload.userId, ...product });
+      return this.userProductModel.create({ userId: userId, ...product });
     }));
   }
 

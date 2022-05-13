@@ -5,6 +5,4 @@ import {Component, Input} from '@angular/core';
   templateUrl: './non-auth-header.component.html',
   styleUrls: ['./non-auth-header.component.scss']
 })
-export class NonAuthHeaderComponent {
-  @Input('isAuthenticated') isAuthenticated: boolean;
-}
+export class NonAuthHeaderComponent {}

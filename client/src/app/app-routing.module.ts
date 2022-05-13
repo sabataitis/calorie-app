@@ -10,17 +10,13 @@ import {AuthGuard} from "./shared/guards/auth-guard.service";
 import {LoginGuard} from "./shared/guards/login-guard.service";
 import {ProfileContainerComponent} from "./features/profile/containers/profile-container/profile-container.component";
 import {PageNotFoundComponent} from "./features/page-not-found/page-not-found.component";
+import {NonAuthHeaderComponent} from "./features/non-auth-header/non-auth-header.component";
 
 const routes: Routes = [
   {
     path: '',
-    pathMatch: "full",
-    redirectTo: 'paieska',
-  },
-  {
-    path: 'paieska',
-    component: SearchContainerComponent,
-    canActivate: [AuthGuard]
+    component: NonAuthHeaderComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'registracija',
@@ -31,6 +27,11 @@ const routes: Routes = [
     path: 'prisijungimas',
     component: LoginComponent,
     canActivate: [LoginGuard]
+  },
+  {
+    path: 'paieska',
+    component: SearchContainerComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'apzvalga',

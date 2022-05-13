@@ -22,6 +22,13 @@ export const initialState: State = {
 export const StoreReducer = createReducer<State>(
   initialState,
 
+  on(StoreActions.logout, (state: State, _) => ({
+    ...state,
+    userState: {
+      ...initialState.userState,
+    }
+  })),
+
   on(StoreActions.getUsernames, (state: State, _) => ({
     ...state,
     usernamesState: {

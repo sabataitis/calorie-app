@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post,Request,UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { EnteredProductDomainName } from "./name.const";
 import { UserProductDTO } from "../common/dto/userProduct.dto";
@@ -10,8 +10,8 @@ export class EnteredProductController{
 
   @UseGuards(JwtAuthGuard)
   @Post('')
-  create(@Body() payload: UserProductDTO){
-    return this.enteredProductService.create(payload);
+  create(@Request() req, @Body() payload: UserProductDTO){
+    return this.enteredProductService.create(req.user.userId, payload);
   }
 
   @UseGuards(JwtAuthGuard)

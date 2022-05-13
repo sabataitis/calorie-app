@@ -51,9 +51,6 @@ export class ProductsEnteredDTO{
 }
 
 export class UserProductDTO{
-  @IsString()
-  userId: string;
-
   @Type(()=> ProductsEnteredDTO)
   @IsArray()
   @ValidateNested({each: true})

@@ -12,32 +12,14 @@ import {AuthUserDTO} from "../../shared/dto/user.dto";
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   userState$: Observable<UserState>;
-  isAuthenticated = false;
-  user: AuthUserDTO = null;
 
   constructor(private store: Store, private authService: AuthService, private router: Router) {
     this.userState$ = this.store.select(StoreSelectors.selectUserState);
   }
-
-  ngOnInit(): void {
-    this.subscribeToUserState();
-  }
-
   logout(): void{
     this.store.dispatch(StoreActions.logout());
-    this.authService.removeSession();
-    window.location.reload();
   }
-
- private subscribeToUserState(): void{
-    this.userState$.subscribe((userState: UserState)=>{
-      if(userState.success){
-        this.isAuthenticated = userState.current.isAuthenticated;
-        this.user = userState.current;
-      }
-    })
- }
 
 }

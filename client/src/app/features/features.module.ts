@@ -13,7 +13,7 @@ import {AuthService} from "../shared/services/auth.service";
 import { ReviewScreenComponent } from './review-screen/review-screen.component';
 import {NgChartsModule} from "ng2-charts";
 import { PieComponent } from './shared/charts/pie/pie.component';
-import { NonAuthHeaderComponent } from './search-screen/components/non-auth-header/non-auth-header.component';
+import { NonAuthHeaderComponent } from './non-auth-header/non-auth-header.component';
 import { TotalsRowComponent } from './shared/totals-row/totals-row.component';
 import { SelectProductListComponent } from './shared/select-product-list/select-product-list.component';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';

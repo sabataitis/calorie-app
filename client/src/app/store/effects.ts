@@ -90,7 +90,7 @@ export class StoreEffects {
       map(()=>
         ToastrActions.showSuccess({message: 'Registracija sėkminga! Prisijunkite.'}),
       ),
-      tap(()=> this.router.navigate(['/'])),
+      tap(()=> this.router.navigate(['/prisijungti'])),
     ))
 
   registerFailure$ = createEffect(()=>
@@ -117,7 +117,7 @@ export class StoreEffects {
       ofType(StoreActions.loginSuccess),
       tap((payload: any)=> {
         this.authService.setSession(payload);
-        this.router.navigate(['/']);
+        this.router.navigate(['/paieska']);
       })
   ), {dispatch: false})
 
@@ -132,6 +132,17 @@ export class StoreEffects {
       }
       ),
     ))
+
+  logout$ = createEffect(()=>
+    this.actions.pipe(
+      ofType(StoreActions.logout),
+      tap(action=>{
+        this.authService.removeSession();
+        this.router.navigate(['/']);
+        // window.location.reload();
+      })
+      ), {dispatch: false}
+    )
 
   getCurrentUser$ = createEffect(()=>
     this.actions.pipe(

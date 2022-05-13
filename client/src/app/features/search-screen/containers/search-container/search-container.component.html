@@ -1,42 +1,35 @@
-<section class="flex">
-  <calorie-app-non-auth-header
-    *ngIf="!isAuthenticated"
-    class="linear-background w-full"
-    [isAuthenticated]="isAuthenticated">
-  </calorie-app-non-auth-header>
-  <section
-    *ngIf="isAuthenticated"
-    class="p-6 w-full">
-    <div class="flex flex-col md:flex-row items-center justify-between py-4" [@enter]>
-      <div>
-        <h1 class="font-semibold text-2xl uppercase text-center md:text-left">Receptų ir produktų paieška</h1>
-        <h2 class="text-md font-semibold text-center md:text-left">Dienos tikslas ({{user.calories}} kcal)</h2>
-        <h2 class="text-md font-semibold text-center md:text-left">Liko ({{((user.calories-currentCalorieSum) - totals.calories) | number }} kcal)</h2>
-      </div>
-      <div class="flex flex-col md:flex-row gap-6">
-        <calorie-app-pie
-          [chartSize]="pieChartSize"
-          [chartData]="chartData | async"
-          [chartOptions]="chartOptions">
-        </calorie-app-pie>
-        <calorie-app-totals-row [totals]="totals" [size]="'md'"></calorie-app-totals-row>
-      </div>
+<section class="p-6 w-full">
+  <div class="flex flex-col md:flex-row items-center justify-between py-4" [@enter]>
+    <div>
+      <h1 class="font-semibold text-2xl uppercase text-center md:text-left">Receptų ir produktų paieška</h1>
+      <h2 class="text-md font-semibold text-center md:text-left">Dienos tikslas ({{user?.calories}} kcal)</h2>
+      <h2 class="text-md font-semibold text-center md:text-left">Liko
+        ({{((user?.calories - currentCalorieSum) - totals.calories) | number }} kcal)</h2>
     </div>
-    <div class="flex flex-col md:flex-row gap-2">
-      <calorie-app-search-bar
-        class="w-full md:w-10/12"
-        [products]="products"
-        (productChangeEvent)="productChange($event)">
-      </calorie-app-search-bar>
-      <button (click)="enterProducts()" class="w-full md:w-2/12 rounded-md bg-secondary-500 hover:bg-primary-500 px-2 py-1">
-        Išsaugoti
-      </button>
+    <div class="flex flex-col md:flex-row gap-6">
+      <calorie-app-pie
+        [chartSize]="pieChartSize"
+        [chartData]="chartData | async"
+        [chartOptions]="chartOptions">
+      </calorie-app-pie>
+      <calorie-app-totals-row [totals]="totals" [size]="'md'"></calorie-app-totals-row>
     </div>
-    <calorie-app-select-product-list
-      [@enter]
+  </div>
+  <div class="flex flex-col md:flex-row gap-2">
+    <calorie-app-search-bar
+      class="w-full md:w-10/12"
       [products]="products"
-      [selectedProducts]="selectedProducts"
-      (quantityChangeEvent)="quantityChange($event)"
-      (removeItemEvent)="removeItem($event)"></calorie-app-select-product-list>
-  </section>
+      (productChangeEvent)="productChange($event)">
+    </calorie-app-search-bar>
+    <button (click)="enterProducts()"
+            class="w-full md:w-2/12 rounded-md bg-secondary-500 hover:bg-primary-500 px-2 py-1">
+      Išsaugoti
+    </button>
+  </div>
+  <calorie-app-select-product-list
+    [@enter]
+    [products]="products"
+    [selectedProducts]="selectedProducts"
+    (quantityChangeEvent)="quantityChange($event)"
+    (removeItemEvent)="removeItem($event)"></calorie-app-select-product-list>
 </section>

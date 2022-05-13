@@ -51,10 +51,9 @@ export class AddProductComponent implements OnInit {
 
   productChange(term: string): void {
     this.selectedProduct = this.getSelectedProductByName(term);
-    if (Object.keys(this.selectedProduct).length > 0) {
+    if (this.selectedProduct) {
       this.selectedProducts.push(this.selectedProduct);
       this.calculateProductTotals();
-
       this.term = "";
     }
   }
@@ -110,22 +109,24 @@ export class AddProductComponent implements OnInit {
     this.submitFormEvent.emit({...this.addProductForm.getRawValue(), totals: this.totals, ingredients: this.selectedProducts});
   }
 
-  private getSelectedProductByName(selectedName: string): SelectedProductDTO {
-    const product = this.products.find(product => product.name === selectedName);
-
-    return {
-      productId: product._id,
-      productName: product.name,
-      nutrients: {
-        ...product.nutrients
-      },
-      quantity: {
-        hasUnits: !!product.quantities.unit_g,
-        selected: QUANTITY_SELECTION.GRAM,
-        grams: product.quantities.quantity_g,
-        units: product.quantities.unit_g ? 1 : null
+  private getSelectedProductByName(selectedName: string): SelectedProductDTO | null{
+    const product = this.products.find(product => product.name.includes(selectedName));
+    if(product){
+      return {
+        productId: product._id,
+        productName: product.name,
+        nutrients: {
+          ...product.nutrients
+        },
+        quantity: {
+          hasUnits: !!product.quantities.unit_g,
+          selected: QUANTITY_SELECTION.GRAM,
+          grams: product.quantities.quantity_g,
+          units: product.quantities.unit_g ? 1 : null
+        }
       }
     }
+    return null;
   }
 
   private createAddProductForm(): void {
