@@ -11,6 +11,7 @@ import {ChartSizeDTO} from "../../../../shared/dto/chart-size.dto";
 import {enterAnimation} from "../../../../shared/animations/enter";
 import {NutrientLabelsConst} from "../../../../shared/constants/nutrient-labels.const";
 import {PieChartDataTypeInterface} from "../../../../shared/interfaces/pie-chart-data-type.interface";
+import {format} from "date-fns";
 
 @Component({
   selector: 'calorie-app-search-container',
@@ -30,6 +31,8 @@ export class SearchContainerComponent implements OnInit {
   term: string = "";
   selectedProduct: SelectedProductDTO;
   selectedProducts: SelectedProductDTO[] = [];
+  currentDate: string = format(new Date(), "yyyy-MM-dd");
+  currentCalorieSum: number = 0;
 
   totals: TotalsDTO = {
     calories: 0,
@@ -70,6 +73,7 @@ export class SearchContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(StoreActions.getProducts({payload: {options: {component: 'search'}}}));
+    this.store.dispatch(StoreActions.getUserProducts({payload: {date: this.currentDate}}));
     this.subscribeToUserState();
     this.subscribeToProductState();
   }
@@ -164,6 +168,7 @@ export class SearchContainerComponent implements OnInit {
       if (userState.success) {
         this.isAuthenticated = userState.current.isAuthenticated;
         this.user = userState.current;
+        this.currentCalorieSum = userState.products.reduce((partialSum, a) => partialSum + a.nutrients.calories, 0);
       }
     })
   }
