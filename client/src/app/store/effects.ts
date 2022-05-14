@@ -90,7 +90,7 @@ export class StoreEffects {
       map(()=>
         ToastrActions.showSuccess({message: 'Registracija sėkminga! Prisijunkite.'}),
       ),
-      tap(()=> this.router.navigate(['/prisijungti'])),
+      tap(()=> this.router.navigate(['/prisijungimas'])),
     ))
 
   registerFailure$ = createEffect(()=>

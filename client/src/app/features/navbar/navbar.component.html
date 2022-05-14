@@ -8,8 +8,8 @@
     <h1 class="text-md font-normal hidden md:block">
       Kalorijų Skaičiuoklė
     </h1>
-    <button routerLink="/paieska" class="text-md rounded bg-primary-800 hover:bg-primary-700 px-2 py-1" *ngIf="(userState$ | async).current.isAuthenticated">Paieška</button>
-    <button routerLink="/apzvalga" class="text-md rounded bg-primary-800 hover:bg-primary-700 px-2 py-1" *ngIf="(userState$ | async).current.isAuthenticated">Apžvalga</button>
+    <button routerLink="/paieska" class="text-md rounded bg-primary-500 hover:bg-primary-700 px-2 py-1" *ngIf="(userState$ | async).current.isAuthenticated">Paieška</button>
+    <button routerLink="/apzvalga" class="text-md rounded bg-primary-500 hover:bg-primary-700 px-2 py-1" *ngIf="(userState$ | async).current.isAuthenticated">Apžvalga</button>
   </div>
   <div class="flex flex-col md:items-center md:flex-row gap-2" *ngIf="(userState$ | async).current.isAuthenticated">
     <button class="flex mx-auto p-2 md:p-0" routerLink="/vartotojas">

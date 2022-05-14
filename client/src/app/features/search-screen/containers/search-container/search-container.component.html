@@ -1,11 +1,12 @@
 <section class="p-6 w-full">
   <div class="flex flex-col md:flex-row items-center justify-between py-4" [@enter]>
-    <div>
-      <h1 class="font-semibold text-2xl uppercase text-center md:text-left">Receptų ir produktų paieška</h1>
-      <h2 class="text-md font-semibold text-center md:text-left">Dienos tikslas ({{user?.calories}} kcal)</h2>
-      <h2 class="text-md font-semibold text-center md:text-left">Liko
-        ({{((user?.calories - currentCalorieSum) - totals.calories) | number }} kcal)</h2>
-    </div>
+    <calorie-app-calorie-count-block
+      [title]="'Receptų ir produktų paieška'"
+      [user]="(userState$ | async).current"
+      [products]="(userState$ | async).products"
+      [totals]="totals"
+    >
+    </calorie-app-calorie-count-block>
     <div class="flex flex-col md:flex-row gap-6">
       <calorie-app-pie
         [chartSize]="pieChartSize"

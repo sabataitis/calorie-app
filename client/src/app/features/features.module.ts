@@ -26,6 +26,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { UserInfoComponent } from './profile/components/user-info/user-info.component';
 import { EditUserComponent } from './profile/components/edit-user/edit-user.component';
 import { AddProductComponent } from './profile/components/add-product/add-product.component';
+import { CalorieCountBlockComponent } from './search-screen/components/calorie-count-block/calorie-count-block.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AddProductComponent } from './profile/components/add-product/add-produc
     UserInfoComponent,
     EditUserComponent,
     AddProductComponent,
+    CalorieCountBlockComponent,
   ],
     imports: [
         BrowserModule,

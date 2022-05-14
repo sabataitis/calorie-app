@@ -1,12 +1,13 @@
-import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
-import {ChartConfiguration, ChartData, ChartEvent, ChartOptions, ChartType} from "chart.js";
+import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {ChartConfiguration, ChartData, ChartOptions} from "chart.js";
 import {BaseChartDirective} from "ng2-charts";
 import {ChartSizeDTO} from "../../../../shared/dto/chart-size.dto";
 
 @Component({
   selector: 'calorie-app-pie',
   templateUrl: './pie.component.html',
-  styleUrls: ['./pie.component.scss']
+  styleUrls: ['./pie.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PieComponent implements OnChanges{
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
@@ -19,7 +20,7 @@ export class PieComponent implements OnChanges{
   size: ChartSizeDTO;
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes['chartData'].currentValue){
+    if(changes['chartData']){
       this.data = this.chartData;
     }
     if(changes['chartOptions']){
