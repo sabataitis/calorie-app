@@ -1,44 +1,45 @@
 <form [formGroup]="editUserForm" (ngSubmit)="submitForm()">
   <div class="flex flex-col">
-    <label class="text-black text-left">Ūgis</label>
-    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+    <label class="text-black text-left" for="heightProfile">Ūgis</label>
+    <input id="heightProfile" class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
            [ngClass]="getErrorClasses('height')" type="number" formControlName="height">
   </div>
   <div class="flex flex-col">
-    <label class="text-black">Svoris</label>
-    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
+    <label class="text-black" for="weightProfile">Svoris</label>
+    <input id="weightProfile" class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md"
            placeholder="Svoris (kg)" type="number" formControlName="weight"
            [ngClass]="getErrorClasses('weight')">
   </div>
   <div class="flex flex-col">
-    <label class="text-black">Amžius</label>
-    <input class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="number"
+    <label class="text-black" for="ageProfile">Amžius</label>
+    <input id="ageProfile" class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="number"
            formControlName="age" [ngClass]="getErrorClasses('age')">
   </div>
   <div class="flex flex-col">
-    <label class="text-black">Aktyvumas</label>
-    <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+    <label class="text-black" for="activityProfile">Aktyvumas</label>
+    <select id="activityProfile" class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
             formControlName="activity" [ngClass]="getErrorClasses('activity')">
       <option *ngFor="let activity of activities" [value]="activity.value">{{activity.text}}</option>
     </select>
   </div>
   <div class="flex flex-col">
-    <label class="text-black">Tikslas</label>
-    <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+    <label class="text-black" for="goalProfile">Tikslas</label>
+    <select id="goalProfile" class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
             formControlName="goal" [ngClass]="getErrorClasses('goal')">
       <option *ngFor="let goal of goals" [value]="goal.value">{{goal.text}}</option>
     </select>
   </div>
   <div class="flex flex-col">
-    <label class="text-black">Kiekis kg</label>
+    <label class="text-black" for="goalNumProfile">Kiekis kg</label>
     <input
+      id="goalNumProfile"
       class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md disabled:bg-secondary-200"
       placeholder="kilogramais" type="number" formControlName="goalNum"
       [ngClass]="getErrorClasses('goalNum')">
   </div>
   <div class="flex flex-col">
-    <label class="text-black">Skaičiavimo formulė</label>
-    <select class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
+    <label class="text-black" for="formulaProfile">Skaičiavimo formulė</label>
+    <select id="formulaProfile" class="border-2 text-black py-1 px-4 focus:outline-secondary-500 rounded-md" type="text"
             formControlName="formula" [ngClass]="getErrorClasses('formula')">
       <option *ngFor="let formula of formulas" [value]="formula">{{formula}}</option>
     </select>

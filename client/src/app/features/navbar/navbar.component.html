@@ -1,4 +1,4 @@
-<nav class="p-4 bg-primary-500 text-white flex-col md:flex md:flex-row md:justify-between">
+<nav class="p-4  flex-col md:flex md:flex-row md:justify-between">
   <div class="flex flex-col md:flex-row md:items-center gap-2">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"
          stroke-width="2">
@@ -8,8 +8,8 @@
     <h1 class="text-md font-normal hidden md:block">
       Kalorijų Skaičiuoklė
     </h1>
-    <button routerLink="/paieska" class="text-md rounded bg-primary-500 hover:bg-primary-700 px-2 py-1" *ngIf="(userState$ | async).current.isAuthenticated">Paieška</button>
-    <button routerLink="/apzvalga" class="text-md rounded bg-primary-500 hover:bg-primary-700 px-2 py-1" *ngIf="(userState$ | async).current.isAuthenticated">Apžvalga</button>
+    <button routerLink="/paieska" class="border-secondary-200 border-2 text-md rounded px-3 py-2 md:px-2 md:py-1 hover:bg-primary-500 hover:text-white" *ngIf="(userState$ | async).current.isAuthenticated">Paieška</button>
+    <button routerLink="/apzvalga" class="border-secondary-200 border-2 text-md rounded px-3 py-2 md:px-2 md:py-1 hover:bg-primary-500 hover:text-white" *ngIf="(userState$ | async).current.isAuthenticated">Apžvalga</button>
   </div>
   <div class="flex flex-col md:items-center md:flex-row gap-2" *ngIf="(userState$ | async).current.isAuthenticated">
     <button class="flex mx-auto p-2 md:p-0" routerLink="/vartotojas">
@@ -20,6 +20,6 @@
       </svg>
       {{(userState$ | async).current.username}}
     </button>
-    <button class="text-md rounded bg-primary-800 hover:bg-primary-700 px-2 py-1" (click)="logout()">Atsijungti</button>
+    <button class="border-secondary-200 border-2 text-md rounded px-3 py-2 md:px-2 md:py-1 hover:bg-primary-500 hover:text-white" (click)="logout()">Atsijungti</button>
   </div>
 </nav>
