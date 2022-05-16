@@ -7,7 +7,6 @@ import { ProductService } from "./product.service";
 export class ProductController{
   constructor(private productService: ProductService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Post('seed')
   seed(){
     return this.productService.seed();
