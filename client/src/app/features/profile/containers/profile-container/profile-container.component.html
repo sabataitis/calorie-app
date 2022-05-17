@@ -2,8 +2,14 @@
   <div class="flex flex-col gap-2 items-center">
     <h1 class="font-semibold uppercase text-4xl text-left center-4">Vartotojo zona</h1>
     <div class="flex gap-2">
-      <button class="border-secondary-500 border-2 rounded-md hover:bg-primary-500 px-2 py-1 my-4" (click)="toggleEdit()">{{isUpdatingProfile ? 'Atšaukti' : 'Atnaujinti informaciją'}}</button>
-      <button class="border-secondary-500 border-2 rounded-md hover:bg-primary-500 px-2 py-1 my-4" (click)="toggleAddProduct()">{{isAddingProduct ? 'Atšaukti' : 'Pridėti produktus/receptus'}}</button>
+      <button
+        class="border-secondary-500 border-2 rounded-md hover:bg-primary-500 px-2 py-1 my-4"
+        (click)="toggleEdit()">{{isUpdatingProfile ? 'Atšaukti' : 'Atnaujinti informaciją'}}
+      </button>
+      <button
+        class="border-secondary-500 border-2 rounded-md hover:bg-primary-500 px-2 py-1 my-4"
+        (click)="toggleAddProduct()"
+      >{{isAddingProduct ? 'Atšaukti' : 'Pridėti produktus/receptus'}}</button>
     </div>
   </div>
   <div *ngIf="!isAddingProduct" class="flex items-center justify-center klase">

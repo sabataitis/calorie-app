@@ -81,7 +81,7 @@ export class ReviewScreenComponent implements OnInit {
     this.store.dispatch(StoreActions.getEarliestInvoiceDate());
     this.store.dispatch(StoreActions.getUserProducts({payload: {date: this.currentDate}}));
     this.store.dispatch(StoreActions.getUserPolarChart({payload: {date: this.currentDate}}));
-    this.store.dispatch(StoreActions.getUserBarChart({payload: {days: 2}}));
+    this.store.dispatch(StoreActions.getUserBarChart({payload: {date: this.currentDate}}));
     this.subscribeToUserState();
     this.subscribeToPolarChartState();
     this.subscribeToBarChartState();

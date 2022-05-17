@@ -24,7 +24,7 @@ export class UserController{
 
   @UseGuards(JwtAuthGuard)
   @Get('bar-chart')
-  linearGraph(@Request() req, @Query('days') query){
+  linearGraph(@Request() req, @Query('date') query){
     return this.enteredProductService.barChart(req.user.userId, query);
   }
 

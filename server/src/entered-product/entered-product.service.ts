@@ -29,12 +29,12 @@ export class EnteredProductService {
     };
   }
 
-  async barChart(userId: string, days: number) {
+  async barChart(userId: string, query: string) {
     const offset: number = new Date().getTimezoneOffset() * 60000;
-    const currentDate: Date = new Date(new Date().getTime() + offset);
+    const date: Date = new Date(new Date(query).getTime() + offset);
 
-    const from: Date = startOfDay(subDays(currentDate, days));
-    const to: Date = endOfDay(currentDate);
+    const from: Date = startOfDay(subDays(date, 2));
+    const to: Date = endOfDay(date);
 
     return this.userProductModel.aggregate([
       { $match: { userId: new mongoose.Types.ObjectId(userId), createdAt: { $gte: from, $lte: to } } },

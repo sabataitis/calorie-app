@@ -15,7 +15,7 @@ export class UserService{
     return this.apiService.get(this.USER_URL + `/polar-chart?date=${payload.date}`);
   }
   barChart(payload: any): Observable<any>{
-    return this.apiService.get(this.USER_URL + `/bar-chart?days=${payload.days}`);
+    return this.apiService.get(this.USER_URL + `/bar-chart?date=${payload.date}`);
   }
   register(payload: any): Observable<Partial<UserDTO>>{
     return this.apiService.post(this.USER_URL, payload);
