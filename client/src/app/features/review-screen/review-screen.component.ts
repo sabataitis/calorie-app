@@ -94,6 +94,7 @@ export class ReviewScreenComponent implements OnInit {
   changeDate(date: string):void {
     this.store.dispatch(StoreActions.getUserProducts({payload: {date}}));
     this.store.dispatch(StoreActions.getUserPolarChart({payload: {date}}));
+    this.store.dispatch(StoreActions.getUserBarChart({payload: {date}}));
   }
 
   toggleEditMode(product: UserProductListDTO): void {
